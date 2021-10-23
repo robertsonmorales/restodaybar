@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'contact_number' => '+639123456789',
             'email' => 'moralesso152842@gmail.com',
             'password' => '7ujm&UJM',
-            'user_level_code' => 'dev',
+            'user_level_id' => '1',
             'address' => 'Northern Samar'
         ]);
     }

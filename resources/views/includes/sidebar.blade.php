@@ -20,7 +20,7 @@ $style = (session()->get('display') === "false") ? "width: 0px; opacity: 0.4;" :
     <div class="list-group accordion mx-2" id="accordion-parent">
     @if(isset($navigations))
     @foreach($navigations['user_levels'] as $level)
-        @if($level->code == Auth::user()->user_level_code)
+        @if($level->id == Auth::user()->user_level_id)
             @foreach($navigations['navs'] as $key => $nav)
     
             @php

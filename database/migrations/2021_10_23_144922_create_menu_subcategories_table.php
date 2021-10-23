@@ -17,7 +17,6 @@ class CreateMenuSubcategoriesTable extends Migration
             $table->id();
             $table->integer('menu_category_id')->unsigned();
             $table->string('name')->nullable();
-            $table->string('icon')->nullable();
             $table->integer('status')->default(1)->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();

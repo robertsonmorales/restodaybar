@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_level_id')->unsigned()->nullable();
             $table->string('profile_image')->nullable();
             $table->string('profile_image_updated_at')->nullable();
             $table->timestamp('profile_image_expiration_date')->nullable();
@@ -33,7 +34,6 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('account_status')->default(1); // active = 1, deactivated = 2, locked = 3, 
             $table->string('ip')->nullable();
-            $table->string('user_level_code')->nullable();
             $table->string('last_active_at')->nullable(); // null = offline, < 5 mins = idle, !5mins = online
             $table->rememberToken();
             $table->integer('created_by')->nullable();

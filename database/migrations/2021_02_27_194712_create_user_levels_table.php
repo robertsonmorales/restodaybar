@@ -16,7 +16,7 @@ class CreateUserLevelsTable extends Migration
         Schema::create('user_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('code')->nullable();
+            // $table->string('code')->nullable();
             $table->text('description')->nullable();
             $table->string('modules')->nullable()->comment('parent navigation IDs');
             $table->string('sub_modules')->nullable()->comment('child navigation IDs');
@@ -25,7 +25,7 @@ class CreateUserLevelsTable extends Migration
             $table->string('delete')->nullable();
             $table->string('import')->nullable();
             $table->string('export')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(1)->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
