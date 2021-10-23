@@ -1,0 +1,116 @@
+.float-sticky-top{
+    top: 20px !important;
+}
+
+nav{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-radius: $radius;
+    border: $border;
+    box-shadow: $shadow;
+
+    .btn-menu{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        width: 42px;
+    }
+
+    .nav-icons{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .btn-dropdown{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px;
+            width: 42px;
+            
+            img{
+                // height: inherit;
+                width: 42px;
+                object-fit: cover;
+                border: $border;
+            }
+
+            .badge-position{
+                position: absolute;
+                top: 5px;
+                right: 0px;
+            }
+        }   
+    }
+}
+
+.dropdown-menu{
+    box-shadow: $dropDown-shadow !important;
+    border-radius: $radius !important;
+    border: $border !important;
+    animation-name: fadeIn;
+    animation-duration: .4s;
+
+    .dropdown-item-text{
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .dropdown-item{
+        outline: none !important;
+        font-size: .9em !important;
+        color: $dark !important;
+
+        &:hover{
+            background-color: $light;
+        }
+
+        &:active{
+            background-color: $primary;
+            color: #fff !important;
+        }
+    }
+
+    .dropdown-image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        img{
+            height: 42px;
+            width: 42px;
+            object-fit: cover;
+            border: $border;
+        }
+    }
+
+    .dropdown-info{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .subtitle{
+            font-size: 1em;
+            white-space: nowrap;
+        }
+
+        .description{
+            font-size: .9em;
+        }
+    }
+}
+
+@keyframes fadeIn{
+    from {
+        opacity: 0;
+        top: 20px;
+    }
+    to {
+        opacity: 1;
+        top: 0;
+    }
+}

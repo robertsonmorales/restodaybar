@@ -1,0 +1,58 @@
+#sidebar{
+    overflow-y: auto;
+    background: linear-gradient(to bottom, $primary, $primary, $secondary);
+    box-shadow: $shadow;
+    width: 320px;
+}
+
+.sidebar{
+    flex-direction: column;
+    position: sticky;
+    height: 100vh;
+}
+
+.branding-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $light;
+
+    img{
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+    }
+
+    button{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .icon-sample{
+        .feather{
+            width: 26px;
+            height: 26px;
+        }
+    }
+}
+
+.chevron-size-md{
+    transition: all .4s ease;
+
+    .feather{
+        width: 14px !important;
+        height: 14px !important;
+    }
+}
+
+.circle-size-sm{   
+    .feather{
+        width: 10px !important;
+        height: 10px !important;
+    }
+}
+
+.chevron-down{
+    transform: rotate(90deg) !important;
+}

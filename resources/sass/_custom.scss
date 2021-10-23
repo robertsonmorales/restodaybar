@@ -1,0 +1,84 @@
+.feather {
+    width: 18px;
+    height: 18px;
+}
+
+.font-size-sm{
+    font-size: .9em !important;
+}
+
+.font-weight-600{
+    font-weight: 600 !important;
+}
+
+.close{
+    outline: none !important;
+}
+
+.list-group{
+    border: none !important;
+    box-shadow: none !important;
+
+    .list-group-item{
+        outline: none;
+        border: none !important;    
+        color: $light;
+        padding: 10px 20px !important;
+        border-radius: 5px;
+        background-color: transparent;
+    
+        &:hover{
+            background-color: $light;
+            color: $primary;
+            box-shadow: $shadow-sm;
+            font-weight: 500;
+        }
+    }
+}
+
+// SELECT2
+.select2-container{
+    width: 100% !important;
+}
+
+.select2-selection--single,
+.select2-search__field{
+    height: 38px !important;
+    border: 1px solid #ced4da !important;
+}
+
+.select2-selection__rendered{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    line-height: 25px !important;
+}
+
+.select2-selection__arrow{
+    height: 38px !important;
+    right: 6px !important;
+    top: 0px !important;
+}
+// ENDS HERE
+
+// /* width */
+// ::-webkit-scrollbar {
+//     width: 7px;
+//     height: 7px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//     background: #ddd;
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//     border: 4px solid #bbb;
+//     // border-radius: 8px;
+//     background-clip: padding-box;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #ccc;
+// }

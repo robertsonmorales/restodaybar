@@ -1,0 +1,40 @@
+.header{
+    text-align: left;
+    display: flex;
+    align-items: center;    
+
+    h3{
+        font-weight: 500;
+        color: $dark;
+    }
+
+    .breadcrumb-section{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin-bottom: -1px;
+
+        .breadcrumb-items{
+            margin-right: 10px;
+            color: $default;
+            font-weight: 500;
+            font-size: .9em;
+            position: relative;
+
+            a{
+                text-decoration: none;
+                color: $default;
+                font-size: .9em;
+
+                &:hover{
+                    color: #555;
+                    text-decoration: underline;
+                }
+            }
+
+            &:last-child{
+                display: none;
+            }
+        }
+    }
+}

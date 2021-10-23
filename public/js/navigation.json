@@ -1,0 +1,89 @@
+{"navigation": [{
+		"name": "Dashboard",
+		"mode": "dashboard",
+		"controller": "HomeController",
+		"type": "single",
+		"icon": "activity",
+		"badge": false,
+		"order": 2,
+		"status": 1
+	},{
+		"name": "Maintenance",
+		"mode": "maintenance",
+		"controller": "",
+		"type": "main",
+		"icon": "tool",
+		"order": 3,
+		"status": 1,
+		"sub": [{
+			"name": "Menu Categories",
+			"mode": "menu_categories",
+			"controller": "MenuCategoryController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		}]
+	},{
+		"name": "Settings",
+		"mode": "settings",
+		"controller": "",
+		"type": "main",
+		"icon": "settings",
+		"order": 7,
+		"status": 1,
+		"sub": [{
+			"name": "System Settings",
+			"mode": "system_settings",
+			"controller": "",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		}]
+	},{
+		"name": "System Logs",
+		"mode": "system-logs",
+		"controller": "",
+		"type": "main",
+		"icon": "server",
+		"order": 8,
+		"status": 1,
+		"sub": [{
+			"name": "Audit Trail Logs",
+			"mode": "audit_trail_logs",
+			"controller": "AuditTrailLogsController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "API Logs",
+			"mode": "api_logs",
+			"controller": "APILogsController",
+			"icon": "far fa-circle",
+			"sub_order": 2,
+			"status": 1
+		}]
+	},{
+		"name": "User Management",
+		"mode": "user-management",
+		"controller": "",
+		"type": "main",
+		"icon": "users",
+		"order": 9,
+		"status": 1,
+		"sub": [{
+			"name": "User Accounts",
+			"mode": "user_accounts",
+			"controller": "UserAccountsController",
+			"icon": "far fa-circle",
+			"sub_order": 1,
+			"status": 1
+		},{
+			"name": "User Level",
+			"mode": "",
+			"controller": "",
+			"icon": "far fa-circle",
+			"sub_order": 3,
+			"status": 1
+		}]
+	}]
+}

@@ -1,0 +1,136 @@
+.card{
+    border: $border !important;
+    box-shadow: $shadow;
+    border-radius: $radius !important;
+    overflow: hidden;
+    text-align: left;
+
+    .card-body{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .card-content{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    .card-icon{
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+
+        .feather{
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    h5{
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 20px;
+    }
+
+    .custom-control-label{
+        cursor: pointer;
+    }
+
+    .input-group{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        text-align: left;
+    
+        label{
+            font-size: .9em !important;
+            color: $dark;
+            font-weight: normal;
+            margin-bottom: 2px;
+        }
+    
+        .form-control, .custom-file-input{
+            border-radius: $radius !important;
+            resize: none;
+            width: 100%;
+
+            &:focus{
+                font-weight: 500;
+            }
+        }
+
+        .invalid-feedback{
+            display: block !important;
+        }
+    } 
+    
+    .actions{
+        text-align: right;
+    
+        button, a{
+            padding: 8px 15px;
+
+            &:hover{
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.card-order-1{
+    animation: slideToRight .4s;
+}
+
+.card-order-2{
+    animation: slideToRight .6s;
+}
+
+.card-order-3{
+    animation: slideToRight .8s;
+}
+
+.card-order-4{
+    animation: slideToRight 1s;
+}
+
+.card-order-4{
+    animation: slideToLeft 1.2s;
+}
+
+.card-order-4{
+    animation: slideToLeft 1.4s;
+}
+
+@keyframes slideToRight {
+    0% {
+        transform: translateX(-30%);
+        opacity: 0.5;
+    }
+
+    80%{
+        transform: translateX(10%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slideToLeft{
+    0% {
+        transform: translateX(30%);
+        opacity: 0.5;
+    }
+
+    80%{
+        transform: translateX(-10%);
+    }
+
+    100%{
+        transform: translateX(0%);
+    }
+}

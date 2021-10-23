@@ -1,0 +1,42 @@
+.account-sidebar{
+    .list-group{
+        background-color: #fff;
+        box-shadow: $shadow !important;
+        border-radius: $radius;
+        padding: 15px 0;
+        
+        .list-group-item{
+            color: $dark;
+        }
+
+        .list-group-item-action{
+            background-color: #fff !important;
+            border-radius: 0px !important;
+    
+            &:hover{
+                color: $primary;
+                box-shadow: 0 0 0 transparent;
+                border-left: 3px solid $primary !important;
+            }
+        }
+
+        .active{
+            border-left: 3px solid $primary !important;
+            color: $primary !important;
+        }
+    }
+}
+
+.profile-preview{
+    #image-preview{
+        object-fit: cover;
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.btn-profile-image{
+    position: absolute;
+    bottom: 0px;
+    left: 50px;
+}

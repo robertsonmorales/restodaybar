@@ -1,0 +1,25 @@
+{
+    "themes": {
+        "light-theme": {
+    
+        },
+        "dark-theme": {
+    
+        },
+        "default": {
+
+        }
+    },
+    "layouts": {
+        "navbar": {
+            "default": "sticky-top",
+            "floating": "sticky-top float-sticky-top mx-4 mt-3",
+            "hidden": "d-none"
+        },
+        "sidebar": {
+            "default": "",
+            "floating": "",
+            "minimized": ""
+        }
+    }
+}

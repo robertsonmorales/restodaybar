@@ -1,0 +1,37 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: $font-family !important;
+    line-height: $line-height-base !important;
+    color: $dark !important;
+    background-color: $body-bg;
+    background-image: $body-image;
+    background-attachment: fixed;
+    background-size: cover;
+    
+    @import 'custom';
+    
+    @import 'auth';
+    
+    @import 'sidebar';
+
+    @import 'main';
+}

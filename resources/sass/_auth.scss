@@ -1,0 +1,37 @@
+.auth-card{
+    border: $border !important;
+    box-shadow: $shadow !important;
+    border-radius: $radius !important;
+    background-color: #fff;
+    overflow: hidden;
+
+    .login-banner{
+        background-color: $light;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card{
+        border: none !important;
+
+        .inputs > label{
+            color: $dark;
+            font-size: .9em !important;
+            margin-bottom: 2px;
+        }
+    
+        .form-control{
+            padding-left: 35px !important;
+
+            &:focus{
+                font-weight: 500;
+            }
+        }
+        
+        .icon{
+            top: 6px !important;
+            left: 25px !important;
+            color: $default;
+        }
+    }
+}
