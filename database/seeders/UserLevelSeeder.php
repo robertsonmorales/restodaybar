@@ -17,8 +17,7 @@ class UserLevelSeeder extends Seeder
     public function run()
     {
         UserLevel::insert([
-            'name' => 'DEV',
-            'code' => 'dev',
+            'name' => 'Developer',
             'description' => 'This is for all developer users',
             'modules' => '1,2,5,8,11,',
             'sub_modules' => '3,4,6,7,9,10,12,13,14',

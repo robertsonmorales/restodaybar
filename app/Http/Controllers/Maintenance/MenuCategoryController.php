@@ -7,20 +7,8 @@ use Illuminate\Http\Request;
 
 use Validator, Arr, Auth;
 
-use App\Models\MenuCategory;
-use App\Models\User;
-
-use App\Http\Controllers\UserAccountController as fromUser;
-
 class MenuCategoryController extends Controller
 {
-    protected $category, $user;
-
-    public function __construct(MenuCategory $category, User $user){
-        $this->category = $category;
-        $this->user = $user;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -168,11 +156,14 @@ class MenuCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->category->findOrFail($id)->delete();
+        $data = $this->category->findOrFail($id)
+            ->delete();
 
         $this->audit_trail_logs();
 
-        return redirect()->route('menu_categories.index')->with('success', 'Menu Category Deleted Successfully!');
+        return redirect()
+            ->route('menu_categories.index')
+            ->with('success', 'Menu Category Deleted Successfully!');
     }
 
     public function validator(Request $request)
@@ -186,7 +177,7 @@ class MenuCategoryController extends Controller
 
         $rules = [
             'name' => 'required|string|unique:menu_categories,name,'.$this->safeInputs($request->input('id')),
-            'icon' => 'required|string|unique:menu_categories,icon,'.$this->safeInputs($request->input('id')),
+            'icon' => 'nullable|string|unique:menu_categories,icon,'.$this->safeInputs($request->input('id')),
             'color_tag' => 'required|string',
             'status' => 'required|numeric'
         ];
@@ -202,5 +193,5 @@ class MenuCategoryController extends Controller
 
         $validator = Validator::make($input, $rules, $messages,$customAttributes);
         return $validator->validate();
-    } 
+    }
 }

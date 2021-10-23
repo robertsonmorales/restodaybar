@@ -8,32 +8,29 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use Illuminate\Http\Request;
-use Auth;
-use DB;
-use Crypt;
-use Hash;
-use Validator;
-use Artisan;
-use Route;
-use Gate;
-use Arr;
-use Str;
-use Carbon\Carbon;
-
-use App\Models\User;
-use App\Models\AuditTrailLogs;
+use Auth, Artisan, Route, Gate, Arr, Str;
 
 use Purifier;
+
+use App\Models\{User, UserLevel, AuditTrailLogs, MenuCategory, MenuSubcategory};
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $user;
-    public function __construct(User $user){
+    protected $user, $userLevel, $auditLogs, $category, $subcategory;
+
+    public function __construct(User $user, UserLevel $userLevel,
+        AuditTrailLogs $auditLogs, MenuCategory $category,
+        MenuSubcategory $subcategory){
         $this->user = $user;
+        $this->userLevel = $userLevel;
+        $this->auditLogs = $auditLogs;
+        $this->category = $category;
+        $this->subcategory = $subcategory;
     }
 
+    // IP Address
     public function ipAddress(){
         $_ipAddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP']))
@@ -54,6 +51,7 @@ class Controller extends BaseController
         return $_ipAddress;
     }
 
+    // Audit trails
     public function audit_trail_logs($remarks = null){
         $route = Route::getFacadeRoot()->current()->uri();
         $module = strtoupper(explode('/', $route)[0]); // GET MODULE
@@ -62,16 +60,19 @@ class Controller extends BaseController
         $ipAddress = $this->ipAddress();
         $remarks = ($remarks == null) ? json_encode(array("message" => "VIEWING " . $module)) : json_encode($remarks);
 
-        AuditTrailLogs::create([
+        $audit = array(
             'route' => $route,
             'module' => $module,
             'method' => $method,
             'username' => $username,
             'remarks' => $remarks,
             'ip' => $ipAddress
-        ]);
+        );
+
+        $this->auditLogs->insert($audit);
     }
     
+    // Breadcrumbs
     public function breadcrumbs($name, $mode){
         return $breadcrumb = array(
             'name' => $name,
@@ -79,6 +80,7 @@ class Controller extends BaseController
         );
     }
 
+    // Sanitizer
     public function safeInputs($input){
         return Purifier::clean($input, [
             'HTML.Allowed' => ''

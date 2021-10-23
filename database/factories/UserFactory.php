@@ -28,7 +28,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstNameMale,
             'last_name' => $this->faker->lastName,
-            'username' => $this->faker->firstNameMale,
+            'username' => strtolower($this->faker->firstNameMale),
             'contact_number' => "+639".mt_rand(100000000, 999999999),
             'email' => $this->faker->unique()->safeEmail,
             'password' => 'password', // $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi

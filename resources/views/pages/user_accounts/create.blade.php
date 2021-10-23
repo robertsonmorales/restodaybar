@@ -151,19 +151,18 @@
         </div>
 
         <div class="input-group">
-            <label for="user_level_code">User Level</label>
-            <select name="user_level_code" 
-            id="user_level_code" 
-            class="custom-select form-control @error('user_level_code') is-invalid @enderror"
+            <label for="user_level_id">User Level</label>
+            <select name="user_level_id" 
+            id="user_level_id" 
+            class="custom-select form-control @error('user_level_id') is-invalid @enderror"
             required>
                 <option value="">Select User Level...</option>
-
                 @foreach($user_levels as $value)
-                <option value="1" {{ ($mode == 'update' && $value->code == $user->user_level_code) ? 'selected' : '' }}>{{ $value->name }}</option>
+                <option value="{{ $value->id }}" {{ ($mode == 'update' && $value->id == $user->user_level_id) ? 'selected' : '' }}>{{ $value->name }}</option>
                 @endforeach
             </select>
 
-            @error('user_level_code')
+            @error('user_level_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

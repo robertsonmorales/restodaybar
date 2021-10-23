@@ -3,9 +3,6 @@
 
 #public
 /public/storage
-/public/images/menu_categories/*
-/public/images/menus/*
-/public/images/user_profiles/
 /public/hot
 
 /vendor
@@ -23,4 +20,3 @@ yarn-error.log
 /storage/framework/views/
 /storage/framework/cache/
 /storage/framework/sessions/*
-node_modules

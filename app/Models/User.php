@@ -9,7 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Contracts\Encryption\DecryptException;
-use Crypt, Hash;
+
+use Crypt, Hash, Auth;
+
+use App\Models\UserLevel;
 
 class User extends Authenticatable
 {
@@ -21,6 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'user_level_id',
         'profile_image', 
         'profile_image_updated_at', 
         'profile_image_expiration_date', 
@@ -39,7 +43,6 @@ class User extends Authenticatable
         'status',
         'ip', 
         'access_level',
-        'user_level_code',
         'last_active_at',
         'created_by',
         'updated_by',
@@ -73,11 +76,7 @@ class User extends Authenticatable
     // ACCESSORS
     public function getFirstNameAttribute($value)
     {
-        try {
-            return Crypt::decryptString($value);
-        } catch (DecryptException $e) {
-            dd($e);
-        }
+        return Crypt::decryptString($value);
     }
 
     // MUTATORS
@@ -87,11 +86,7 @@ class User extends Authenticatable
 
     // ACCESSORS
     public function getLastNameAttribute($value){
-        try {
-            return Crypt::decryptString($value);
-        } catch (DecryptException $e) {
-            dd($e);
-        }
+        return Crypt::decryptString($value);
     }
 
     // MUTATORS
@@ -101,11 +96,7 @@ class User extends Authenticatable
 
     // ACCESSORS
     public function getContactNumberAttribute($value){
-        try {
-            return Crypt::decryptString($value);
-        } catch (DecryptException $e) {
-            dd($e);
-        }
+        return Crypt::decryptString($value);
     }
 
     // MUTATORS
@@ -121,5 +112,13 @@ class User extends Authenticatable
     // MUTATORS
     public function setOldPasswordAttribute($value){
         $this->attributes['old_password'] = Hash::make($value);
+    }
+
+    public function scopeHideAuthenticatedUser($query){
+        return $query->where('id', '!=', Auth::id());
+    }
+
+    public function userLevel(){
+        return $this->hasOne(UserLevel::class, 'user_level_id');
     }
 }

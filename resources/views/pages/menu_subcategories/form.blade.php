@@ -2,7 +2,7 @@
 @section('title', $title)
 
 @section('content')
-<form action="{{ ($mode == 'update') ? route('menu_categories.update', $data->id) : route('menu_categories.store') }}"
+<form action="{{ ($mode == 'update') ? route('menu_subcategories.update', $data->id) : route('menu_subcategories.store') }}"
     method="POST"
     class="d-flex flex-column align-items-center mx-4"
     id="card-form">
@@ -14,31 +14,18 @@
         </div>
 
         <div class="input-group">
-            <label for="name">Name</label>
-            <input type="text" 
-                name="name" 
-                id="name" 
-                autocomplete="off"
-                class="form-control @error('name') is-invalid @enderror"
-                value="{{ ($mode == "update") ? $data->name : old('name') }}"
+            <label for="name">Category</label>
+            <select name="menu_category"
+                id="menu_category"
+                class="custom-select form-control @error('menu_category') is-invalid @enderror"
                 required>
-
-            @error('name')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-        
-        <div class="input-group">
-            <label for="name">Icon</label>
-            <select name="icon" 
-                id="icon" 
-                class="custom-select form-control @error('icon') is-invalid @enderror">
-                <option value="" style="display: none;">Select icon...</option>
+                <option value="" style="display: none;">Select category...</option>
+                @foreach ($categories as $item)
+                <option value="{{ $item->id }}" {{ ($mode == "update" && $data->menuCategory->id == $item->id) ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
             </select>
 
-            @error('icon')
+            @error('menu_category')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -46,16 +33,16 @@
         </div>
         
         <div class="input-group">
-            <label for="name">Color Tag</label>
-            <input type="color" 
-                name="color_tag" 
-                id="color_tag" 
-                autocomplete="off"
-                class="form-control @error('color_tag') is-invalid @enderror"
-                value="{{ ($mode == 'update') ? $data->color_tag : old('color_tag') }}"
-                required>
+            <label for="name">Name</label>
+            <input type="text" 
+            name="name" 
+            id="name" 
+            autocomplete="off"
+            class="form-control @error('name') is-invalid @enderror"
+            value="{{ ($mode == "update") ? $data->name : old('name') }}"
+            required>
 
-            @error('color_tag')
+            @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -65,9 +52,9 @@
         <div class="input-group">
             <label for="status">Status</label>
             <select name="status" 
-                id="status" 
-                class="custom-select form-control @error('status') is-invalid @enderror"
-                required>
+            id="status" 
+            class="custom-select form-control @error('status') is-invalid @enderror"
+            required>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' &&  $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -82,8 +69,8 @@
         @if ($mode == 'update')
         @method('PUT')
         <input type="hidden" 
-            name="id" 
-            value="{{ ($mode == 'update') ? $data->id : ''}}">
+        name="id" 
+        value="{{ ($mode == 'update') ? $data->id : ''}}">
         @endif
 
         <div class="actions w-100">
@@ -172,6 +159,10 @@ function formatIcons (icons) {
 $('#icon').select2({
     placeholder: "Select icon...",
     templateResult: formatIcons
+});
+
+$('#menu_category').select2({
+    placeholder: "Select category...",
 });
 
 getIcons();

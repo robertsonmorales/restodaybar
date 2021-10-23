@@ -9,19 +9,8 @@ use Arr;
 use Auth;
 use Validator;
 
-use App\Models\User;
-use App\Models\UserLevel;
-use Carbon\Carbon;
-
 class UserAccountController extends Controller
 {
-    protected $user, $userLevel;
-
-    public function __construct(User $user, UserLevel $userLevel){
-        $this->user = $user;
-        $this->userLevel = $userLevel;
-    }
-
     public function validator(Request $request)
     {
         $input = [
@@ -33,7 +22,7 @@ class UserAccountController extends Controller
             'password_confirmation' => $request->input('password_confirmation'),
             'contact_number' => $this->safeInputs($request->input('contact_number')),
             'address' => $this->safeInputs($request->input('address')),
-            'user_level_code' => $this->safeInputs($request->input('user_level_code')),
+            'user_level_id' => $this->safeInputs($request->input('user_level_id')),
             'account_status' => $this->safeInputs($request->input('account_status'))
         ];
 
@@ -46,7 +35,7 @@ class UserAccountController extends Controller
             'password_confirmation' => 'required|string',
             'contact_number' => 'required|numeric|digits:11',
             'address' => 'required|string',
-            'user_level_code' => 'required|string',
+            'user_level_id' => 'required|string',
             'account_status' => 'required|numeric',
         ];
 
@@ -60,7 +49,7 @@ class UserAccountController extends Controller
             'password' => 'password',
             'contact_number' => 'contact number',
             'address' => 'address',
-            'user_level_code' => 'user level',
+            'user_level_id' => 'user level',
             'account_status' => 'account status'
         ];
 
@@ -81,7 +70,7 @@ class UserAccountController extends Controller
         $pagesize = [25, 50, 75, 100, 125];
         
         $rows = array();
-        $rows = $this->user->where('id', '!=', Auth::id())->latest()->get();
+        $rows = $this->user->hideAuthenticatedUser()->latest()->get();
         $rows = $this->changeValue($rows);
         $rows = $this->changeValue_v2($rows);
 
@@ -91,8 +80,8 @@ class UserAccountController extends Controller
             array('headerName'=>'EMAIL','field'=>'email', 'floatingFilter'=>false),
             array('headerName'=>'CONTACT NUMBER','field'=>'contact_number', 'floatingFilter'=>false),
             array('headerName'=>'STATUS','field'=>'account_status', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
+            // array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
+            // array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
             array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false),
             array('headerName'=>'UPDATED AT','field'=>'updated_at', 'floatingFilter'=>false)
         );
@@ -146,13 +135,14 @@ class UserAccountController extends Controller
     {
         $validated = $this->validator($request);
         $validated['created_by'] = Auth::id();
+
         $data = $this->user->create($validated);
 
-        $this->audit_trail_logs('', 'created', 'user_accounts: '.$validated['username'], $data['id']);
+        $this->audit_trail_logs($request->all());
 
         return redirect()
             ->route('user_accounts.index')
-            ->with('success', 'You have successfully added '.$validated['username']);
+            ->with('success', 'User Added Successfully!');
     }
 
     /**
@@ -180,7 +170,7 @@ class UserAccountController extends Controller
         $name = ['User Accounts', 'Edit', $data->username];
         $mode = [route('user_accounts.index'), route('user_accounts.edit', $id), route('user_accounts.edit', $id)];
 
-        $this->audit_trail_logs('', '', 'user_accounts: '.$data->username, $id);
+        $this->audit_trail_logs();
         $user_levels = @$this->userLevel->where('status', 1)->get();
 
         return view('pages.user_accounts.create', [            
@@ -190,34 +180,6 @@ class UserAccountController extends Controller
             'user' => $data,
             'user_levels' => $user_levels
         ]);
-    }
-
-    public function updateValidator(Request $request){
-        $input = [
-            'first_name' => $this->safeInputs($request->input('first_name')),
-            'last_name' => $this->safeInputs($request->input('last_name')),
-            'address' => $this->safeInputs($request->input('address')),
-            'account_status' => $this->safeInputs($request->input('account_status')),
-        ];
-
-        $rules = [
-            'first_name' => 'required|string|max:55',
-            'last_name' => 'required|string|max:55',
-            'address' => 'required|string',
-            'account_status' => 'required|numeric',
-        ];
-
-        $messages = [];
-
-        $customAttributes = [
-            'first_name' => 'first name',
-            'last_name' => 'last name',
-            'address' => 'address',
-            'account_status' => 'account status',
-        ];
-
-        $validator = Validator::make($input, $rules, $messages,$customAttributes);
-        return $validator->validate();
     }
 
     /**
@@ -230,21 +192,15 @@ class UserAccountController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $this->updateValidator($request);
-        if ($validated) {
-            $data = $this->user->find($id);
-            $data->update([
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'],
-                'address' => $validated['address'],
-                'user_level_code' => $validated['user_level_code'],
-                'updated_by' => Auth::id(),
-                'updated_at' => now()
-            ]);
+        $validated['updated_by'] = Auth::id();
 
-            $this->audit_trail_logs($request->all());
+        $this->user->findOrFail($id)->update($validated);
 
-            return redirect()->route('user_accounts.index')->with('success', 'You have successfully updated '.$data->username);
-        }
+        $this->audit_trail_logs($request->all());
+
+        return redirect()
+            ->route('user_accounts.index')
+            ->with('success', 'User Updated Successfully!');
     }
 
     /**
@@ -257,14 +213,46 @@ class UserAccountController extends Controller
     {
         $data = $this->user->findOrFail($id);
         $data->deleted_by = Auth::id();
-        $save = $data->save();
-        if ($save) {
-            $data->delete();
-        }
 
-        $this->audit_trail_logs('', 'deleted', 'user_account '.$data->username, $id);
+        $data->save();
+        $data->delete();
 
-        return redirect()->route('user_accounts.index')->with('success', 'You have successfully removed '.$data->username);
+        $this->audit_trail_logs();
+
+        return redirect()
+            ->route('user_accounts.index')
+            ->with('success', 'You have successfully removed '.$data->username);
+    }
+
+    public function updateValidator(Request $request){
+        $input = [
+            'first_name' => $this->safeInputs($request->input('first_name')),
+            'last_name' => $this->safeInputs($request->input('last_name')),
+            'address' => $this->safeInputs($request->input('address')),
+            'user_level_id' => $this->safeInputs($request->input('user_level_id')),
+            'account_status' => $this->safeInputs($request->input('account_status')),
+        ];
+
+        $rules = [
+            'first_name' => 'required|string|max:55',
+            'last_name' => 'required|string|max:55',
+            'address' => 'required|string',
+            'user_level_id' => 'required|numeric',
+            'account_status' => 'required|numeric',
+        ];
+
+        $messages = [];
+
+        $customAttributes = [
+            'first_name' => 'first name',
+            'last_name' => 'last name',
+            'address' => 'address',
+            'user_level_id' => 'user level',
+            'account_status' => 'account status',
+        ];
+
+        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        return $validator->validate();
     }
 
     public function changeValue_v2($rows){

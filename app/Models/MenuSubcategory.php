@@ -14,7 +14,7 @@ class MenuSubcategory extends Model
     protected $table = "menu_subcategories";
 
     protected $fillable = [
-        "menu_category_id", "name", "icon", "status"
+        "menu_category_id", "name", "status", "created_by", "updated_by"
     ];
 
     public function scopeActive($query){

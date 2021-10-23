@@ -17,8 +17,13 @@ class MenuCategory extends Model
         "name", "icon", "color_tag", "status", "created_by", "updated_by"
     ];
 
+    // SCOPE
     public function scopeActive($query){
         return $query->where('status', 1);
+    }
+
+    public function scopeAscendingName($query){
+        return $query->orderBy('name', 'asc');
     }
 
     public function setNameAttribute($value){
