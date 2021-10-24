@@ -70,9 +70,9 @@ $(function(){
 			}
 		}).done(response => {
 			if(response.display === "false"){
-				console.info("false");
+				console.info("sidebar display: false");
 			}else{
-				console.info("true");
+				console.info("sidebar display: true");
 			}
 		}).catch(error => {
 			console.error(error);

@@ -26,6 +26,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'user_level_id' => '1',
             'first_name' => $this->faker->firstNameMale,
             'last_name' => $this->faker->lastName,
             'username' => strtolower($this->faker->firstNameMale),

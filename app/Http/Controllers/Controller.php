@@ -12,22 +12,46 @@ use Auth, Artisan, Route, Gate, Arr, Str;
 
 use Purifier;
 
-use App\Models\{User, UserLevel, AuditTrailLogs, MenuCategory, MenuSubcategory};
+use App\Models\{User, UserLevel, AuditTrailLogs, 
+    MenuCategory, MenuSubcategory, CategoryOfMenu,
+    Menu};
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $user, $userLevel, $auditLogs, $category, $subcategory;
+    protected $user, $userLevel, $auditLogs, $category, $subcategory, $categoryMenu, $menu;
 
     public function __construct(User $user, UserLevel $userLevel,
         AuditTrailLogs $auditLogs, MenuCategory $category,
-        MenuSubcategory $subcategory){
+        MenuSubcategory $subcategory, CategoryOfMenu $categoryMenu, Menu $menu){
+
+        config('app.timezone', 'Manila/Asia');
+
         $this->user = $user;
         $this->userLevel = $userLevel;
         $this->auditLogs = $auditLogs;
         $this->category = $category;
         $this->subcategory = $subcategory;
+        $this->categoryMenu = $categoryMenu;
+        $this->menu = $menu;
+    }
+
+    public function indexView($view, $form, $data){
+        $pagesize = $this->pagesize();
+
+        $route = Route::getFacadeRoot()->current()->uri();
+        $title = ucfirst(explode('/', $route)[0]);
+
+        $params = array(
+            // 'breadcrumbs' => $this->breadcrumbs([$title], [$route]),
+            'data' => $data,
+            'pagesize' => $pagesize,
+            'create' => $form,
+            'title' => $title
+        );
+
+        return view($view, $params);
     }
 
     // IP Address
@@ -59,17 +83,24 @@ class Controller extends BaseController
         $username = Auth::check() ? Auth::user()->username : 'Unathorized';
         $ipAddress = $this->ipAddress();
         $remarks = ($remarks == null) ? json_encode(array("message" => "VIEWING " . $module)) : json_encode($remarks);
+        
+        if(exec('getmac') == "N/A Media disconnected"){
+            $device = exec('getmac');
+        }else{
+            $device = "";
+        }
 
         $audit = array(
             'route' => $route,
             'module' => $module,
             'method' => $method,
-            'username' => $username,
+            'user_id' => Auth::id(),
             'remarks' => $remarks,
-            'ip' => $ipAddress
+            'ip' => $ipAddress,
+            'device' => $device
         );
 
-        $this->auditLogs->insert($audit);
+        AuditTrailLogs::create($audit);
     }
     
     // Breadcrumbs
@@ -77,6 +108,14 @@ class Controller extends BaseController
         return $breadcrumb = array(
             'name' => $name,
             'mode' => $mode
+        );
+    }
+
+    // Preset page size
+    public function pageSize(){
+        return array(
+            'default' => 25,
+            'options' => [25, 50, 75, 100, 125]
         );
     }
 

@@ -15,6 +15,12 @@ class CreateApiLogsTable extends Migration
     {
         Schema::create('api_logs', function (Blueprint $table) {
             $table->id();
+            $table->string('method')->nullable();
+            $table->string('api')->nullable();
+            $table->json('params')->nullable();
+            $table->text('response')->nullable();
+            $table->ipAddress('ip')->nullable();
+            $table->macAddress('device')->nullable();
             $table->timestamps();
         });
     }

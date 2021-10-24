@@ -1,11 +1,9 @@
 @auth
 @php 
-$style = (session()->get('display') === "false") ? "width: 0px; opacity: 0.4;" : "";
+$style = (session()->get('display') === "false") ? "width: 0px; opacity: 0;" : "";
 @endphp
 
-<nav class="sidebar d-none d-lg-flex py-4"
-    id="sidebar"
-    style="{{ $style }}">
+<nav class="sidebar d-none d-lg-flex py-4" id="sidebar" style="{{ $style }}">
     <div class="branding-logo w-100 position-sticky fixed-top mb-4">
         {{-- <img src="{{ asset('images/logo/favicon/favicon.jpg') }}" width="150"> --}}
         <div class="h4 text-center">

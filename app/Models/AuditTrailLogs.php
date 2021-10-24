@@ -12,6 +12,6 @@ class AuditTrailLogs extends Model
     protected $table = 'audit_trail_logs';
 
     protected $fillable = [
-        'route', 'module', 'method', 'username', 'remarks', 'ip'
+        'route', 'module', 'method', 'user_id', 'remarks', 'ip', 'device'
     ];
 }

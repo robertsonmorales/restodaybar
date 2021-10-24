@@ -1,6 +1,6 @@
 @auth
 <div class="d-flex flex-column mx-4 mt-3 mb-3">
-    @if(count($breadcrumbs['name']) > 1)
+    {{-- @if(count($breadcrumbs['name']) > 1)
     <div class="header mb-1">
         <ul class="breadcrumb-section">
             @for($i = 0; $i < count($breadcrumbs['name']); $i++)
@@ -18,7 +18,8 @@
             @endfor
         </ul>
     </div>
-    @endif
+    @endif --}}
+    
     <div class="header">
         <h3 class="mb-0">{{ $title }}</h3>
     </div>

@@ -15,12 +15,13 @@ class CreateAuditTrailLogsTable extends Migration
     {
         Schema::create('audit_trail_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('route')->nullable();
             $table->string('module')->nullable();
             $table->string('method')->nullable();
-            $table->string('username')->nullable();
             $table->text('remarks')->nullable();
-            $table->string('ip')->nullable();
+            $table->ipAddress('ip')->nullable();
+            $table->macAddress('device')->nullable();
             $table->timestamps();
         });
     }
