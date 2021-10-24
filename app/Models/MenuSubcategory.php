@@ -25,6 +25,10 @@ class MenuSubcategory extends Model
         return $this->attributes['name'] = ucFirst($value);
     }
 
+    public function scopeAscendingName($query){
+        return $query->orderBy('name', 'asc');
+    }
+    
     public function menuCategory(){
         return $this->belongsTo(MenuCategory::class, 'menu_category_id', 'id');
     }

@@ -23,7 +23,7 @@ class CreateNavigationsTable extends Migration
             $table->integer('nav_order')->nullable();
             $table->integer('nav_suborder')->nullable();
             $table->integer('nav_childs_parent_id')->nullable();
-            $table->integer('status')->default(1)->comment('1 = active; 0 = inactive');
+            $table->enum('status', [1, 0])->default(1)->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

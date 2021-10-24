@@ -18,7 +18,7 @@ class CreateMenuCategoriesTable extends Migration
             $table->string('name')->nullable();
             $table->string('icon')->nullable();
             $table->string('color_tag')->default('orange')->nullable();
-            $table->integer('status')->default(1)->nullable();
+            $table->enum('status', [1, 0])->default(1)->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

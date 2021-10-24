@@ -11,12 +11,12 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $name = ['Dashboard'];
         $mode = ['/dashboard'];
 
-        $this->audit_trail_logs($request);
+        $this->audit_trail_logs();
         
         return view('pages.dashboard.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
