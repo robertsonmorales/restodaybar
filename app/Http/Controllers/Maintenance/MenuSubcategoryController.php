@@ -16,24 +16,18 @@ class MenuSubcategoryController extends Controller
      */
     public function index()
     {
-        $name = ['Menu Subcategories'];
-        $mode = [route('menu_subcategories.index')];
-        
-        $pagesize = [25, 50, 75, 100, 125];
-        
-        $rows = array();
         $rows = $this->subcategory->latest()->get();
         $rows = $this->changeValue($rows);
         $rows = $this->changeValue2($rows);
 
         $columnDefs = array(
-            array('headerName'=>'NAME','field'=>'name', 'floatingFilter'=>false),
-            array('headerName'=>'CATEGORY','field'=>'menu_category_id', 'floatingFilter'=>false),
-            array('headerName'=>'STATUS','field'=>'status', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED AT','field'=>'updated_at', 'floatingFilter'=>false)
+            array('headerName'=>'Name','field'=>'name'),
+            array('headerName'=>'Category','field'=>'menu_category_id'),
+            array('headerName'=>'Status','field'=>'status'),
+            array('headerName'=>'Created By','field'=>'created_by'),
+            array('headerName'=>'Created At','field'=>'created_at'),
+            array('headerName'=>'Updated By','field'=>'updated_by'),
+            array('headerName'=>'Updated At','field'=>'updated_at')
         );
 
         $data = json_encode(array(
@@ -42,14 +36,9 @@ class MenuSubcategoryController extends Controller
         ));
 
         $this->audit_trail_logs();
-
-        return view('pages.menu_subcategories.index', [
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'data' => $data,
-            'pagesize' => $pagesize,
-            'create' => "menu_subcategories.create",
-            'title' => 'Menu Subcategories'
-        ]);
+        
+        // $view = target blade, $form = target form, $module = title of module, $data = datatable
+        return $this->indexView($data);
     }
 
     /**
@@ -59,21 +48,18 @@ class MenuSubcategoryController extends Controller
      */
     public function create()
     {
-        $mode_action = 'create';
-        $name = ['Menu Subcategories', 'Create'];
-        $mode = [route('menu_subcategories.index'), route('menu_subcategories.create')];
-
-        $categories = $this->category->select('id', 'name', 'icon', 'color_tag', 'status')->active()->ascendingName()->get();
+        // params here
+        $categories = $this->category->select('id', 'name')->active()->ascendingName()->get();
+        // ends here
 
         $this->audit_trail_logs();
 
-        return view('pages.menu_subcategories.form', [            
-            'mode' => $mode_action,
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Menu Subcategories',
+        $params = [
+            'mode' => 'create',
             'categories' => $categories
-        ]);
-    }
+        ];
+
+        return $this->formView($params);    }
 
     /**
      * Store a newly created resource in storage.
@@ -114,23 +100,20 @@ class MenuSubcategoryController extends Controller
      */
     public function edit($id)
     {
+        // params here
         $data = $this->subcategory->findOrFail($id);
-
-        $mode_action = 'update';
-        $name = ['Menu Subcategories', 'Edit', $data->name];
-        $mode = [route('menu_subcategories.index'), route('menu_subcategories.edit', $id), route('menu_subcategories.edit', $id)];
-
-        $categories = $this->category->select('id', 'name', 'icon', 'color_tag', 'status')->active()->ascendingName()->get();
+        $categories = $this->category->select('id', 'name')->active()->ascendingName()->get();
+        // ends here
 
         $this->audit_trail_logs();
 
-        return view('pages.menu_subcategories.form', [            
-            'mode' => $mode_action,
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Menu Subcategories',
+        $params = [
+            'mode' => 'update',
             'data' => $data,
             'categories' => $categories
-        ]);
+        ];
+
+        return $this->formView($params);
     }
 
     /**

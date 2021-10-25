@@ -15,25 +15,18 @@ class MenuCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $name = ['Menu Categories'];
-        $mode = [route('menu_categories.index')];
-        
-        $pagesize = [25, 50, 75, 100, 125];
-        
-        $rows = array();
-        $rows = $this->category->latest()->get();
-        $rows = $this->changeValue($rows);
+    {   
+        $rows = $this->changeValue($this->category->latest()->get());
 
         $columnDefs = array(            
-            array('headerName'=>'NAME','field'=>'name', 'floatingFilter'=>false),
-            array('headerName'=>'ICON','field'=>'icon', 'floatingFilter'=>false),
-            array('headerName'=>'COLOR TAG','field'=>'color_tag', 'floatingFilter'=>false),
-            array('headerName'=>'STATUS','field'=>'status', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED AT','field'=>'updated_at', 'floatingFilter'=>false)
+            array('headerName'=>'Name','field'=>'name'),
+            array('headerName'=>'Icon','field'=>'icon'),
+            array('headerName'=>'Color Tag','field'=>'color_tag'),
+            array('headerName' => 'Status', 'field' => 'status'),
+            array('headerName' => 'Created By', 'field' => 'created_by'),
+            array('headerName' => 'Created At', 'field' => 'created_at'),
+            array('headerName' => 'Updated By', 'field' => 'updated_by'),
+            array('headerName' => 'Updated At', 'field' => 'updated_at')
         );
 
         $data = json_encode(array(
@@ -42,14 +35,9 @@ class MenuCategoryController extends Controller
         ));
 
         $this->audit_trail_logs();
-
-        return view('pages.menu_categories.index', [
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'data' => $data,
-            'pagesize' => $pagesize,
-            'create' => "menu_categories.create",
-            'title' => 'Menu Categories'
-        ]);
+        
+        // $view = target blade, $form = target form, $module = title of module, $data = datatable
+        return $this->indexView($data);
     }
 
     /**
@@ -59,17 +47,11 @@ class MenuCategoryController extends Controller
      */
     public function create()
     {
-        $mode_action = 'create';
-        $name = ['Menu Categories', 'Create'];
-        $mode = [route('menu_categories.index'), route('menu_categories.create')];
-
         $this->audit_trail_logs();
 
-        return view('pages.menu_categories.form', [            
-            'mode' => $mode_action,
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Menu Categories'
-        ]);
+        $params = [ 'mode' => 'create' ];
+
+        return $this->formView($params);
     }
 
     /**
@@ -111,20 +93,18 @@ class MenuCategoryController extends Controller
      */
     public function edit($id)
     {
+        // params here
         $data = $this->category->findOrFail($id);
-
-        $mode_action = 'update';
-        $name = ['Menu Categories', 'Edit', $data->name];
-        $mode = [route('menu_categories.index'), route('menu_categories.edit', $id), route('menu_categories.edit', $id)];
+        // ends here
 
         $this->audit_trail_logs();
 
-        return view('pages.menu_categories.form', [            
-            'mode' => $mode_action,
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Menu Categories',
+        $params = [
+            'mode' => 'update',
             'data' => $data
-        ]);
+        ];
+
+        return $this->formView($params);
     }
 
     /**

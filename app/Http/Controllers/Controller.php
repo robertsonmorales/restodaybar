@@ -37,19 +37,67 @@ class Controller extends BaseController
         $this->menu = $menu;
     }
 
-    public function indexView($view, $form, $data){
-        $pagesize = $this->pagesize();
+    public function controlIcons(){
+        return array(
+            'edit' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
+            'remove' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>'
+        );
+    }
 
+    public function get(){
         $route = Route::getFacadeRoot()->current()->uri();
         $title = ucfirst(explode('/', $route)[0]);
+
+        $explodeTitle = explode('_', $title);
+
+        $newTitle = "";
+        for ($i=0; $i < count($explodeTitle); $i++) { 
+            $newTitle .= ucfirst($explodeTitle[$i]) ." ";
+        }
+
+        return array(
+            'route' => $route,
+            'title' => $newTitle
+        );
+    }
+
+    public function indexView($data){
+        $route = $this->get()['route'];
+        $view = 'pages.'.$route.'.index'; // index page
+        $form = $route.'.create'; // form page
+
+        $pagesize = $this->pagesize();
 
         $params = array(
             // 'breadcrumbs' => $this->breadcrumbs([$title], [$route]),
             'data' => $data,
             'pagesize' => $pagesize,
             'create' => $form,
-            'title' => $title
+            'title' => $this->get()['title'],
+            'icon_for' => $this->controlIcons()
         );
+
+        return view($view, $params);
+    }
+
+    public function formView($params){
+        // $name = ['Menus', 'Create'];
+        // $mode = [route('menus.index'), route('menus.create')];
+        
+        $module = explode('/', $this->get()['route'])[0];
+        $view = 'pages.'.$module.'.form';
+
+        $url = ($params['mode'] == 'update') 
+            ? route($module.'.update', $params['data']->id)
+            : route($module.'.store');
+
+        $title = $this->get()['title'];
+
+        // add to params here
+        $params['title'] = $title;
+        $params['subtitle'] = ucfirst($params['mode']).' '.Str::Singular($title);
+        $params['url'] = $url;
+        // ends here
 
         return view($view, $params);
     }
@@ -178,7 +226,7 @@ class Controller extends BaseController
             $publicFolder = $path;
             $profileImage = $data->getClientOriginalName(); // returns original name
             $extension = $data->getclientoriginalextension(); // returns the file extension
-            $newProfileImage = strtolower(Str::random(20)).'-'.date('Y-m-d').'.'.$extension;
+            $newProfileImage = strtoupper(Str::random(12)).'.'.$extension;
             $move = $data->storeAs($publicFolder, $newProfileImage);
             
             if ($move) {

@@ -20,9 +20,10 @@ class MenuController extends Controller
 
         $columnDefs = array(
             array('headerName' => 'Name', 'field' => 'name'),
-            array('headerName' => 'Image Source', 'field' => 'img_src'),
+            // array('headerName' => 'Image Source', 'field' => 'img_src'),
             array('headerName' => 'Price', 'field' => 'price'),
             array('headerName' => 'Process by cook', 'field' => 'is_processed_by_cook'),
+            array('headerName' => 'Inventoriable', 'field' => 'is_inventoriable'),
             array('headerName' => 'Status', 'field' => 'status'),
             array('headerName' => 'Created By', 'field' => 'created_by'),
             array('headerName' => 'Created At', 'field' => 'created_at'),
@@ -36,32 +37,27 @@ class MenuController extends Controller
         ));
 
         $this->audit_trail_logs();
-
-        $view = 'pages.menus.index';
-        $form = 'menus.create';
         
         // $view = target blade, $form = target form, $module = title of module, $data = datatable
-        return $this->indexView($view, $form, $data);
+        return $this->indexView($data);
     }
 
     public function create()
     {
-        $mode_action = 'create';
-        $name = ['Menus', 'Create'];
-        $mode = [route('menus.index'), route('menus.create')];
-
+        // params here
         $categories = $this->category->select('id', 'name')->active()->ascendingName()->get();
         $subcategories = $this->subcategory->select('id', 'menu_category_id', 'name')->active()->ascendingName()->get();
+        // ends here
 
         $this->audit_trail_logs();
 
-        return view('pages.menus.form', [            
-            'mode' => $mode_action,
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Menus',
+        $params = [
+            'mode' => 'create',
             'categories' => $categories,
             'subcategories' => $subcategories
-        ]);
+        ];
+
+        return $this->formView($params);
     }
 
     /**
@@ -81,7 +77,7 @@ class MenuController extends Controller
             'created_by' => $validated['created_by']
         ))->id;
 
-        if($categoryMenuId){
+        if(!empty($categoryMenuId)){
             unset($validated['menu_category_id']);
             unset($validated['menu_subcategory_id']);
 
@@ -118,7 +114,22 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        // params here
+        $data = $this->menu->find($id);
+        $categories = $this->category->select('id', 'name')->active()->ascendingName()->get();
+        $subcategories = $this->subcategory->select('id', 'menu_category_id', 'name')->active()->ascendingName()->get();
+        // ends here
+
+        $this->audit_trail_logs();
+
+        $params = [
+            'mode' => 'update',
+            'data' => $data,
+            'categories' => $categories,
+            'subcategories' => $subcategories
+        ];
+
+        return $this->formView($params);
     }
 
     /**
@@ -130,7 +141,34 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->menu->findOrFail($id);
+
+        $validated = $this->validator($request);
+        $validated['updated_by'] = Auth::id();
+
+        $categoryMenu = $this->categoryMenu->find($data->category_menu_id);
+        $categoryMenuId = $categoryMenu->id;
+        $categoryMenu->update([
+            'menu_category_id' => $validated['menu_category_id'],
+            'menu_subcategory_id' => $validated['menu_subcategory_id'],
+            'updated_by' => $validated['updated_by']
+        ]);
+
+        unset($validated['menu_category_id']);
+        unset($validated['menu_subcategory_id']);
+
+        $path = ('images/menus');
+        $validated['category_menu_id'] = $categoryMenuId;
+        $validated['img_src'] = (is_null($validated['img_src'])) 
+            ? $data->img_src : $this->uploadImage($validated['img_src'], $path, '', '');
+
+        $data->update($validated);
+
+        $this->audit_trail_logs($request->all());
+
+        return redirect()
+            ->route('menus.index')
+            ->with('success', 'Menu Updated Successfully!');
     }
 
     /**
@@ -141,7 +179,13 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = $this->menu->findOrFail($id)->delete();
+
+        $this->audit_trail_logs();
+
+        return redirect()
+            ->route('menus.index')
+            ->with('success', 'Menu Deleted Successfully!');
     }
 
     public function validator(Request $request)
