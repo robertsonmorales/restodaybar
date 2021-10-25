@@ -2,7 +2,7 @@
 @section('title', $title)
 
 @section('content')
-<form action="{{ ($mode == 'update') ? route('menus.update', $data->id) : route('menus.store') }}"
+<form action="{{ $url }}"
     method="POST"
     class="d-flex flex-column align-items-center mx-4"
     id="card-form"
@@ -11,7 +11,7 @@
     <div class="mb-4 card col-md-6 p-4">    
         @csrf
         <div class="w-100">
-            <h5>{{ ucfirst($mode).' '.\Str::Singular($title) }}</h5>
+            <h5>{{ $subtitle }}</h5>
         </div>
         
         <div class="input-group">
@@ -22,9 +22,14 @@
             id="img_src" 
             autocomplete="off"
             class="form-control @error('img_src') is-invalid @enderror"
-            value="{{ ($mode == "update") ? $data->img_src : old('img_src') }}"
-            required>
-            <img id="img-preview" width="200" height="auto">
+            value="{{ ($mode == "update") ? $data->img_src : old('img_src') }}">
+
+            <img id="img-preview" 
+            width="200" 
+            height="auto"
+            class="{{ ($mode == 'update') ? 'border rounded mt-3' : '' }}" 
+            src="{{ ($mode == 'update') ? asset($data->img_src) : '' }}"
+            alt="{{ ($mode == 'update') ? $data->name : '' }}">
 
             @error('img_src')
             <span class="invalid-feedback" role="alert">
@@ -42,7 +47,11 @@
                 <option value="" style="display: none;">Select category...</option>
 
                 @foreach ($categories as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                <option value="{{ $item->id }}"
+                    {{ ($mode == 'update' && $item->id == $data->categoryMenu->menu_category_id)
+                        ? 'selected'
+                        : ''
+                    }}>{{ $item->name }}</option>
                 @endforeach
             </select>
 
@@ -107,7 +116,8 @@
                 class="custom-control-input" 
                 name="is_processed_by_cook" 
                 id="is_processed_by_cook"
-                style="cursor: pointer;">
+                style="cursor: pointer;"
+                {{ ($mode == 'update' && $data->is_processed_by_cook == 1) ? 'checked' : '' }}>
                 <label class="custom-control-label font-size-sm" for="is_processed_by_cook">Process By Cook/Chef?</label>
             </div>
 
@@ -124,11 +134,12 @@
                 class="custom-control-input" 
                 name="is_inventoriable" 
                 id="is_inventoriable"
-                style="cursor: pointer;">
+                style="cursor: pointer;"
+                {{ ($mode == 'update' && $data->is_inventoriable == 1) ? 'checked' : '' }}>
                 <label class="custom-control-label font-size-sm" for="is_inventoriable">Inventoriable?</label>
             </div>
 
-            @error('is_processed_by_cook')
+            @error('is_inventoriable')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -189,6 +200,7 @@
 <script type="text/javascript">
     var subcategories = @json($subcategories);
     var mode = @json($mode);
+    var subcategory = @json(@$data);
 
     $(() => { $('.select2-selection--single').addClass('form-control'); });
 
@@ -197,24 +209,55 @@
     });
 
     $('#category').on('change', function(){
-        var id = $(this).val(),
-            container = [],
-            content = "";
-
-        $.each(subcategories, function(index, value){
-            if(id == value.menu_category_id){
-                content += "<option value='" + value.id + "'>"+ value.name +"</option>";
-            }
-        });
-
-        $('#subcategory').empty().append(content).prop('disabled', false);
+        getSubcategory($(this), $('#subcategory'));
     }).select2({
         placeholder: "Select category..."
     });
 
-    $('#subcategory').select2({
-        placeholder: "Select subcategory..."
-    });
+    getSubcategory($('#category'), $('#subcategory'));
+
+    function getSubcategory(obj, target){
+        var id = obj.val(),
+            container = [],
+            content = "";
+
+        target.empty();
+
+        if(mode == "update"){
+            var subcategory_menu = subcategory.category_menu.menu_subcategory_id;
+        }
+
+        $.each(subcategories, function(index, value){
+            if(id == value.menu_category_id){
+                var selected = (mode == 'update' && value.id == subcategory_menu) ? 'selected' : '';
+
+                content += "<option value='" + value.id + "' "+ selected +">"+ value.name +"</option>";
+            }
+        });
+
+        target.append(content).prop('disabled', false);
+    }
+
+    // $('#category').select2({
+    //     templateSelection: function (data, container) {
+    //         // Add custom attributes to the <option> tag for the selected option
+    //         $(data.element).attr('data-custom-attribute', data.customValue);
+    //         return data.text;
+    //     }
+    // });
+    
+    // $('#category').find(':selected').data('custom-attribute');
+
+    // $('#subcategory').select2({
+    //     placeholder: "Select subcategory...",
+    //     templateSelection: function (data, container) {
+    //         // Add custom attributes to the <option> tag for the selected option
+    //         $(data.element).attr('data-custom-attribute', data.customValue);
+    //         return data.text;
+    //     }
+    // });
+
+    // $('#subcategory').find(':selected').data('custom-attribute').prop('disabled', false);
 
     $('#card-form').on('submit', function(){
         $('.actions button').prop('disabled', true);
@@ -242,23 +285,11 @@
                 $('#img-preview')
                 .attr('src', e.target.result)
                 .attr('alt', filename)
-                .addClass('rounded mt-3');
+                .addClass('border rounded mt-3');
             }
 
             reader.readAsDataURL(image.files[0]);
         }
     }
-
-    // $('#icon').select2({
-    //   // ...
-    //   templateSelection: function (data, container) {
-    //     // Add custom attributes to the <option> tag for the selected option
-    //     $(data.element).attr('data-custom-attribute', data.customValue);
-    //     return data.text;
-    //   }
-    // });
-
-    // Retrieve custom attribute value of the first selected element
-    // $('#icon').find(':selected').data('custom-attribute');
 </script>
 @endsection

@@ -52,7 +52,8 @@
 <script>
 $(document).ready(function(){
     var data = @json($data, JSON_PRETTY_PRINT);
-    data = JSON.parse(data);
+    var icon_for = @json($icon_for, JSON_PRETTY_PRINT);
+        data = JSON.parse(data);
     
     var gridDiv = document.querySelector('#myGrid');
 
@@ -67,17 +68,14 @@ $(document).ready(function(){
         minWidth: 210,
         // pinned: 'left',
         cellRenderer: function(params){
-            var edit_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>';
-            var trash_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>';
-
             var edit_url = '{{ route("menus.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
             eDiv.className = "d-flex align-items-center";
 
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit User" class="btn btn-controls btn-primary btn-edit ml-1">'+ edit_icon +'</button>&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete User" class="btn btn-controls btn-danger btn-remove">'+ trash_icon +'</button>&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-controls btn-primary btn-edit ml-1">'+ icon_for['edit'] +'</button>&nbsp;&nbsp;';
+            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-controls btn-danger btn-remove">'+ icon_for['remove'] +'</button>&nbsp;';
 
             var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
             var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
@@ -95,20 +93,6 @@ $(document).ready(function(){
             return eDiv;
         }
     };
-
-    for (var i = data.column.length - 1; i >= 0; i--) {       
-        if (data.column[i].field == "color_tag") {
-            data.column[i].cellRenderer = function display(params) {
-                if (params.data.color_tag) {
-                    return renderTag(params.data.color_tag);
-                }
-            }
-        }
-    }
-
-    function renderTag(color){
-        return "<span class='badge text-white p-2 font-size-sm' style='background-color: " + color + ";'>" + color + "</span>";
-    }
 
     data.column.push(columnDefs);
 
