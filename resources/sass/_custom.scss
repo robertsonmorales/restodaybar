@@ -11,8 +11,17 @@
     font-weight: 600 !important;
 }
 
+h3{
+    font-weight: 500;
+    color: $dark;
+}
+
 .close{
     outline: none !important;
+}
+
+.btn{
+    border-radius: $radius !important;
 }
 
 .list-group{
@@ -28,8 +37,8 @@
         background-color: transparent;
     
         &:hover{
-            background-color: $light;
-            color: $primary;
+            background-color: $primary;
+            color: $light;
             box-shadow: $shadow-sm;
             font-weight: 500;
         }

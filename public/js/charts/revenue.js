@@ -1,33 +1,27 @@
-var axisStyles = {
-    fontWeight: 500,
-    fontFamily: ['Poppins', 'Montserrat', 'Sans-serif'],
-    color: '#3e4044'
-}
-
-var animationOptions = {
+var animations = {
     enabled: true,
-    easing: 'easeinout',
+    easing: 'easein',
     speed: 800,
     animateGradually: {
         enabled: true,
-        delay: 150
+        // delay: 150
     },
     dynamicAnimation: {
-        enabled: true,
-        speed: 350
+       enabled: true,
+       speed: 350
     }
 };
 
-var chartOoptions = {
-    type: 'bar',
-    stacked: true,
+var chartOptions = {
+    type: 'area',
+    stacked: false,
     markers: {
-        size: 3,
+        size: 4,
     },
-    animations: animationOptions,
+    animations: animations,
     toolbar: {
         show: false,
-    }
+    },
 };
 
 var gridOptions = {
@@ -53,63 +47,137 @@ var strokeOptions = {
 }
 
 var fillOptions = {
-    show: false,
-    // opacity: 1,
-    // type: 'gradient'
+    opacity: 1,
+    type: 'gradient'
 }
 
-var dataLabelsOptions = {
-    enabled: false,
-    formatter: function(value){
-        return '$' + value;             
-    }
-};
-
-var tooltipOptions = {
-    followCursor: true,
-    shared: true,
-    intersect: false,
-    y: {
-        formatter: function (y) {
-            if (typeof y !== "undefined") {
-                return "$" + y.toFixed(0);
-            }
-            
-            return y;
-        }
-    },
-    style: axisStyles
-};
+var axisStyles = {
+    fontFamily: ['Poppins', 'Montserrat', 'Sans-serif'],
+    color: '#3e4044'
+}
 
 var options = {
-    colors: ["#0061f2"],
-    series: [
-        {
-            name: 'Revenue',
-            data: [100, 3000, 1000, 5000, 7000, 4000, 5000, 7300, 2000, 13300, 5000, 14000],
-        },
-    ],
-    xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        labels: {
-            style: axisStyles,
+    colors: ["#4caf50"],
+    series: [],
+    noData: {
+        text: 'Loading...',
+        align: 'center',
+        verticalAlign: 'middle'
+    },
+    title: {
+        text: 'Revenue Breakdown',
+        style: {
+            fontFamily: ['Poppins', 'Montserrat', 'Sans-serif'],
+            fontWeight: 'normal',
+            color: '#3e4044'
         }
     },
+    chart: chartOptions,
+    grid: gridOptions,
+    stroke: strokeOptions,
+    fill: fillOptions,
+    xaxis: {},
     yaxis: {
         labels: {
             formatter: function (value) {
-                return "$" + value
+                return "$" + initials(value)
             },
             style: axisStyles
         }
     },
-    chart: chartOoptions,
-    grid: gridOptions,
-    stroke: strokeOptions,
-    fill: fillOptions,
-    dataLabels: dataLabelsOptions,
-    tooltip: tooltipOptions
+    dataLabels: { 
+        enabled: false,
+        formatter: function(value){
+            return '$' + separator(value);             
+        }
+    },
+    tooltip: {
+        followCursor: true,
+        shared: true,
+        intersect: false,
+        y: {
+            formatter: function (y) {
+                if (typeof y !== "undefined") {
+                    return "$" + separator(y.toFixed(0));
+                }
+                
+                return y;
+            }
+        },
+        style: axisStyles
+    }
+};
+
+var el = document.getElementById("revenue-chart");
+var revenue_chart = new ApexCharts(el, options);
+revenue_chart.render();
+
+axios.get('api/dashboard')
+.then((res) => {
+    var data = res.data.data;
+    var months = res.data.months;
+
+    revenue_chart.updateOptions({
+        series: [{
+            name: 'Revenue',
+            data: data, // import
+        }],
+        xaxis: {
+            categories: months, // import
+            labels: {
+                style: axisStyles,
+            }
+        }
+    })
+});
+
+function separator(data){
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-var revenueChart = new ApexCharts(document.querySelector("#revenue-chart"), options);
-revenueChart.render();
+function initials(val){
+    var unit = '';
+    if(val != ""){
+        
+        var new_val = separator(val);
+        var place_value = new_val.split(',');           
+
+        if (place_value.length == 1) {
+            unit = '';
+        }
+
+        if (place_value.length == 2) {
+            unit = 'K';
+        }
+
+        // if(place_value.length == 3){
+        //     unit = 'M';
+        // }
+
+        // if(place_value.length == 4){
+        //     unit = 'B';
+        // }
+
+        var get_initial = place_value[0];
+        var new_initials;
+        var new_second_initial;
+
+        if(place_value.length < 2){
+            new_initials = get_initial;
+        }else{
+            var get_second_initial = place_value[1]; // with .5M
+
+            if(get_second_initial.split('')[0] != 0){
+                new_second_initial = get_second_initial.split('')[0];
+                
+                new_initials = get_initial + '.' + new_second_initial + 'M';
+            }else{
+                new_initials = get_initial + unit;
+            }
+        }
+
+        return new_initials;
+    }
+
+    return 0;
+}

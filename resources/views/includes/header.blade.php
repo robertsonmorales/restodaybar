@@ -1,6 +1,6 @@
 @auth
-<div class="sticky-top">
-    <nav class="px-4 py-2">
+<div class="sticky-top mx-4 my-3">
+    <nav class="px-3 py-2">
         <div class="row no-gutters align-items-center">
             <button class="btn btn-light btn-menu" 
                 type="button" 
