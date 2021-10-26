@@ -44,4 +44,18 @@ class ApiController extends Controller
 
         return $rows;
     }
+
+    public function dashboard(){
+        $months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        $data = array();
+
+        for ($i=0; $i < 12; $i++) { 
+            $data[] = mt_rand(10000, 99999);
+        }
+
+        return array(
+            'months' => $months,
+            'data' => $data
+        );
+    }
 }

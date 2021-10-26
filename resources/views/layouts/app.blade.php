@@ -30,9 +30,9 @@
             @include('includes.breadcrumb')
             @yield('content')
 
-            <div class="footer mx-4 text-center sticky-bottom">
+            <!-- <div class="footer mx-4 text-center sticky-bottom">
                 <p class="font-size-sm text-muted">All rights reserved 2021, Robertson Morales</p>
-            </div>
+            </div> -->
         </main>
     </div>
 

@@ -1,6 +1,6 @@
 #sidebar{
     overflow-y: auto;
-    background: linear-gradient(to bottom, $primary, $primary, $secondary);
+    background: $secondary;
     box-shadow: $shadow;
     width: 320px;
 }
