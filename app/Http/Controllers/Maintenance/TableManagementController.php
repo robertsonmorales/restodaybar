@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Maintenance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Traits\AuditLogTraits;
 
 use Validator, Arr, Auth;
 
-class MenuCategoryController extends Controller
+class TableManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +15,12 @@ class MenuCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $rows = $this->changeValue($this->category->latest()->get());
+    {
+        $rows = $this->changeValue($this->tableManagement->latest()->get());
 
         $columnDefs = array(            
             array('headerName'=>'Name','field'=>'name'),
-            array('headerName'=>'Icon','field'=>'icon'),
-            array('headerName'=>'Color Tag','field'=>'color_tag'),
+            array('headerName'=>'No. of Seats','field'=>'no_seats'),
             array('headerName' => 'Status', 'field' => 'status'),
             array('headerName' => 'Created By', 'field' => 'created_by'),
             array('headerName' => 'Created At', 'field' => 'created_at'),
@@ -66,13 +64,11 @@ class MenuCategoryController extends Controller
         $validated = $this->validator($request);
         $validated['created_by'] = Auth::id();
 
-        $this->category->create($validated);
+        $this->tableManagement->create($validated);
 
         $this->audit_trail_logs($request->all());
 
-        return redirect()
-            ->route('menu_categories.index')
-            ->with('success', 'Menu Category Added Successfully!');
+        return $this->redirectToIndex();
     }
 
     /**
@@ -95,7 +91,7 @@ class MenuCategoryController extends Controller
     public function edit($id)
     {
         // params here
-        $data = $this->category->findOrFail($id);
+        $data = $this->tableManagement->findOrFail($id);
         // ends here
 
         $this->audit_trail_logs();
@@ -120,13 +116,11 @@ class MenuCategoryController extends Controller
         $validated = $this->validator($request);
         $validated['updated_by'] = Auth::id();
 
-        $data = $this->category->find($id)->update($validated);
+        $data = $this->tableManagement->find($id)->update($validated);
 
         $this->audit_trail_logs($request->all());
 
-        return redirect()
-            ->route('menu_categories.index')
-            ->with('success', 'Menu Category Updated Successfully!');
+        return $this->redirectToIndex();
     }
 
     /**
@@ -137,28 +131,24 @@ class MenuCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $data = $this->category->findOrFail($id)->delete();
+        $data = $this->tableManagement->findOrFail($id)->delete();
 
         $this->audit_trail_logs();
 
-        return redirect()
-            ->route('menu_categories.index')
-            ->with('success', 'Menu Category Deleted Successfully!');
+        return redirectToIndex();
     }
 
     public function validator(Request $request)
     {
         $input = [
             'name' => $this->safeInputs($request->input('name')),
-            'icon' => $this->safeInputs($request->input('icon')),
-            'color_tag' => $this->safeInputs($request->input('color_tag')),
+            'no_seats' => $this->safeInputs($request->input('no_seats')),
             'status' => $this->safeInputs($request->input('status'))
         ];
 
         $rules = [
-            'name' => 'required|string|unique:menu_categories,name,'.$this->safeInputs($request->input('id')),
-            'icon' => 'nullable|string|unique:menu_categories,icon,'.$this->safeInputs($request->input('id')),
-            'color_tag' => 'required|string',
+            'name' => 'required|string|unique:table_management,name,'.$this->safeInputs($request->input('id')),
+            'no_seats' => 'required|numeric',
             'status' => 'required|numeric'
         ];
 
@@ -166,8 +156,7 @@ class MenuCategoryController extends Controller
 
         $customAttributes = [
             'name' => 'name',
-            'icon' => 'icon',
-            'color_tag' => 'color tag',
+            'no_seats' => 'no_seats',
             'status' => 'status'
         ];
 

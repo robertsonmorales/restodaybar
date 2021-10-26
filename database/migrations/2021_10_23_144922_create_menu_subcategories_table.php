@@ -15,11 +15,11 @@ class CreateMenuSubcategoriesTable extends Migration
     {
         Schema::create('menu_subcategories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_category_id');
+            $table->foreignId('menu_category_id')->index('menu_category_id');
             $table->string('name')->nullable();
             $table->enum('status', [1, 0])->default(1)->nullable();
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->integer('updated_by')->unsigned()->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }

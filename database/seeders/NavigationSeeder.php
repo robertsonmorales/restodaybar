@@ -51,6 +51,7 @@ class NavigationSeeder extends Seeder
                     array('Menu Categories', 'menu_categories', 'Maintenance\MenuCategory', 'circle', 'sub'),
                     array('Menu Subcategories', 'menu_subcategories', 'Maintenance\MenuSubcategory', 'circle', 'sub'),
                     array('Menus', 'menus', 'Maintenance\Menu', 'circle', 'sub'),
+                    array('Table Management', 'table_management', 'Maintenance\TableManagement', 'circle', 'sub'),
                 )
             )
         );

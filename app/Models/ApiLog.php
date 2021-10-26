@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ApiLog extends Model
 {
     use HasFactory;
+
+    protected $table = 'api_logs';
+
+    protected $fillable = [
+        'method', 'api', 'params', 'response', 'ip', 'device'
+    ];
 }

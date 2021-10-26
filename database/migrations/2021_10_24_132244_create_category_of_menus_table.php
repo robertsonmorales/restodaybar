@@ -15,8 +15,8 @@ class CreateCategoryOfMenusTable extends Migration
     {
         Schema::create('category_of_menus', function (Blueprint $table) {
             $table->id();
-            $table->integer('menu_category_id')->unsigned();
-            $table->integer('menu_subcategory_id')->unsigned();
+            $table->foreignId('menu_category_id')->index('menu_category_id');
+            $table->foreignId('menu_subcategory_id')->index('menu_subcategory_id');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

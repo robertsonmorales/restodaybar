@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_level_id');
+            $table->foreignId('user_level_id')->index('user_level_id');
             $table->string('profile_image')->nullable();
             $table->string('profile_image_updated_at')->nullable();
             $table->timestamp('profile_image_expiration_date')->nullable();

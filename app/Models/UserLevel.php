@@ -13,7 +13,15 @@ class UserLevel extends Model
 
     protected $table = "user_levels";
 
+    // scope here
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
+    // ends here
+
+    // relationship here
     public function user(){
         return $this->belongsTo(User::class);
     }
+    // ends here
 }

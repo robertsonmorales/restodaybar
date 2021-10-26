@@ -20,4 +20,8 @@ class Navigation extends Model
     public function scopeActiveNav($query){
         return $query->where('status', 1);
     }
+
+    public function scopeIsSingleOrMain($query){
+        return $query->whereIn('nav_type', ['main', 'single']);
+    }
 }

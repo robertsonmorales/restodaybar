@@ -14,7 +14,7 @@
             <div class="position-relative mr-2">
                 <input type="text" name="search-filter" class="form-control font-size-sm" id="search-filter" placeholder="Search here..">
                 <span class="position-absolute icon"><i data-feather="search"></i></span>
-            </div>a
+            </div>
 
             <div class="btn-group">
                 <button class="btn text-dark btn-dropdown rounded d-flex align-items-center font-size-sm" data-toggle="dropdown">
@@ -60,7 +60,7 @@ $(document).ready(function(){
 
     var columnDefs = [];
     columnDefs = {
-        headerName: 'CONTROLS',
+        headerName: 'Controls',
         field: 'controls',
         sortable: false,
         filter: false,
@@ -69,7 +69,7 @@ $(document).ready(function(){
         minWidth: 210,
         // pinned: 'left',
         cellRenderer: function(params){
-            var edit_url = '{{ route("menu_categories.edit", ":id") }}';
+            var edit_url = '{{ route("table_management.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);
 
             var eDiv = document.createElement('div');
@@ -94,20 +94,6 @@ $(document).ready(function(){
             return eDiv;
         }
     };
-
-    for (var i = data.column.length - 1; i >= 0; i--) {       
-        if (data.column[i].field == "color_tag") {
-            data.column[i].cellRenderer = function display(params) {
-                if (params.data.color_tag) {
-                    return renderTag(params.data.color_tag);
-                }
-            }
-        }
-    }
-
-    function renderTag(color){
-        return "<span class='badge text-white p-2 font-size-sm' style='background-color: " + color + ";'>" + color + "</span>";
-    }
 
     data.column.push(columnDefs);
 
@@ -210,7 +196,7 @@ $(document).ready(function(){
         $('#btn-import-cancel').prop('disabled', true);
         $(this).prop('disabled', true);
         $(this).html("Importing File..");
-        document.getElementById("import-form-submit").action = "{{ route('menu_categories.import') }}";
+        document.getElementById("import-form-submit").action = "{{ route('table_management.import') }}";
         document.getElementById("import-form-submit").submit(); 
     });
     // ends here
@@ -220,7 +206,7 @@ $(document).ready(function(){
     });
 
     $('#btn-remove').on('click', function(){
-        var destroy = '{{ route("menu_categories.destroy", ":id") }}';
+        var destroy = '{{ route("table_management.destroy", ":id") }}';
         url = destroy.replace(':id', $('.modal-content').attr('id'));
 
         $('#btn-cancel').prop('disabled', true);

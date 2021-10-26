@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\UserLevel;
-use Carbon\Carbon;
 
 class UserLevelSeeder extends Seeder
 {
@@ -16,18 +15,17 @@ class UserLevelSeeder extends Seeder
      */
     public function run()
     {
-        UserLevel::insert([
+        UserLevel::create([
             'name' => 'Developer',
             'description' => 'This is for all developer users',
             'modules' => '1,2,5,8,11,',
-            'sub_modules' => '3,4,6,7,9,10,12,13,14',
-            'create' => '3,4,6,7,9,10,12,13,14',
-            'edit' => '3,4,6,7,9,10,12,13,14',
-            'delete' => '3,4,6,7,9,10,12,13,14',
-            'import' => '3,4,6,7,9,10,12,13,14',
-            'export' => '3,4,6,7,9,10,12,13,14',
-            'status' => 1,
-            'created_at' => now(),
+            'sub_modules' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'create' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'edit' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'delete' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'import' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'export' => '3,4,6,7,9,10,12,13,14,15,16,17',
+            'status' => 1
         ]);
     }
 }

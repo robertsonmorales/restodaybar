@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'no-cache' => \Mitnick\Laravel\Security\cache::class,
+
         'cors' => \Mitnick\Laravel\Security\cors::class,
         'cross-domain' => \Mitnick\Laravel\Security\crossDomain::class,
         'dns' => \Mitnick\Laravel\Security\dns::class,
@@ -70,6 +71,6 @@ class Kernel extends HttpKernel
         'hsts' => \Mitnick\Laravel\Security\hsts::class,
         'no-sniff' => \Mitnick\Laravel\Security\noSniff::class,
         'x-powered-by' => \Mitnick\Laravel\Security\xPoweredBy::class,
-        'xss' => \Mitnick\Laravel\Security\xss::class,    
+        'xss' => \Mitnick\Laravel\Security\xss::class,
     ];
 }
