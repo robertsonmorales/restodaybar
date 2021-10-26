@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_menu_id');
+            $table->foreignId('category_menu_id')->index('category_menu_id');
             $table->string('img_src')->nullable();
             $table->string('name')->nullable();
             $table->double('price', 8, 2)->nullable();

@@ -17,7 +17,7 @@ class MenuCategory extends Model
         "name", "icon", "color_tag", "status", "created_by", "updated_by"
     ];
 
-    // SCOPE
+    // scoping here
     public function scopeActive($query){
         return $query->where('status', 1);
     }
@@ -26,11 +26,22 @@ class MenuCategory extends Model
         return $query->orderBy('name', 'asc');
     }
 
+    public function scopeSelectedFields($query, $set = true){
+        if($set == true){
+            return $query->select('id', 'name', 'icon', 'color_tag');
+        }
+    }
+    // ends here
+
+    // mutators here
     public function setNameAttribute($value){
         return $this->attributes['name'] = ucFirst($value);
     }
+    // ends here
 
+    // relationships here
     public function menuSubcategories(){
-        return $this->hasMany(MenuSubcategory::class);
+        return $this->hasMany(MenuSubcategory::class, 'menu_category_id', 'id');
     }
+    // ends here
 }

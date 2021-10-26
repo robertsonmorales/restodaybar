@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use DB;
+use App\Models\{MenuCategory, MenuSubcategory};
 
 class MenuCategorySeeder extends Seeder
 {
@@ -15,36 +15,38 @@ class MenuCategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('menu_categories')->insert([
+        $category = array([
             'name' => 'Silog',
             'icon' => 'circle',
             'color_tag' => 'orange',
             'status' => 1
-        ]);
-        
-        DB::table('menu_categories')->insert([
+        ], [
             'name' => 'Sizzling',
             'icon' => 'user-check',
             'color_tag' => 'red',
             'status' => 1
         ]);
 
-        DB::table('menu_subcategories')->insert([
+        for ($i=0; $i < count($category); $i++) { 
+            MenuCategory::create($category[$i]);   
+        }
+
+        $subcategory = array([
             'menu_category_id' => 1,
             'name' => 'Good for two',
             'status' => 1
-        ]);
-        
-        DB::table('menu_subcategories')->insert([
+        ], [
             'menu_category_id' => 1,
             'name' => 'Family Meal',
             'status' => 1
-        ]);
-
-        DB::table('menu_subcategories')->insert([
+        ], [
             'menu_category_id' => 2,
             'name' => 'Family Meal',
             'status' => 1
         ]);
+
+        for ($i=0; $i < count($subcategory); $i++) { 
+            MenuSubcategory::create($subcategory[$i]);   
+        }
     }
 }

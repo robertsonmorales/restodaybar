@@ -14,33 +14,14 @@
         </div>
 
         <div class="input-group">
-            <label for="name">Category</label>
-            <select name="menu_category"
-                id="menu_category"
-                class="custom-select form-control @error('menu_category') is-invalid @enderror"
-                required>
-                <option value="" style="display: none;">Select category...</option>
-                @foreach ($categories as $item)
-                <option value="{{ $item->id }}" {{ ($mode == "update" && $data->menuCategory->id == $item->id) ? 'selected' : '' }}>{{ $item->name }}</option>
-                @endforeach
-            </select>
-
-            @error('menu_category')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-        
-        <div class="input-group">
             <label for="name">Name</label>
             <input type="text" 
-            name="name" 
-            id="name" 
-            autocomplete="off"
-            class="form-control @error('name') is-invalid @enderror"
-            value="{{ ($mode == "update") ? $data->name : old('name') }}"
-            required>
+                name="name" 
+                id="name" 
+                autocomplete="off"
+                class="form-control @error('name') is-invalid @enderror"
+                value="{{ ($mode == "update") ? $data->name : old('name') }}"
+                required>
 
             @error('name')
             <span class="invalid-feedback" role="alert">
@@ -50,11 +31,28 @@
         </div>
 
         <div class="input-group">
+            <label for="no_seats">No. of Seats</label>
+            <input type="text" 
+                name="no_seats" 
+                id="no_seats" 
+                autocomplete="off"
+                class="form-control @error('no_seats') is-invalid @enderror"
+                value="{{ ($mode == "update") ? $data->no_seats : old('no_seats') }}"
+                required>
+
+            @error('no_seats')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+
+        <div class="input-group">
             <label for="status">Status</label>
             <select name="status" 
-            id="status" 
-            class="custom-select form-control @error('status') is-invalid @enderror"
-            required>
+                id="status" 
+                class="custom-select form-control @error('status') is-invalid @enderror"
+                required>
                 <option value="1" {{ ($mode == 'update' && $data->status == 1) ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ ($mode == 'update' &&  $data->status == 0) ? 'selected' : '' }}>In-active</option>
             </select>
@@ -69,8 +67,8 @@
         @if ($mode == 'update')
         @method('PUT')
         <input type="hidden" 
-        name="id" 
-        value="{{ ($mode == 'update') ? $data->id : ''}}">
+            name="id" 
+            value="{{ ($mode == 'update') ? $data->id : ''}}">
         @endif
 
         <div class="actions w-100">
@@ -101,24 +99,23 @@
 @section('scripts')
 <script type="text/javascript">
     var mode = @json($mode);
-    var index_page = @json(route('menu_subcategories.index'));
-    $(() => { $('.select2-selection--single').addClass('form-control'); });
+    var = index_page = @json(route('table_management.index'));
+
+    $(() => {
+        $('.select2-selection--single').addClass('form-control');
+
+        $('#card-form').on('submit', function(){
+            $('.actions button').prop('disabled', true);
+            $('.actions button').css('cursor', 'not-allowed');
+
+            $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
+
+            $(this).submit();
+        });
+    });
 
     $('#btn-back').on('click', function(){
         window.location.href = index_page;
-    });
-
-    $('#menu_category').select2({
-        placeholder: "Select category...",
-    });
-
-    $('#card-form').on('submit', function(){
-        $('.actions button').prop('disabled', true);
-        $('.actions button').css('cursor', 'not-allowed');
-
-        $('#btn-submit').html((mode == "update") ? "Submitting Changes.." : "Submitting..");
-
-        $(this).submit();
     });
 </script>
 @endsection

@@ -18,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::get('/get_data', [App\Http\Controllers\ApiController::class, 'getData']);
+Route::middleware('cors')->group(function(){
+	Route::get('fetch_menu_categories', [App\Http\Controllers\APIs\ApiController::class, 'fetchCategories']);
+	Route::get('fetch_menu_subcategories', [App\Http\Controllers\APIs\ApiController::class, 'fetchSubcategories']);
+});

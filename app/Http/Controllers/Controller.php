@@ -14,17 +14,20 @@ use Purifier;
 
 use App\Models\{User, UserLevel, AuditTrailLogs, 
     MenuCategory, MenuSubcategory, CategoryOfMenu,
-    Menu};
+    Menu, TableManagement, ApiLog};
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $user, $userLevel, $auditLogs, $category, $subcategory, $categoryMenu, $menu;
+    protected $user, $userLevel, $auditLogs,
+        $category, $subcategory, $categoryMenu,
+        $menu, $tableManagement, $apiLog;
 
     public function __construct(User $user, UserLevel $userLevel,
         AuditTrailLogs $auditLogs, MenuCategory $category,
-        MenuSubcategory $subcategory, CategoryOfMenu $categoryMenu, Menu $menu){
+        MenuSubcategory $subcategory, CategoryOfMenu $categoryMenu, Menu $menu,
+        TableManagement $tableManagement, ApiLog $apiLog){
 
         config('app.timezone', 'Manila/Asia');
 
@@ -35,15 +38,14 @@ class Controller extends BaseController
         $this->subcategory = $subcategory;
         $this->categoryMenu = $categoryMenu;
         $this->menu = $menu;
+        $this->tableManagement = $tableManagement;
+        $this->apiLog = $apiLog;
+
+        $this->route = $this->get()['route'];
+        $this->title = $this->get()['title'];
     }
 
-    public function controlIcons(){
-        return array(
-            'edit' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
-            'remove' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>'
-        );
-    }
-
+    // get routes and modules
     public function get(){
         $route = Route::getFacadeRoot()->current()->uri();
         $title = ucfirst(explode('/', $route)[0]);
@@ -61,8 +63,9 @@ class Controller extends BaseController
         );
     }
 
+    // index page view
     public function indexView($data){
-        $route = $this->get()['route'];
+        $route = $this->route;
         $view = 'pages.'.$route.'.index'; // index page
         $form = $route.'.create'; // form page
 
@@ -73,13 +76,21 @@ class Controller extends BaseController
             'data' => $data,
             'pagesize' => $pagesize,
             'create' => $form,
-            'title' => $this->get()['title'],
+            'title' => $this->title,
             'icon_for' => $this->controlIcons()
         );
 
         return view($view, $params);
     }
 
+    // index page redirection
+    public function redirectToIndex(){
+        $route = explode('/', $this->route)[0];
+        return redirect()->route($route.'.index')
+            ->with('success', $this->title.' Added Successfully!');
+    }
+
+    // form view
     public function formView($params){
         // $name = ['Menus', 'Create'];
         // $mode = [route('menus.index'), route('menus.create')];
@@ -123,7 +134,7 @@ class Controller extends BaseController
         return $_ipAddress;
     }
 
-    // Audit trails
+    // audit trails
     public function audit_trail_logs($remarks = null){
         $route = Route::getFacadeRoot()->current()->uri();
         $module = strtoupper(explode('/', $route)[0]); // GET MODULE
@@ -138,7 +149,7 @@ class Controller extends BaseController
             $device = "";
         }
 
-        $audit = array(
+        $result = array(
             'route' => $route,
             'module' => $module,
             'method' => $method,
@@ -148,7 +159,29 @@ class Controller extends BaseController
             'device' => $device
         );
 
-        AuditTrailLogs::create($audit);
+        AuditTrailLogs::create($result);
+    }
+
+    public function apiLog($data, $params = null){
+        $method = $_SERVER['REQUEST_METHOD'];
+        $route = Route::getFacadeRoot()->current()->uri();
+
+        if(exec('getmac') == "N/A Media disconnected"){
+            $device = exec('getmac');
+        }else{
+            $device = "";
+        }
+
+        $result = array(
+            'method' => $method,
+            'api' => $route,
+            'params' => $params,
+            'response' => $data,
+            'ip' => $this->ipAddress(),
+            'device' => $device
+        );
+        
+        $this->apiLog->create($result);
     }
     
     // Breadcrumbs
@@ -188,25 +221,18 @@ class Controller extends BaseController
             if(Arr::exists($value, 'created_by')){
                 $users = User::find($value['created_by']);
                 $value['created_by'] = @$users->username;
-                // array(
-                //     'username' => @$users->username,
-                //     'profile_image' => @$user->profile_image
-                // );
             }
 
             if(Arr::exists($value, 'updated_by')){
                 $users = User::find($value['updated_by']);
                 $value['updated_by'] = @$users->username;
-                // array(
-                //     'username' => @$users->username,
-                //     'profile_image' => @$user->profile_image
-                // );
             }
         }
 
         return $rows;
     }
 
+    // generate controller and model for navigation
     public function generateNavigationFiles($model, $controller, $type, $folder){
         $controller = $folder.'/'.$controller.'Controller';
 
@@ -221,6 +247,7 @@ class Controller extends BaseController
         ]);
     }
 
+    // image upload
     public function uploadImage($data, $path, $width, $height){
         if ($data->isValid()) {
             $publicFolder = $path;
@@ -233,5 +260,13 @@ class Controller extends BaseController
                 return $newProfileImage;
             }
         }
+    }
+
+    // icons in index page
+    public function controlIcons(){
+        return array(
+            'edit' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
+            'remove' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>'
+        );
     }
 }

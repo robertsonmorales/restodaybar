@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuCategoriesTable extends Migration
+class CreateTableManagementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMenuCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_categories', function (Blueprint $table) {
+        Schema::create('table_management', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('color_tag')->nullable();
+            $table->integer('no_seats')->nullable();
             $table->enum('status', [1, 0])->default(1)->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -32,6 +31,6 @@ class CreateMenuCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_categories');
+        Schema::dropIfExists('table_management');
     }
 }

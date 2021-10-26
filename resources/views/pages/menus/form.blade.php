@@ -171,8 +171,7 @@
         @endif
 
         <div class="actions w-100">
-            <button type="button"
-            onclick="redirect('{{ route('menus.index') }}')" 
+            <button type="button" 
             class="btn btn-outline-primary mr-1" 
             id="btn-back">Back</button>
 
@@ -201,6 +200,7 @@
     var subcategories = @json($subcategories);
     var mode = @json($mode);
     var subcategory = @json(@$data);
+    var = index_page = @json(route('table_management.index'));
 
     $(() => { $('.select2-selection--single').addClass('form-control'); });
 
@@ -214,7 +214,38 @@
         placeholder: "Select category..."
     });
 
-    getSubcategory($('#category'), $('#subcategory'));
+    $('#btn-back').on('click', function(){
+        window.location.href = index_page;
+    });
+
+    $('#card-form').on('submit', function(){
+        $('.actions button').prop('disabled', true);
+        $('.actions button').css('cursor', 'not-allowed');
+
+        $('#btn-submit').html((mode == "update") 
+            ? "Submitting Changes.."
+            : "Submitting.."
+        );
+
+        $(this).submit();
+    });
+
+    function loadImage(src){
+        if(src != ""){
+            var filename = src.split('\\').reverse()[0];
+            var image = $('#img_src')[0];
+            var reader = new FileReader();
+              
+            reader.onload = function (e) {
+                $('#img-preview')
+                .attr('src', e.target.result)
+                .attr('alt', filename)
+                .addClass('border rounded mt-3');
+            }
+
+            reader.readAsDataURL(image.files[0]);
+        }
+    }
 
     function getSubcategory(obj, target){
         var id = obj.val(),
@@ -238,58 +269,6 @@
         target.append(content).prop('disabled', false);
     }
 
-    // $('#category').select2({
-    //     templateSelection: function (data, container) {
-    //         // Add custom attributes to the <option> tag for the selected option
-    //         $(data.element).attr('data-custom-attribute', data.customValue);
-    //         return data.text;
-    //     }
-    // });
-    
-    // $('#category').find(':selected').data('custom-attribute');
-
-    // $('#subcategory').select2({
-    //     placeholder: "Select subcategory...",
-    //     templateSelection: function (data, container) {
-    //         // Add custom attributes to the <option> tag for the selected option
-    //         $(data.element).attr('data-custom-attribute', data.customValue);
-    //         return data.text;
-    //     }
-    // });
-
-    // $('#subcategory').find(':selected').data('custom-attribute').prop('disabled', false);
-
-    $('#card-form').on('submit', function(){
-        $('.actions button').prop('disabled', true);
-        $('.actions button').css('cursor', 'not-allowed');
-
-        $('#btn-submit').html((mode == "update") 
-            ? "Submitting Changes.."
-            : "Submitting.."
-        );
-
-        $(this).submit();
-    });
-
-    function redirect(route){
-        window.location.href = route;
-    }
-
-    function loadImage(src){
-        if(src != ""){
-            var filename = src.split('\\').reverse()[0];
-            var image = $('#img_src')[0];
-            var reader = new FileReader();
-              
-            reader.onload = function (e) {
-                $('#img-preview')
-                .attr('src', e.target.result)
-                .attr('alt', filename)
-                .addClass('border rounded mt-3');
-            }
-
-            reader.readAsDataURL(image.files[0]);
-        }
-    }
+    getSubcategory($('#category'), $('#subcategory'));
 </script>
 @endsection
