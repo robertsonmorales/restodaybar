@@ -22,6 +22,7 @@
     
         .form-control{
             padding-left: 35px !important;
+            border-radius: $radius !important;
 
             &:focus{
                 font-weight: 500;

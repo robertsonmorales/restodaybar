@@ -34,6 +34,19 @@ class ApiController extends Controller
         return response()->json($return);
     }
 
+    public function fetchTableManagment(){
+        $data = $this->tableManagement->active()->selectedFields()->get();
+
+        $this->apiLog($data);
+
+        $return = empty($data)
+            ? array('message' => 'No records found')
+            : $data;
+
+        return response()->json($return);
+    }
+
+    // accessor
     public function changeValue($rows){
         foreach ($rows as $key => $value) {
             if (Arr::exists($value, 'menu_category_id')) {

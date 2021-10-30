@@ -15,7 +15,7 @@
         <div class="nav-icons">
             <!-- alerts center -->
             <div class="btn-group mr-2">
-                <button class="btn btn-dropdown rounded-circle" 
+                <button class="btn btn-light btn-dropdown" 
                 data-toggle="dropdown"
                 title="Alerts">
                     <span><i data-feather="bell"></i></span>
@@ -65,7 +65,7 @@
 
             <!-- message center -->
             <div class="btn-group mr-4">
-                <button class="btn btn-dropdown rounded-circle" 
+                <button class="btn btn-light btn-dropdown" 
                     data-toggle="dropdown"
                     title="Messages">
                     <span><i data-feather="message-circle"></i></span>
@@ -116,9 +116,8 @@
                 $user = Auth::user()->first_name. ' '.Auth::user()->last_name;
                 @endphp
                 
-                <button class="btn btn-light btn-dropdown rounded-circle overflow-hidden" data-toggle="dropdown">
-                    <img class="rounded-circle"
-                    src="{{ (is_null(Auth::user()->profile_image))
+                <button class="btn btn-light btn-dropdown overflow-hidden" data-toggle="dropdown">
+                    <img src="{{ (is_null(Auth::user()->profile_image))
                         ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
                         : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
                     alt="{{ Auth::user()->first_name }}">
@@ -127,9 +126,8 @@
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
 
                     <div class="dropdown-item-text">
-                        <span class="dropdown-image rounded-circle mr-2 overflow-hidden">
-                            <img class="rounded-circle" 
-                                src="{{ (is_null(Auth::user()->profile_image))
+                        <span class="dropdown-image mr-2 overflow-hidden">
+                            <img src="{{ (is_null(Auth::user()->profile_image))
                                     ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
                                     : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
                                 alt="{{ Auth::user()->first_name }}">

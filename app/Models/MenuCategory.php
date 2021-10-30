@@ -26,10 +26,8 @@ class MenuCategory extends Model
         return $query->orderBy('name', 'asc');
     }
 
-    public function scopeSelectedFields($query, $set = true){
-        if($set == true){
-            return $query->select('id', 'name', 'icon', 'color_tag');
-        }
+    public function scopeSelectedFields($query){
+        return $query->select('id', 'name', 'icon', 'color_tag');
     }
     // ends here
 

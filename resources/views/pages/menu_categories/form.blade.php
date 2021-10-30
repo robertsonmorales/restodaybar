@@ -87,13 +87,12 @@
         @endif
 
         <div class="actions w-100">
-            <button type="button"
-            onclick="redirect('{{ route('menu_categories.index') }}')" 
-            class="btn btn-outline-primary mr-1" 
+            <button type="button" 
+            class="btn btn-outline-secondary mr-1" 
             id="btn-back">Back</button>
 
             <button type="reset"
-            class="btn btn-outline-primary mr-1" 
+            class="btn btn-outline-secondary mr-1" 
             id="btn-reset">Reset</button>
 
             <button type="submit"
@@ -127,11 +126,11 @@ $(document).ready(function(){
 
         $(this).submit();
     });
-});
 
-function redirect(route){
-    window.location.href = route;
-}
+    $('#btn-back').on('click', function(){
+        window.location.href = index_page;
+    });
+});
 
 $('#icon').select2({
   // ...

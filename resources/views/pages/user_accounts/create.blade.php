@@ -193,8 +193,14 @@
         @endif
 
         <div class="actions w-100">
-            <button type="button" onclick="redirect('{{ route('user_accounts.index') }}')" class="btn btn-outline-primary mr-1" id="btn-back">Back</button>
-            <button type="reset" class="btn btn-outline-primary mr-1" id="btn-reset">Reset</button>
+            <button type="button" 
+            class="btn btn-outline-secondary mr-1" 
+            id="btn-back">Back</button>
+
+            <button type="reset"
+            class="btn btn-outline-secondary mr-1" 
+            id="btn-reset">Reset</button>
+
             <button type="submit" class="btn btn-primary" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
         </div>
     </div>
@@ -212,6 +218,8 @@
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
+    var index_page = @json(route('user_accounts.index'));
+
     $('#card-form').on('submit', function(){
         var mode = "{{ $mode }}";
 
@@ -222,10 +230,10 @@ $(document).ready(function(){
 
         $(this).submit();
     });
-});
 
-function redirect(route){
-    window.location.href = route;
-}
+    $('#btn-back').on('click', function(){
+        window.location.href = index_page;
+    });
+});
 </script>
 @endsection
