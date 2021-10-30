@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('cors')->group(function(){
-	Route::get('fetch_menu_categories', [App\Http\Controllers\APIs\ApiController::class, 'fetchCategories']);
-	Route::get('fetch_menu_subcategories', [App\Http\Controllers\APIs\ApiController::class, 'fetchSubcategories']);
-
+	Route::get('menu_categories', [App\Http\Controllers\APIs\ApiController::class, 'fetchCategories']);
+	Route::get('menu_subcategories', [App\Http\Controllers\APIs\ApiController::class, 'fetchSubcategories']);
+	Route::get('table_management', [App\Http\Controllers\APIs\ApiController::class, 'fetchTableManagment']);
 
 	Route::get('dashboard', [App\Http\Controllers\APIs\ApiController::class, 'dashboard']);
 });

@@ -21,6 +21,11 @@
     
             .form-control{
                 padding-left: 35px !important;
+                border-radius: $radius;
+            }
+
+            .custom-select{
+                border-radius: $radius;
             }
     
             .icon{

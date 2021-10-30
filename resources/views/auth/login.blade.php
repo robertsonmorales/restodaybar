@@ -7,10 +7,9 @@
     <div class="col-md-6 col-lg-7">
         <div class="row no-gutters auth-card">
             <div class="col-md d-none d-lg-flex login-banner">
-                <img src="{{ asset('images/logo.svg') }}" 
+                <img src="{{ asset('images/logo/login-banner.png') }}" 
                     alt="login-banner" 
-                    class="img-fluid"
-                    width="250">
+                    class="img-fluid">
             </div>
             <div class="col card p-2">
                 <div class="card-header border-0 bg-white">

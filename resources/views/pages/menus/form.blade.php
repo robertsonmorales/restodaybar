@@ -172,11 +172,11 @@
 
         <div class="actions w-100">
             <button type="button" 
-            class="btn btn-outline-primary mr-1" 
+            class="btn btn-outline-secondary mr-1" 
             id="btn-back">Back</button>
 
             <button type="reset"
-            class="btn btn-outline-primary mr-1" 
+            class="btn btn-outline-secondary mr-1" 
             id="btn-reset">Reset</button>
 
             <button type="submit"
@@ -200,7 +200,7 @@
     var subcategories = @json($subcategories);
     var mode = @json($mode);
     var subcategory = @json(@$data);
-    var = index_page = @json(route('table_management.index'));
+    var index_page = @json(route('menus.index'));
 
     $(() => { $('.select2-selection--single').addClass('form-control'); });
 

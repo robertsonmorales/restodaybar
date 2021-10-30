@@ -18,4 +18,8 @@ class TableManagement extends Model
     public function scopeActive($query){
         return $query->where('status', 1);
     }
+
+    public function scopeSelectedFields($query){
+        return $query->select('id', 'name', 'no_seats');
+    }
 }

@@ -35,6 +35,7 @@ h3{
         padding: 10px 20px !important;
         border-radius: 5px;
         background-color: transparent;
+        border-radius: $radius;
     
         &:hover{
             background-color: $primary;

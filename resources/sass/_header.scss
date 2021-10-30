@@ -31,9 +31,10 @@ nav{
             justify-content: center;
             height: 42px;
             width: 42px;
+            border-radius: $img-sm-radius !important;
             
             img{
-                // height: inherit;
+                // height: 42px;
                 width: 42px;
                 object-fit: cover;
                 border: $border;
@@ -85,6 +86,7 @@ nav{
             width: 42px;
             object-fit: cover;
             border: $border;
+            border-radius: $img-sm-radius !important;
         }
     }
 

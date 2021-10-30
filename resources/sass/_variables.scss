@@ -6,7 +6,10 @@ $shadow-sm: 0px 0px 20px rgba(0, 0, 0, .1);
 $dropDown-shadow: 0 10px 40px 10px rgba(140,152,164,.175);
 
 $border: .0625rem solid rgba(231,234,243,.7);
+
 $radius: .75rem; // 5px;
+$img-radius: 2rem;
+$img-sm-radius: 1.2rem;
 
 $font-family: 'Poppins', 'Montserrat', 'Roboto', 'Segoe UI', sans-serif;
 $font-size-base: 0.9rem;
@@ -17,7 +20,7 @@ $default: #909090;
 $primary: #4caf50; // #0061f2;
 $secondary: #2c4660; // #3f51b5;
 $light: #f8f9fa;
-$success: #20c997;
+$success: #4caf50; // #20c997
 $warning: #ff9800;
 $info: #03a9f4;
 $danger: #dc3545;

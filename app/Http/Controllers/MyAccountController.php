@@ -28,7 +28,6 @@ class MyAccountController extends Controller
             'profile_image' => $request->file('profile_image'),
             'first_name' => $this->safeInputs($request->input('first_name')),
             'last_name' => $this->safeInputs($request->input('last_name')),
-            'email' => $this->safeInputs($request->input('email')),
             'username' => $this->safeInputs($request->input('username')),
             'contact_number' => $this->safeInputs($request->input('contact_number')),
             'address' => $this->safeInputs($request->input('address'))
@@ -38,7 +37,6 @@ class MyAccountController extends Controller
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp',
             'first_name' => 'required|string|max:55',
             'last_name' => 'required|string|max:55',
-            'email' => 'nullable|string|max:50|email|unique:users,email,'.Auth::id(),
             'username' => 'required|string|max:30|unique:users,username,'.Auth::id(),
             'contact_number' => 'required|min:11|max:13',
             'address' => 'required|string|max:255'
@@ -50,7 +48,6 @@ class MyAccountController extends Controller
             'profile_image' => 'file',
             'first_name' => 'first name',
             'last_name' => 'last name',
-            'email' => 'email',
             'username' => 'username',
             'contact_number' => 'contact number',
             'address' => 'address'
