@@ -139,7 +139,6 @@ class Controller extends BaseController
         $route = Route::getFacadeRoot()->current()->uri();
         $module = strtoupper(explode('/', $route)[0]); // GET MODULE
         $method = $_SERVER['REQUEST_METHOD'];
-        $username = Auth::check() ? Auth::user()->username : 'Unathorized';
         $ipAddress = $this->ipAddress();
         $remarks = ($remarks == null) ? json_encode(array("message" => "VIEWING " . $module)) : json_encode($remarks);
         

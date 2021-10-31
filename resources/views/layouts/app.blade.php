@@ -36,13 +36,16 @@
         </main>
     </div>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('vendors/ag-grid/ag-grid.js') }}"></script>
     <script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 
     @yield('vendors-script')
+
     @yield('scripts')
+
     @yield('script-src')
 </body>
 </html>

@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\AuditTrailLogs;
 
 class AuditTrailLogController extends Controller
 {
-    public function __construct(AuditTrailLogs $logs){
-        $this->log = $logs;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -18,37 +13,27 @@ class AuditTrailLogController extends Controller
      */
     public function index()
     {
-        $name = ['Audit Trail Logs'];
-        $mode = [route('audit_trail_logs.index')];
-
-        $pagesize = [25, 50, 75, 100, 125];
-        
-        $rows = array();
-        $rows = $this->log->latest()->get();
+        $rows = $this->auditLogs->latest()->get();
 
         $columnDefs = array(
-            array('headerName'=>'MODULE','field'=>'module', 'floatingFilter'=> false),
-            array('headerName'=>'ROUTE','field'=>'route', 'floatingFilter'=> false),
-            array('headerName'=>'USERNAME','field'=>'username', 'floatingFilter'=>false),
-            array('headerName'=>'METHOD','field'=>'method', 'floatingFilter'=>false),
-            array('headerName'=>'REMARKS','field'=>'remarks', 'floatingFilter'=>false),
-            array('headerName'=>'IP ADDRESS','field'=>'ip', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false)
+            array('headerName'=>'ROUTE','field'=>'route'),
+            array('headerName'=>'METHOD','field'=>'method'),
+            array('headerName'=>'MODULE','field'=>'module'),
+            array('headerName'=>'REMARKS','field'=>'remarks'),
+            array('headerName'=>'USER','field'=>'user_id'),
+            array('headerName'=>'IP ADDRESS','field'=>'ip'),
+            array('headerName'=>'CREATED AT','field'=>'created_at')
         );
 
         $data = json_encode(array(
-            'column' => $columnDefs,
-            'rows' => $rows
-        ));    
+            'rows' => $rows,
+            'column' => $columnDefs
+        ));
 
         $this->audit_trail_logs();
         
-        return view('pages.audit_trail_logs.index', [
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'data' => $data,
-            'pagesize' => $pagesize,
-            'title' => 'Audit Trail Logs'
-        ]);
+        // $view = target blade, $form = target form, $module = title of module, $data = datatable
+        return $this->indexView($data);
     }
 
     /**

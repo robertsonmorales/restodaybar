@@ -27,9 +27,11 @@ body{
     background-attachment: fixed;
     background-size: cover;
     
-    @import 'custom';
-    
     @import 'auth';
+
+    @import 'overwrite';
+    
+    @import 'custom';
     
     @import 'sidebar';
 

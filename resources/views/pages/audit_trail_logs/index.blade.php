@@ -6,14 +6,7 @@
     <!-- filter -->
     <div class="filters-section flex-column flex-md-row p-4">
         <div class="filters-child mb-3 mb-md-0">
-            <label for="pageSize" class="mb-0 mr-2 font-size-sm">Show</label>
-            <select name="pageSize" id="pageSize" class="custom-select mr-2 font-size-sm">
-                @for($i=0;$i < count($pagesize); $i++)
-                    <option value="{{ $pagesize[$i] }}">{{ $pagesize[$i] }}</option>
-                @endfor
-                
-            </select>
-            <label for="pageSize" class="mb-0 font-size-sm">entries</label>
+            @include('includes.pagesize')
         </div>
         <div class="filters-child">
             <div class="position-relative mr-2">
