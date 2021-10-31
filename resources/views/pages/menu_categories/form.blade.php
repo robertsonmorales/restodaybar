@@ -114,11 +114,12 @@
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
+    var mode = @json($mode);
+    var index_page = @json(route('menu_categories.index'));
+    
     $('.select2-selection--single').addClass('form-control');
 
     $('#card-form').on('submit', function(){
-        var mode = "{{ $mode }}";
-
         $('.actions button').prop('disabled', true);
         $('.actions button').css('cursor', 'not-allowed');
 

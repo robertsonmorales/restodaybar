@@ -14,7 +14,7 @@
             <div class="position-relative mr-2">
                 <input type="text" name="search-filter" class="form-control font-size-sm" id="search-filter" placeholder="Search here..">
                 <span class="position-absolute icon"><i data-feather="search"></i></span>
-            </div>a
+            </div>
 
             <div class="btn-group">
                 <button class="btn text-dark btn-dropdown rounded d-flex align-items-center font-size-sm" data-toggle="dropdown">

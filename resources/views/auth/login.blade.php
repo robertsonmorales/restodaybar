@@ -4,68 +4,75 @@
 
 @section('auth')
 <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-6 col-lg-7">
-        <div class="row no-gutters auth-card">
+    <div class="col-md-7">
+        <form class="row no-gutters auth-card" 
+            method="POST" 
+            action="{{ route('login') }}" 
+            id="auth-form">
+
+            @csrf
+
             <div class="col-md d-none d-lg-flex login-banner">
                 <img src="{{ asset('images/logo/login-banner.png') }}" 
                     alt="login-banner" 
                     class="img-fluid">
             </div>
-            <div class="col card p-2">
-                <div class="card-header border-0 bg-white">
-                    @include('includes.alerts')
 
-                    <div class="h2">{{ __('Sign in') }}</div>
-                    <div class="h6 font-weight-normal">{{ __("Welcome back, enter your credentials to start.") }}</div>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" id="auth-form">
-                        @csrf
+            <div class="col">
+                <div class="card p-2">
+                    <div class="card-header border-0 bg-white">
+                        @include('includes.alerts')
 
+                        <div class="h3">Login</div>
+                        <div class="h6 font-weight-normal">Welcome back, enter your credentials to start.</div>
+                    </div>
+
+                    <div class="card-body pt-0">
                         <div class="form-group row flex-column inputs">
                             <label for="username" 
-                            class="col">{{ __('Username') }}</label>
+                            class="col">Username</label>
 
                             <div class="col">
                                 <input id="username" 
-                                type="username" 
-                                class="form-control @error('username') is-invalid @enderror"
-                                name="username"
-                                value="{{ old('username') }}" 
-                                required 
-                                autofocus
-                                autocomplete="off">
+                                    type="username" 
+                                    class="form-control @error('username') is-invalid @enderror"
+                                    name="username"
+                                    value="{{ old('username') }}" 
+                                    autofocus
+                                    autocomplete="off">
+
                                 <span class="position-absolute icon text-muted">
                                     <i data-feather="user"></i>
                                 </span>
 
                                 @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
                                 @enderror
+
+                                <span class="text-danger font-size-sm" id="invalid-username"></span>
                             </div>
                         </div>
 
                         <div class="form-group row flex-column inputs">
                             <label for="password" 
-                            class="col">{{ __('Password') }}</label>
+                            class="col">Password</label>
 
                             <div class="col">
                                 <input id="password" 
-                                type="password" 
-                                class="form-control @error('password') is-invalid @enderror" 
-                                name="password" 
-                                required 
-                                autocomplete="off">
+                                    type="password" 
+                                    class="form-control @error('password') is-invalid @enderror" 
+                                    name="password"  
+                                    autocomplete="off">
+
                                 <span class="position-absolute icon text-muted">
                                     <i data-feather="lock"></i>
                                 </span>
+
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
                                 @enderror
+
+                                <span class="text-danger font-size-sm" id="invalid-password"></span>
                             </div>
                         </div>
 
@@ -85,30 +92,62 @@
 
                         <div class="form-group row">
                             <div class="col">
-                                <button type="submit" id="btn-sign-in" class="btn btn-primary font-weight-normal w-100">{{ __('Sign in') }}</button>
+                                <button type="button" id="btn-login" class="btn btn-primary font-weight-normal w-100">{{ __('Login') }}</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>  
+        </form>  
     </div>
 </div>
 @endsection
 
+@section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
+@endsection
+
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#spinner').hide();
+$(document).ready(function() {
+    function validateFields(){
+        $('.invalid-feedback').html('');
 
-        $('#auth-form').on('submit', function(){
-            $('#spinner').show();
-            $('#btn-sign-in').prop('disabled', true);
-            $('#btn-sign-in').css('cursor', 'not-allowed');
-            $('#btn-sign-in').html('Signing in...');
+        if($('#username').val() == ""){
+            $('#username').focus();
+            $('#username').addClass('is-invalid');
+            $('#invalid-username').html('The username field is required.');
+        }else{
+            $('#invalid-username').html('');
+            $('#username').removeClass('is-invalid');
+        }
+        
+        if($('#password').val() == ""){
+            $('#password').addClass('is-invalid');
+            $('#invalid-password').html('The password field is required.');
+        }else{
+            $('#invalid-password').html('');
+            $('#password').removeClass('is-invalid');
+        }
 
-            $(this).submit();
-        });
+        if($('#password').val() != "" && $('#username').val() != ""){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    $('#btn-login').on('click', function(){
+        var validation = validateFields();
+
+        if(validation == true){
+            $(this).prop('disabled', true);
+            $(this).css('cursor', 'not-allowed');
+            $(this).html('Logging in...');
+
+            $('#auth-form').submit();
+        }
     });
+});
 </script>
 @endsection
