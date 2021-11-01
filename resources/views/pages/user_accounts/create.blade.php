@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', $title)
 
+@section('vendors-style')
+<link rel="stylesheet" href="{{ asset('/vendors/select2/select2.min.css') }}">
+@endsection
+
 @section('content')
 <form action="{{ ($mode == 'update') ? route('user_accounts.update', $user->id) : route('user_accounts.store') }}"
     method="POST"
@@ -212,12 +216,14 @@
 @endsection
 
 @section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('/vendors/select2/select2.min.js') }}"></script>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){
+    var mode = @json($mode);
     var index_page = @json(route('user_accounts.index'));
 
     $('#card-form').on('submit', function(){

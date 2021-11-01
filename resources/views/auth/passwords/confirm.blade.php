@@ -16,7 +16,9 @@
             <div class="col-md d-none d-lg-flex login-banner">
                 <img src="{{ asset('images/logo/login-banner.png') }}" 
                     alt="login-banner" 
-                    class="img-fluid">
+                    class="img-fluid"
+                    width="382"
+                    height="382">
             </div>
 
             <div class="col">
@@ -62,7 +64,7 @@
                                 @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}">Forgot Your Password?</a>
                                 @endif
-                                <button type="submit" id="btn-confirm" class="btn btn-primary btn-submit">Confirm</button>
+                                <button type="submit" id="btn-confirm" class="btn btn-primary btn-submit px-3">Confirm</button>
                             </div>
                         </div>
                     </div>

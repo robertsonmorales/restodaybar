@@ -16,36 +16,6 @@ h3{
     color: $dark;
 }
 
-.close{
-    outline: none !important;
-}
-
-.btn{
-    border-radius: $radius !important;
-}
-
-.list-group{
-    border: none !important;
-    box-shadow: none !important;
-
-    .list-group-item{
-        outline: none;
-        border: none !important;    
-        color: $light;
-        padding: 10px 20px !important;
-        border-radius: 5px;
-        background-color: transparent;
-        border-radius: $radius;
-    
-        &:hover{
-            background-color: $primary;
-            color: $light;
-            box-shadow: $shadow-sm;
-            font-weight: 500;
-        }
-    }
-}
-
 // SELECT2
 .select2-container{
     width: 100% !important;

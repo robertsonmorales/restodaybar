@@ -4,22 +4,11 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
-use Validator;
-use Str;
-
-use App\Models\Navigation;
-use Carbon\Carbon;
+use Auth, Validator, Str;
 
 class NavigationController extends Controller
 {
-    protected $navs;
-    public function __construct(Navigation $navs){
-        $this->nav = $navs;
-    }
-
-    public function validator(Request $request)
-    {
+    public function validator(Request $request){
         $type = $this->safeInputs($request->input('type'));
         $mode_main = ($type == "main") ? "nullable" : "required";
         $mode_single = ($type == "single") ? "nullable" : "required";
@@ -78,15 +67,8 @@ class NavigationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        $name = ['Navigations'];
-        $mode = [route('navigations.index')];
-
-        $pagesize = [25, 50, 75, 100, 125];
-    
-        $rows = array();        
-        $rows = $this->nav->mainAndSingle()->latest()->get();
-        $rows = $this->changeValue($rows);
+    {
+        $rows = $this->changeValue($this->nav->mainAndSingle()->oldest('nav_name')->get());
 
         $columnDefs = array(
             array('headerName'=>'NAME','field'=>'nav_name', 'floatingFilter'=> false),
@@ -101,19 +83,14 @@ class NavigationController extends Controller
         );
 
         $data = json_encode(array(
-            'column' => $columnDefs,
-            'rows' => $rows
+            'rows' => $rows,
+            'column' => $columnDefs
         ));
 
         $this->audit_trail_logs();
-
-        return view('pages.navigations.index', [ 
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'data' => $data,
-            'pagesize' => $pagesize,
-            'create' => "navigations.create",
-            'title' => 'Navigations'
-        ]);
+        
+        // $view = target blade, $form = target form, $module = title of module, $data = datatable
+        return $this->indexView($data);
     }
 
     /**

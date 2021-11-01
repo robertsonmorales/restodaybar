@@ -1,6 +1,33 @@
+.close{
+    outline: none !important;
+}
+
 .btn{
-    
+    border-radius: $radius !important;
+
     &:hover{
         font-weight: 500;
+    }
+}
+
+.list-group{
+    border: none !important;
+    box-shadow: none !important;
+
+    .list-group-item{
+        outline: none;
+        border: none !important;    
+        color: $light;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+        background-color: transparent;
+        border-radius: $radius;
+    
+        &:hover{
+            background-color: $secondary;
+            color: $light;
+            box-shadow: $shadow-sm;
+            font-weight: 500;
+        }
     }
 }

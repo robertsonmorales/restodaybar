@@ -43,13 +43,4 @@
     </button>
 </div>
 @endif
-
-@if(session()->get('password-success'))
-<div class="alert alert-success alert-dismissible fade show alerts mb-3 px-2 py-1" role="alert">
-    <span><i data-feather="check"></i> {{ session()->get('password-success') }}</span>
-    <button type="button" class="close px-2 py-1" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true" class="dismiss-icon"><i data-feather="x"></i> </span>
-    </button>
-</div>
-@endif
 <!-- ends here -->
