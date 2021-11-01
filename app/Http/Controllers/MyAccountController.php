@@ -196,7 +196,7 @@ class MyAccountController extends Controller
         Auth::logout();
         $request->session()->flush();
 
-        return back()->with('success','Password Updated Successfully!');
+        return redirect('/login')->with('password-success','Password Updated Successfully!');
     }
 
     public function email(){

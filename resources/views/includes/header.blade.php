@@ -120,7 +120,9 @@
                     <img src="{{ (is_null(Auth::user()->profile_image))
                         ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
                         : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                    alt="{{ Auth::user()->first_name }}">
+                    alt="{{ Auth::user()->first_name }}"
+                    width="42"
+                    height="55">
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
@@ -130,7 +132,9 @@
                             <img src="{{ (is_null(Auth::user()->profile_image))
                                     ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
                                     : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                                alt="{{ Auth::user()->first_name }}">
+                                alt="{{ Auth::user()->username }}"
+                                width="42"
+                                height="42">
                         </span>
 
                         <span class="dropdown-info">

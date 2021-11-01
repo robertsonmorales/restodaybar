@@ -26,7 +26,8 @@ class UserSeeder extends Seeder
             'email' => 'moralesso152842@gmail.com',
             'password' => '7ujm&UJM',
             'user_level_id' => '1',
-            'address' => 'Northern Samar'
+            'address' => 'Northern Samar',
+            'account_status' => 1
         ]);
     }
 }

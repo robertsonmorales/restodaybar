@@ -100,6 +100,7 @@
 @section('vendors-script')
 <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
 <script src="{{ asset('vendors/axios/axios.min.js') }}"></script>
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
 @endsection
 
 @section('scripts')

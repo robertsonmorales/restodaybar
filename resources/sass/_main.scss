@@ -3,15 +3,15 @@ main{
     overflow-x: hidden;
     width: 100% !important;
     
-    @import 'header';
+    @import 'main/header';
 
-    @import 'breadcrumb';
+    @import 'main/breadcrumb';
 
-    @import 'content';
+    @import 'main/content';
 
-    @import 'forms';
+    @import 'main/forms';
 
-    @import 'modal';
+    @import 'main/modal';
 
-    @import 'my_account';
+    @import 'main/my_account';
 }  

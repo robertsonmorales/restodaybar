@@ -1,43 +1,16 @@
 @extends('layouts.app')
 @section('title', $title)
 
+@section('vendors-style')
+<link rel="stylesheet" href="{{ asset('vendors/ag-grid/ag-grid.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/ag-grid/ag-theme_material.css') }}">
+@endsection
+
 @section('content')
 @include('includes.alerts')
 
 <div class="content mx-4">
-    <div class="filters-section flex-column flex-md-row p-4">
-        <div class="filters-child mb-3 mb-md-0">
-            @include('includes.pagesize')
-        </div>
-
-        <div class="filters-child">
-            <div class="position-relative mr-2">
-                <input type="text" name="search-filter" class="form-control font-size-sm" id="search-filter" placeholder="Search here..">
-                <span class="position-absolute icon"><i data-feather="search"></i></span>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn text-dark btn-dropdown rounded d-flex align-items-center font-size-sm" data-toggle="dropdown">
-                    <span>Actions</span>
-                    <span class="ml-2"><i data-feather="chevron-down"></i></span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
-                    <a href="{{ route($create) }}" class="dropdown-item py-2">
-                        <span>Add New Record</span>
-                    </a>
-
-                    <button class="dropdown-item py-2" id="btn-import">
-                        <span>Import CSV</span>
-                    </button>
-
-                    <button class="dropdown-item py-2" id="btn-export">
-                        <span>Export as CSV</span>                        
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('includes.filter')
 
     <div id="myGrid" class="ag-theme-material"></div>
 </div>
@@ -46,6 +19,11 @@
 @include('includes.modal-import')
 
 <br>
+@endsection
+
+@section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('vendors/ag-grid/ag-grid.js') }}"></script>
 @endsection
 
 @section('scripts')
@@ -65,8 +43,8 @@ $(document).ready(function(){
         filter: false,
         editable: false,
         maxWidth: 220,
-        minWidth: 210,
-        // pinned: 'left',
+        minWidth: 150,
+        pinned: 'left',
         cellRenderer: function(params){
             var edit_url = '{{ route("menus.edit", ":id") }}';
             edit_url = edit_url.replace(':id', params.data.id);

@@ -238,6 +238,11 @@
     </div>
 </form>
 @endsection
+
+@section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
+@endsection
+
 @section('scripts')
 <script type="text/javascript">
 $(document).ready(function(){

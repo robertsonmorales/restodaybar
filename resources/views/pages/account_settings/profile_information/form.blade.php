@@ -16,11 +16,12 @@
                 <img id="image-preview" 
                 src="{{ (is_null(Auth::user()->profile_image))
                     ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
-                    : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}">
+                    : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
+                alt="{{ Auth::user()->username }}">
 
-                <button type="button" class="btn btn-light btn-profile-image shadow-sm">
-                    <span class="mr-2"><i data-feather="edit"></i></span>
-                    <span>Edit Profile</span>
+                <button type="button" class="btn btn-primary btn-sm btn-profile-image">
+                    {{-- <span class="mr-2"><i data-feather="edit"></i></span> --}}
+                    <span>Change Profile...</span>
                 </button>
             </div>
             
@@ -135,34 +136,3 @@
         </div>
     </form>
 </div>
-
-@section('script-src')
-<script>
-$('document').ready(function(){
-    $('.btn-profile-image').on('click', function(){
-        $('#profile_image').trigger('click');
-    });
-
-    $('#profile_image').on('change', function(){
-        var image = $(this)[0];
-        var reader = new FileReader();
-          
-        reader.onload = function (e) {
-            $('#image-preview').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(image.files[0]);
-    });
-
-    $('#settings-form').on('submit', function(){
-        
-        $('.actions button').prop('disabled', true);
-        $('.actions button').css('cursor', 'not-allowed');
-
-        $('#btn-save').html('Saving Changes..');
-
-        $(this).submit();
-    });
-});
-</script>
-@endsection

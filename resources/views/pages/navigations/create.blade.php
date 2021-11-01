@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', $title)
 
+@section('vendors-style')
+<link rel="stylesheet" href="{{ asset('/vendors/select2/select2.min.css') }}">
+@endsection
+
 @section('content')
 <form action="{{ ($mode == 'update') ? route('navigations.update', $data->id) : route('navigations.store') }}"
     method="POST"
@@ -124,25 +128,34 @@
         @endif
 
         <div class="actions w-100">
-            <button onclick="redirect('{{ route('navigations.index') }}')" class="btn btn-outline-primary mr-1" id="btn-back">Back</button>
-            <button type="reset" class="btn btn-outline-primary mr-1" id="btn-reset">Reset</button>
-            <button type="submit" class="btn btn-primary" id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+            <button type="button" 
+            class="btn btn-outline-secondary mr-1" 
+            id="btn-back">Back</button>
+
+            <button type="reset"
+            class="btn btn-outline-secondary mr-1" 
+            id="btn-reset">Reset</button>
+
+            <button type="submit"
+            class="btn btn-primary" 
+            id="btn-submit">{{ ($mode == 'update') ? 'Submit Changes' : 'Submit' }}</button>
+
         </div>
     </div>
 </form>
 @endsection
 
-@section('vendors-style')
-<link rel="stylesheet" href="{{ asset('/vendors/select2/select2.min.css') }}">
-@endsection
-
 @section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('/vendors/select2/select2.min.js') }}"></script>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 $(function(){
+    var mode = @json($mode);
+    var index_page = @json(route('navigations.index'));
+    
     $('.select2-selection--single').addClass('form-control');
 
     $('#type').on('change', function(){
@@ -215,6 +228,10 @@ $(function(){
             $('#max-add-row').text('You have reached the maximum number of adding rows.');
             $('.alerts').removeClass('d-none');
         }
+    });
+    
+    $('#btn-back').on('click', function(){
+        window.location.href = index_page;
     });
 
     $('#btn-reset').on('click', function(){

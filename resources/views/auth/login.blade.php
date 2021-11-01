@@ -15,13 +15,17 @@
             <div class="col-md d-none d-lg-flex login-banner">
                 <img src="{{ asset('images/logo/login-banner.png') }}" 
                     alt="login-banner" 
-                    class="img-fluid">
+                    class="img-fluid"
+                    width="382"
+                    height="382">
             </div>
 
             <div class="col">
                 <div class="card p-2">
                     <div class="card-header border-0 bg-white">
-                        @include('includes.alerts')
+                        @if(session('password-success'))
+                        <div class="alert alert-success" role="alert">{{ session('password-success') }}</div>
+                        @endif
 
                         <div class="h3">Login</div>
                         <div class="h6 font-weight-normal">Welcome back, enter your credentials to start.</div>

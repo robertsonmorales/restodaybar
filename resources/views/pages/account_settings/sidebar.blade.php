@@ -43,19 +43,54 @@
     </div>
 </div>
 
+@section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
+@endsection
+
 @section('scripts')
 <script type="text/javascript">
-    var pathname = window.location.pathname;
-    var selectedTab = pathname.split('/').reverse()[0];
-    var dataId = selectedTab.replace('_', '-');
-    var anchor = document.querySelectorAll('.account-sidebar .list-group-item-action');
+$('document').ready(function(){
+    $('.btn-profile-image').on('click', function(){
+        $('#profile_image').trigger('click');
+    });
 
-    for (let i = 0; i < anchor.length; i++) {
-        if(anchor[i].getAttribute('data-id') == dataId){
-            anchor[i].classList.add('active');
-        }else{
-            anchor[i].classList.remove('active');
+    $('#profile_image').on('change', function(){
+        var image = $(this)[0];
+        var reader = new FileReader();
+          
+        reader.onload = function (e) {
+            $('#image-preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(image.files[0]);
+    });
+
+    $('#settings-form').on('submit', function(){
+        
+        $('.actions button').prop('disabled', true);
+        $('.actions button').css('cursor', 'not-allowed');
+
+        $('#btn-save').html('Saving Changes..');
+
+        $(this).submit();
+    });
+
+    function loadSidebar(){
+        var pathname = window.location.pathname;
+        var selectedTab = pathname.split('/').reverse()[0];
+        var dataId = selectedTab.replace('_', '-');
+        var anchor = document.querySelectorAll('.account-sidebar .list-group-item-action');
+
+        for (let i = 0; i < anchor.length; i++) {
+            if(anchor[i].getAttribute('data-id') == dataId){
+                anchor[i].classList.add('active');
+            }else{
+                anchor[i].classList.remove('active');
+            }
         }
     }
+
+    loadSidebar();
+});
 </script>
 @endsection

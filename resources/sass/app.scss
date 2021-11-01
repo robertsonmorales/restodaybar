@@ -1,5 +1,7 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+// @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+@import 'font';
 
 // Variables
 @import 'variables';
@@ -27,11 +29,11 @@ body{
     background-attachment: fixed;
     background-size: cover;
     
-    @import 'auth';
-
     @import 'overwrite';
     
     @import 'custom';
+
+    @import 'auth';
     
     @import 'sidebar';
 

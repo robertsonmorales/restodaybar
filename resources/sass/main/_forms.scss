@@ -73,7 +73,9 @@
         text-align: right;
     
         button, a{
-            padding: 8px 15px;
+            height: 38px;
+            padding-left: 15px;
+            padding-right: 15px;
 
             &:hover{
                 font-weight: 500;
@@ -83,55 +85,76 @@
 }
 
 .card-order-1{
-    animation: slideToRight .4s;
+    animation: slideToBottom .4s linear;
 }
 
 .card-order-2{
-    animation: slideToRight .6s;
+    animation: slideToBottom .6s linear;
 }
 
 .card-order-3{
-    animation: slideToRight .8s;
+    animation: slideToBottom .8s linear;
 }
 
 .card-order-4{
-    animation: slideToRight 1s;
+    animation: slideToBottom 1s linear;
 }
 
-.card-order-4{
-    animation: slideToLeft 1.2s;
+.card-order-5{
+    animation: slideToRight .4s linear;
 }
 
-.card-order-4{
-    animation: slideToLeft 1.4s;
+.card-order-6{
+    animation: slideToRight .6s linear;
 }
 
 @keyframes slideToRight {
     0% {
         transform: translateX(-30%);
-        opacity: 0.5;
+        opacity: 0;
     }
 
-    80%{
+    50%{
         transform: translateX(10%);
+        opacity: 0.5;
     }
 
     100%{
         transform: translateX(0%);
+        opacity: 1;
     }
 }
 
 @keyframes slideToLeft{
     0% {
         transform: translateX(30%);
-        opacity: 0.5;
+        opacity: 0;
     }
 
-    80%{
+    50%{
         transform: translateX(-10%);
+        opacity: 0.5;
     }
 
     100%{
         transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideToBottom{
+    0% {
+        transform: translateY(30%);
+        opacity: 0;
+    }
+
+    50%{
+        transform: translateY(-10%);
+        opacity: 0.5;
+    }
+
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
     }
 }

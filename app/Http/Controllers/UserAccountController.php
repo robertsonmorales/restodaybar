@@ -11,52 +11,6 @@ use Validator;
 
 class UserAccountController extends Controller
 {
-    public function validator(Request $request)
-    {
-        $input = [
-            'first_name' => $this->safeInputs($request->input('first_name')),
-            'last_name' => $this->safeInputs($request->input('last_name')),
-            'email' => $this->safeInputs($request->input('email')),
-            'username' => $this->safeInputs($request->input('username')),
-            'password' => $request->input('password'),
-            'password_confirmation' => $request->input('password_confirmation'),
-            'contact_number' => $this->safeInputs($request->input('contact_number')),
-            'address' => $this->safeInputs($request->input('address')),
-            'user_level_id' => $this->safeInputs($request->input('user_level_id')),
-            'account_status' => $this->safeInputs($request->input('account_status'))
-        ];
-
-        $rules = [
-            'first_name' => 'required|string|max:55',
-            'last_name' => 'required|string|max:55',
-            'email' => 'bail|required|email|max:100|unique:users,email',
-            'username' => 'bail|required|string|max:30|unique:users,username',
-            'password' => ['bail', 'required', 'string', 'min:8', 'max:30', 'confirmed', 'unique:users,password,'.$this->safeInputs($request->input('id')).'', new PasswordRequirement],
-            'password_confirmation' => 'required|string',
-            'contact_number' => 'required|numeric|digits:11',
-            'address' => 'required|string',
-            'user_level_id' => 'required|string',
-            'account_status' => 'required|numeric',
-        ];
-
-        $messages = [];
-
-        $customAttributes = [
-            'first_name' => 'first name',
-            'last name' => 'last name',
-            'email' => 'email',
-            'username' => 'username', 
-            'password' => 'password',
-            'contact_number' => 'contact number',
-            'address' => 'address',
-            'user_level_id' => 'user level',
-            'account_status' => 'account status'
-        ];
-
-        $validator = Validator::make($input, $rules, $messages,$customAttributes);
-        return $validator->validate();
-    } 
-
     /**
      * Display a listing of the resource.
      *
@@ -64,26 +18,20 @@ class UserAccountController extends Controller
      */
     public function index()
     {
-        $name = ['User Accounts'];
-        $mode = [route('user_accounts.index')];
-        
-        $pagesize = [25, 50, 75, 100, 125];
-        
-        $rows = array();
         $rows = $this->user->hideAuthenticatedUser()->latest()->get();
         $rows = $this->changeValue($rows);
         $rows = $this->changeValue_v2($rows);
 
         $columnDefs = array(            
-            array('headerName'=>'NAME','field'=>'name', 'floatingFilter'=>false),
-            array('headerName'=>'USERNAME','field'=>'username', 'floatingFilter'=>false),
-            array('headerName'=>'EMAIL','field'=>'email', 'floatingFilter'=>false),
-            array('headerName'=>'CONTACT NUMBER','field'=>'contact_number', 'floatingFilter'=>false),
-            array('headerName'=>'STATUS','field'=>'account_status', 'floatingFilter'=>false),
-            // array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
-            // array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED AT','field'=>'updated_at', 'floatingFilter'=>false)
+            array('headerName'=>'Name','field'=>'name'),
+            array('headerName'=>'Username','field'=>'username'),
+            array('headerName'=>'Email','field'=>'email'),
+            array('headerName'=>'Contact Number','field'=>'contact_number'),
+            array('headerName'=>'Status','field'=>'account_status'),
+            // array('headerName'=>'CREATED BY','field'=>'created_by'),
+            // array('headerName'=>'UPDATED BY','field'=>'updated_by'),
+            array('headerName'=>'Created At','field'=>'created_at'),
+            array('headerName'=>'Updated At','field'=>'updated_at')
         );
 
         $data = json_encode(array(
@@ -92,14 +40,9 @@ class UserAccountController extends Controller
         ));
 
         $this->audit_trail_logs();
-
-        return view('pages.user_accounts.index', [
-            'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'data' => $data,
-            'pagesize' => $pagesize,
-            'create' => "user_accounts.create",
-            'title' => 'User Accounts'
-        ]);
+        
+        // $view = target blade, $form = target form, $module = title of module, $data = datatable
+        return $this->indexView($data);
     }
 
     /**
@@ -273,4 +216,50 @@ class UserAccountController extends Controller
 
         return $rows;
     }
+
+    public function validator(Request $request)
+    {
+        $input = [
+            'first_name' => $this->safeInputs($request->input('first_name')),
+            'last_name' => $this->safeInputs($request->input('last_name')),
+            'email' => $this->safeInputs($request->input('email')),
+            'username' => $this->safeInputs($request->input('username')),
+            'password' => $request->input('password'),
+            'password_confirmation' => $request->input('password_confirmation'),
+            'contact_number' => $this->safeInputs($request->input('contact_number')),
+            'address' => $this->safeInputs($request->input('address')),
+            'user_level_id' => $this->safeInputs($request->input('user_level_id')),
+            'account_status' => $this->safeInputs($request->input('account_status'))
+        ];
+
+        $rules = [
+            'first_name' => 'required|string|max:55',
+            'last_name' => 'required|string|max:55',
+            'email' => 'bail|required|email|max:100|unique:users,email',
+            'username' => 'bail|required|string|max:30|unique:users,username',
+            'password' => ['bail', 'required', 'string', 'min:8', 'max:30', 'confirmed', 'unique:users,password,'.$this->safeInputs($request->input('id')).'', new PasswordRequirement],
+            'password_confirmation' => 'required|string',
+            'contact_number' => 'required|numeric|digits:11',
+            'address' => 'required|string',
+            'user_level_id' => 'required|string',
+            'account_status' => 'required|numeric',
+        ];
+
+        $messages = [];
+
+        $customAttributes = [
+            'first_name' => 'first name',
+            'last name' => 'last name',
+            'email' => 'email',
+            'username' => 'username', 
+            'password' => 'password',
+            'contact_number' => 'contact number',
+            'address' => 'address',
+            'user_level_id' => 'user level',
+            'account_status' => 'account status'
+        ];
+
+        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        return $validator->validate();
+    } 
 }

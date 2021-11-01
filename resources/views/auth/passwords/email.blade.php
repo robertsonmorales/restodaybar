@@ -15,7 +15,9 @@
             <div class="col-md d-none d-lg-flex login-banner">
                 <img src="{{ asset('images/logo/login-banner.png') }}" 
                     alt="login-banner" 
-                    class="img-fluid">
+                    class="img-fluid"
+                    width="382"
+                    height="382">
             </div>
 
             <div class="col">
@@ -59,10 +61,10 @@
                             <div class="col d-flex align-items-center justify-content-between">
 
                                 @if (Route::has('login'))
-                                <a href="{{ route('login') }}" class="btn btn-light text-primary">&#8592; Back</a>
+                                <a href="{{ route('login') }}" class="btn btn-light text-primary px-3">Back</a>
                                 @endif
 
-                                <button type="button" id="btn-recover" class="btn btn-primary btn-submit">Recover Password</button>
+                                <button type="button" id="btn-recover" class="btn btn-primary btn-submit px-3">Recover Password</button>
                             </div>
                         </div>
                     </div>

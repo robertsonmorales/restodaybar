@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('title', $title)
 
+@section('vendors-style')
+<link rel="stylesheet" href="{{ asset('/vendors/select2/select2.min.css') }}">
+@endsection
+
 @section('content')
 <form action="{{ $url }}"
     method="POST"
@@ -90,11 +94,8 @@
 </form>
 @endsection
 
-@section('vendors-style')
-<link rel="stylesheet" href="{{ asset('/vendors/select2/select2.min.css') }}">
-@endsection
-
 @section('vendors-script')
+<script src="{{ asset('vendors/jquery/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('/vendors/select2/select2.min.js') }}"></script>
 @endsection
 
@@ -102,6 +103,7 @@
 <script type="text/javascript">
     var mode = @json($mode);
     var index_page = @json(route('menu_subcategories.index'));
+    
     $(() => { $('.select2-selection--single').addClass('form-control'); });
 
     $('#btn-back').on('click', function(){
