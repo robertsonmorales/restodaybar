@@ -27,7 +27,7 @@
             <span>Preferences</span>
         </a>
 
-        <a href="#" 
+        <a href="{{ route('account_settings.browser_sessions') }}" 
             data-id="browser-sessions"
             class="list-group-item list-group-item-action">
             <span class="mr-2"><i data-feather="monitor"></i></span>

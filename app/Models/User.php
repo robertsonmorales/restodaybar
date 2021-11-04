@@ -12,7 +12,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 use Crypt, Hash, Auth;
 
-use App\Models\UserLevel;
+use App\Models\{UserLevel, UserBrowserSession};
 
 class User extends Authenticatable
 {
@@ -44,6 +44,7 @@ class User extends Authenticatable
         'ip', 
         'access_level',
         'last_active_at',
+        'remember_token',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -120,5 +121,9 @@ class User extends Authenticatable
 
     public function userLevel(){
         return $this->hasOne(UserLevel::class, 'user_level_id');
+    }
+
+    public function browserSessions(){
+        return $this->hasMany(UserBrowserSession::class, 'user_id', 'id');
     }
 }

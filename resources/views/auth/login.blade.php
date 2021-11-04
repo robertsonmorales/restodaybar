@@ -23,15 +23,15 @@
             <div class="col">
                 <div class="card p-2">
                     <div class="card-header border-0 bg-white">
-                        @if(session('password-success'))
-                        <div class="alert alert-success" role="alert">{{ session('password-success') }}</div>
-                        @endif
-
                         <div class="h3">Login</div>
                         <div class="h6 font-weight-normal">Welcome back, enter your credentials to start.</div>
                     </div>
 
                     <div class="card-body pt-0">
+                        @if(session('success'))
+                        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                        @endif
+                        
                         <div class="form-group row flex-column inputs">
                             <label for="username" 
                             class="col">Username</label>

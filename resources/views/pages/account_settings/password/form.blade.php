@@ -1,4 +1,4 @@
-<div class="card col-md-7 col-lg-6 mb-4 p-4">
+<div class="card card-account col-md-7 col-lg-6 mb-4 p-4">
     <div class="w-100">
 		<h5>Password</h5>
 	</div>

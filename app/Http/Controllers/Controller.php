@@ -15,7 +15,7 @@ use Purifier;
 use App\Models\{User, UserLevel, AuditTrailLogs, 
     MenuCategory, MenuSubcategory, CategoryOfMenu,
     Menu, TableManagement, ApiLog,
-    Navigation};
+    Navigation, UserBrowserSession};
 
 class Controller extends BaseController
 {
@@ -23,13 +23,14 @@ class Controller extends BaseController
 
     protected $user, $userLevel, $auditLogs,
         $category, $subcategory, $categoryMenu,
-        $menu, $tableManagement, $apiLog, $nav;
+        $menu, $tableManagement, $apiLog, $nav,
+        $browserSession;
 
     public function __construct(User $user, UserLevel $userLevel,
         AuditTrailLogs $auditLogs, MenuCategory $category,
         MenuSubcategory $subcategory, CategoryOfMenu $categoryMenu, Menu $menu,
         TableManagement $tableManagement, ApiLog $apiLog,
-        Navigation $nav){
+        Navigation $nav, UserBrowserSession $browserSession){
 
         config('app.timezone', 'Manila/Asia');
 
@@ -43,6 +44,7 @@ class Controller extends BaseController
         $this->tableManagement = $tableManagement;
         $this->apiLog = $apiLog;
         $this->nav = $nav;
+        $this->browserSession = $browserSession;
 
         $this->route = $this->get()['route'];
         $this->title = $this->get()['title'];
@@ -145,10 +147,10 @@ class Controller extends BaseController
         $ipAddress = $this->ipAddress();
         $remarks = ($remarks == null) ? json_encode(array("message" => "VIEWING " . $module)) : json_encode($remarks);
         
-        if(exec('getmac') == "N/A Media disconnected"){
-            $device = exec('getmac');
-        }else{
+        if(strlen(exec('getmac')) > 17){
             $device = "";
+        }else{
+            $device = exec('getmac');
         }
 
         $result = array(

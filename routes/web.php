@@ -40,10 +40,15 @@ Route::middleware('auth')->group(function () {
     
     // My Account
     $match = ['PUT', 'POST'];
-    Route::get('/account_settings/password', [App\Http\Controllers\MyAccountController::class, 'password'])->name('account_settings.password');
-    Route::put('/account_settings/password_update', [App\Http\Controllers\MyAccountController::class, 'updatePassword'])->name('account_settings.password_update');
     Route::get('/account_settings/email', [App\Http\Controllers\MyAccountController::class, 'email'])->name('account_settings.email');
     Route::match($match, '/account_settings/email_update', [App\Http\Controllers\MyAccountController::class, 'updateEmail'])->name('account_settings.email_update');
+
+    Route::get('/account_settings/password', [App\Http\Controllers\MyAccountController::class, 'password'])->name('account_settings.password');
+    Route::put('/account_settings/password_update', [App\Http\Controllers\MyAccountController::class, 'updatePassword'])->name('account_settings.password_update');
+
+    Route::get('/account_settings/browser_sessions', [App\Http\Controllers\MyAccountController::class, 'browserSessions'])->name('account_settings.browser_sessions');
+    Route::post('/account_settings/logout_all_sessions', [App\Http\Controllers\MyAccountController::class, 'logoutAllSessions'])->name('account_settings.logout_all_sessions');
+    
     Route::get('/account_settings/delete_account', [App\Http\Controllers\MyAccountController::class, 'deleteAccount'])->name('account_settings.delete_account');
     // Route::match($match, '/account_settings/change_profile', [App\Http\Controllers\MyAccountController::class, 'changeProfile'])->name('account_settings.change_profile');
     Route::resource('/account_settings', App\Http\Controllers\MyAccountController::class);

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Arr, Str, Auth, Validator;
 
 use App\Rules\PasswordRequirement;
 use App\Rules\CheckCurrentPassword;
@@ -17,12 +15,6 @@ use App\Models\User;
 
 class MyAccountController extends Controller
 {
-    protected $user;
-
-    public function __construct(User $user){
-        $this->user = $user;
-    }
-
     public function validator(Request $request){
         $input = [
             'profile_image' => $request->file('profile_image'),
@@ -74,7 +66,7 @@ class MyAccountController extends Controller
         
         return view('pages.account_settings.profile_information.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Account Settings',
+            'title' => 'Profile Information',
             'users' => $user,
             'mode' => $action_mode
         ]);
@@ -158,15 +150,42 @@ class MyAccountController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $this->audit_trail_logs($request);
+        $this->audit_trail_logs($request->all());
 
-        $delete = $this->user->findOrFail($id)->delete();
+        $this->user->findOrFail($id)->delete();
 
         Auth::logout();
         return redirect('/login');
     }
 
-    public function password(){
+    protected function email(){
+        $name = ['Account Settings', 'Email'];
+        $mode = [route('account_settings.index'), route('account_settings.email')];
+
+        $this->audit_trail_logs();
+
+        return view('pages.account_settings.email.index', [
+            'breadcrumbs' => $this->breadcrumbs($name, $mode),
+            'title' => 'Email'
+        ]);
+    }
+
+    protected function updateEmail(Request $request){
+        $validated = $this->safeInputs($request->validate([
+            'email' => ['required', 'string', 'email', 'unique:users,email,'.Auth::id().'', new CheckCurrentEmailAddress],
+        ]));
+        
+        $validated['email_updated_at'] = now();
+        $validated['updated_by'] = Auth::id();
+
+        $this->user->findOrFail(Auth::id())->update($validated);
+
+        $this->audit_trail_logs($request->all());
+
+        return back()->with('success', 'Email Updated Successfully!');
+    }
+
+    protected function password(){
         $name = ['Account Settings', 'Password'];
         $mode = [route('account_settings.index'), route('account_settings.password')];
 
@@ -174,11 +193,11 @@ class MyAccountController extends Controller
 
         return view('pages.account_settings.password.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Account Settings'
+            'title' => 'Password'
         ]);
     }
 
-    public function updatePassword(Request $request){
+    protected function updatePassword(Request $request){
         $validated = $request->validate([
             'current_password' => ['required', 'string', new CheckCurrentPassword],
             'password' => ['bail', 'required', 'string', 'unique:users,password,'.Auth::id(), 'confirmed', new PasswordRequirement, new ValidateOldToNewPassword, new ValidateCurrentToNewPassword],
@@ -196,37 +215,40 @@ class MyAccountController extends Controller
         Auth::logout();
         $request->session()->flush();
 
-        return redirect('/login')->with('password-success','Password Updated Successfully!');
+        return redirect('/login')->with('success','Password Updated Successfully!');
     }
 
-    public function email(){
-        $name = ['Account Settings', 'Email'];
-        $mode = [route('account_settings.index'), route('account_settings.email')];
+    protected function browserSessions(){
+        $name = ['Account Settings', 'Browser Sessions'];
+        $mode = [route('account_settings.index'), route('account_settings.browser_sessions')];
 
         $this->audit_trail_logs();
 
-        return view('pages.account_settings.email.index', [
+        $sessions = $this->browserSession->mySessions()->latest()->get();
+        
+        return view('pages.account_settings.browser_sessions.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
-            'title' => 'Account Settings'
+            'title' => 'Browser Sessions',
+            'sessions' => $sessions
         ]);
     }
 
-    public function updateEmail(Request $request){
-        $validated = $this->safeInputs($request->validate([
-            'email' => ['required', 'string', 'email', 'unique:users,email,'.Auth::id().'', new CheckCurrentEmailAddress],
-        ]));
-        
-        $validated['email_updated_at'] = now();
-        $validated['updated_by'] = Auth::id();
+    protected function logoutAllSessions(Request $request){
+        $user = $this->user->find(Auth::id());
 
-        $this->user->findOrFail(Auth::id())->update($validated);
+        $user->update([
+            'remember_token' => null
+        ]);
 
-        $this->audit_trail_logs($request->all());
+        $this->browserSession->where('user_id', Auth::id())->delete();
 
-        return back()->with('success', 'Email Updated Successfully!');
+        Auth::logout();
+
+        return redirect('/login')
+            ->with('success','Logout All Sessions Successfully!');
     }
 
-    public function deleteAccount(){
+    protected function deleteAccount(){
         $name = ['Account Settings', 'Delete Account'];
         $mode = [route('account_settings.index'), route('account_settings.delete_account')];
 
@@ -234,41 +256,7 @@ class MyAccountController extends Controller
 
         return view('pages.account_settings.delete_account.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),            
-            'title' => 'Account Settings',
+            'title' => 'Delete Account',
         ]);
     }
-
-    // public function changeProfile(Request $request){
-    //     $image = $request->file('profile-image');
-
-    //     $this->audit_trail_logs($request);
-
-    //     if ($request->file('profile-image')->isValid()) {
-    //         $username = Auth::user()->username;
-    //         $userId = Auth::id();
-
-    //         $publicFolder = public_path('images/user_profiles/'.$username.$userId);
-
-    //         if (!file_exists($publicFolder)) {
-    //             mkdir($publicFolder);
-    //         }
-
-    //         $profileImage = $image->getClientOriginalName(); // returns original name
-    //         $extension = $image->getclientoriginalextension(); // returns the file extension
-    //         $newProfileImage = strtoupper(Str::random(20)).'.'.$extension;
-    //         $image->move($publicFolder, $newProfileImage);
-
-    //         $data = $this->user->findOrFail($userId);
-    //         $data->update([
-    //             'profile_image' => $newProfileImage,
-    //             'profile_image_updated_at' => now(),
-    //             'profile_image_expiration_date' => now()->addDays(15)
-    //         ]);
-
-    //         return back()->with('success', 'You have successfully updated your profile picture');
-
-    //     }else{
-    //         return back()->with('error', "Something wrong with the image, please try again..");
-    //     }
-    // }
 }

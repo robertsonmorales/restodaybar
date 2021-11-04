@@ -21,7 +21,7 @@ class CreateAuditTrailLogsTable extends Migration
             $table->string('method')->nullable();
             $table->text('remarks')->nullable();
             $table->ipAddress('ip')->nullable();
-            $table->macAddress('device')->nullable();
+            $table->macAddress('device', 36)->nullable();
             $table->timestamps();
         });
     }

@@ -1,30 +1,9 @@
 .account-sidebar{
-    .list-group{
-        background-color: #fff;
-        box-shadow: $shadow !important;
-        border-radius: $radius;
-        padding: 15px 0;
-        
-        .list-group-item{
-            color: $dark;
-        }
-
-        .list-group-item-action{
-            background-color: #fff !important;
-            border-radius: 0px !important;
-    
-            &:hover{
-                color: $primary;
-                box-shadow: 0 0 0 transparent;
-                border-left: 3px solid $primary !important;
-            }
-        }
-
-        .active{
-            border-left: 3px solid $primary !important;
-            color: $primary !important;
-        }
-    }
+    background-color: #fff;
+    box-shadow: $shadow !important;
+    border-radius: $radius;
+    overflow: hidden;
+    padding: 15px 0;
 }
 
 .profile-preview{
@@ -40,5 +19,6 @@
 .btn-profile-image{
     position: absolute;
     bottom: 0px;
-    left: 50px;
+    left: 60px;
+    border: $border;
 }

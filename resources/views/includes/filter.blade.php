@@ -10,32 +10,30 @@
     </div>
     <div class="filters-child">
         <div class="position-relative mr-2">
-            <input type="text" name="search-filter" class="form-control font-size-sm" id="search-filter" placeholder="Search here..">
+            <input type="text" 
+                name="search-filter" 
+                class="form-control font-size-sm" 
+                id="search-filter" 
+                placeholder="Search here..">
             <span class="position-absolute icon"><i data-feather="search"></i></span>
         </div>
 
         <div class="btn-group">
-            <button class="btn text-dark btn-dropdown rounded d-flex align-items-center font-size-sm" data-toggle="dropdown">
+            <button class="btn btn-dropdown rounded d-flex align-items-center font-size-sm"
+                data-toggle="dropdown">
                 <span>Actions</span>
                 <span class="ml-2"><i data-feather="chevron-down"></i></span>
             </button>
 
             <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
-                <a href="{{ route($create) }}" class="dropdown-item py-2">
-                    <span>Add New Record</span>
-                </a>
-
-                <button class="dropdown-item py-2" id="btn-import">
-                    <span>Import CSV</span>
-                </button>
-
-                <button class="dropdown-item py-2" id="btn-export">
-                    <span>Export as CSV</span>                        
-                </button>
-
-                <button class="dropdown-item py-2" id="btn-deleteAll">
-                    <span>Delete All Records</span>                        
-                </button>
+                <a href="{{ route($create) }}"
+                    class="dropdown-item py-2">Add New Record</a>
+                <button class="dropdown-item py-2"
+                    id="btn-import">Upload CSV</button>
+                <button class="dropdown-item py-2"
+                    id="btn-export">Download CSV</button>
+                <button class="dropdown-item py-2"
+                    id="btn-deleteAll">Delete All Records</button>
             </div>
         </div>
     </div>

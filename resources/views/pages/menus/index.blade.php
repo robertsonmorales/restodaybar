@@ -27,175 +27,41 @@
 @endsection
 
 @section('scripts')
-<script>
-$(document).ready(function(){
-    var data = @json($data, JSON_PRETTY_PRINT);
-    var icon_for = @json($icon_for, JSON_PRETTY_PRINT);
-        data = JSON.parse(data);
-    
-    var gridDiv = document.querySelector('#myGrid');
+<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
-    var columnDefs = [];
-    columnDefs = {
-        headerName: 'Controls',
-        field: 'controls',
-        sortable: false,
-        filter: false,
-        editable: false,
-        maxWidth: 220,
-        minWidth: 150,
-        pinned: 'left',
-        cellRenderer: function(params){
-            var edit_url = '{{ route("menus.edit", ":id") }}';
-            edit_url = edit_url.replace(':id', params.data.id);
+<script type="text/javascript">
+var data = @json($data, JSON_PRETTY_PRINT);
+var icon = @json($icon_for, JSON_PRETTY_PRINT);
+    data = JSON.parse(data);
 
-            var eDiv = document.createElement('div');
-            eDiv.className = "d-flex align-items-center";
+var editURL = '{{ route("menus.edit", ":id") }}';
+var removeURL = '{{ route("menus.destroy", ":id") }}';
+var importURL = '{{ route("menus.import") }}';
 
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Edit" class="btn btn-controls btn-primary btn-edit ml-1">'+ icon_for['edit'] +'</button>&nbsp;&nbsp;';
-            eDiv.innerHTML+='<button id="'+params.data.id+'" title="Delete" class="btn btn-controls btn-danger btn-remove">'+ icon_for['remove'] +'</button>&nbsp;';
+initAgGrid(data, icon, true, editURL);
 
-            var btn_edit = eDiv.querySelectorAll('.btn-edit')[0];
-            var btn_remove = eDiv.querySelectorAll('.btn-remove')[0];
+// IMPORT
+$('#btn-import-submit').on('click', function(){
+    $('#btn-import-cancel').prop('disabled', true);
+    $(this).prop('disabled', true);
+    $(this).html("Uploading File..");
 
-            btn_edit.addEventListener('click', function() {
-                window.location.href = edit_url;
-            });
-
-            btn_remove.addEventListener('click', function() {
-                var data_id = $(this).attr("id");
-                $('#form-submit').attr('style', 'display: flex;');
-                $('.modal-content').attr('id', params.data.id);
-            });
-            
-            return eDiv;
-        }
-    };
-
-    data.column.push(columnDefs);
-
-    var gridOptions = {
-        defaultColDef: {
-            sortingOrder: ['desc', 'asc', null],
-            resizable: true,
-            sortable: true,
-            filter: true,
-            editable: false,
-            flex: 1,
-        },
-        columnDefs: data.column,
-        rowData: data.rows,
-        groupSelectsChildren: true,
-        suppressRowTransform: true,
-        enableCellTextSelection: true,
-        rowHeight: 55,
-        animateRows: true,
-        pagination: true,
-        paginationPageSize: 25,
-        pivotPanelShow: "always",
-        colResizeDefault: "shift",
-        rowSelection: "multiple",
-        onGridReady: function () {
-            autoSizeAll();
-            // gridOptions.api.sizeColumnsToFit();
-            gridOptions.columnApi.moveColumn('controls', 0);
-        }
-    };
-
-    function autoSizeAll(skipHeader) {
-        var allColumnIds = [];
-        gridOptions.columnApi.getAllColumns().forEach(function(column) {
-            allColumnIds.push(column.colId);
-        });
-
-        gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
-    }
-
-    // EXPORT AS CSV
-    $('#btn-export').on('click', function(){
-        gridOptions.api.exportDataAsCsv();
-    });
-    // ENS HERE
-
-    // SEARCH HERE
-    function search(data) {
-      gridOptions.api.setQuickFilter(data);
-    }
-
-    $("#search-filter").on("keyup", function() {
-      search($(this).val());
-    });
-    // ENDS HERE
-
-    // PAGE SIZE
-    function pageSize(value){
-        gridOptions.api.paginationSetPageSize(value);
-    }
-
-    $("#pageSize").change(function(){
-        var size = $(this).val();
-        pageSize(size);
-    });
-    // ENDS HERE
-
-    // setup the grid after the page has finished loading
-    new agGrid.Grid(gridDiv, gridOptions); 
-
-    // import
-    $('#import_file').on('change', function(){
-        if($(this)[0].files.length == 0){
-            $('#btn-import-submit').prop('disabled', true);
-            $('#btn-import-submit').css('cursor', 'not-allowed');
-        }else{
-            $('#btn-import-submit').prop('disabled', false);
-            $('#btn-import-submit').css('cursor', 'pointer');
-        }
-    });
-
-    $('#btn-import').on('click', function(){
-        $('#import-form-submit').attr('style', 'display: flex;');
-
-        if($('#import_file')[0].files.length == 0){
-            $('#btn-import-submit').prop('disabled', true);
-            $('#btn-import-submit').css('cursor', 'not-allowed');
-        }else{
-            $('#btn-import-submit').prop('disabled', false);
-            $('#btn-import-submit').css('cursor', 'pointer');
-        }
-    });
-
-    $('#btn-import-cancel').on('click', function(){
-        $('#import-form-submit').hide();
-        $('#btn-import-submit').html("Import File");
-    });
-
-    $('#btn-import-submit').on('click', function(){
-        $('#btn-import-cancel').prop('disabled', true);
-        $(this).prop('disabled', true);
-        $(this).html("Importing File..");
-        document.getElementById("import-form-submit").action = "{{ route('menus.import') }}";
-        document.getElementById("import-form-submit").submit(); 
-    });
-    // ends here
-
-    $("#btn-cancel").on('click', function(){
-        $('.modal').hide();
-    });
-
-    $('#btn-remove').on('click', function(){
-        var destroy = '{{ route("menus.destroy", ":id") }}';
-        url = destroy.replace(':id', $('.modal-content').attr('id'));
-
-        $('#btn-cancel').prop('disabled', true);
-        $('#btn-remove').prop('disabled', true);
-        $('#btn-cancel').css('cursor', 'not-allowed');
-        $('#btn-remove').css('cursor', 'not-allowed');
-
-        $('#btn-remove').html("Removing...");
-
-        document.getElementById("form-submit").action = url;
-        document.getElementById("form-submit").submit();
-    });
+    $('#import-form-submit').prop("action", importURL).submit();
 });
+// ENDS HERE
+
+// BUTTON REMOVE
+$('#btn-remove').on('click', function(){
+    var url = removeURL.replace(':id', $('.modal-content').attr('id'));
+
+    $('.modal-footer button').prop('disabled', true);
+    $('.modal-footer button').css('cursor', 'not-allowed');
+
+    $(this).html("Removing...");
+
+    $('#form-submit').prop('action', url).submit();
+});
+// ENDS HERE
+
 </script>
 @endsection
