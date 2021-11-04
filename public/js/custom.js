@@ -1,6 +1,7 @@
 $(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 
+	// ? SIDEBAR LINKS
 	$('.btn-item-nav').on('click', function(){
 		var dropdown = $('#collapse-' + $(this).attr('id'));
 		var parent_nav = $(this).children();
@@ -17,13 +18,17 @@ $(function(){
 		}
 
 	});
+	// ? ENDS HERE
 
+	// ? USER LOGOUT
 	$('.btn-logout').on('click', function(){
 		$("#logout-form").on('submit');
 	});
+	// ? ENDS HERE
 
-	$('#btn-menu').on('click', function(){		
-		console.log($(this));
+	// ? BUTTON MENU
+	$('#btn-menu').on('click', function(){
+		// console.log($(this));
 
 		if($('#sidebar').width() != 0){
 			hideSidebar();
@@ -35,6 +40,7 @@ $(function(){
 	$('#btn-close').on('click', function(){
 		hideSidebar();
 	});
+	// ? ENDS HERE
 
 	function showSidebar(){
 		$('#sidebar').animate({

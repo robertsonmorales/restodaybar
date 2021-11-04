@@ -1,4 +1,4 @@
-<div class="card col-md-7 col-lg-6 mb-4 p-4">
+<div class="card card-account col-md-7 col-lg-6 mb-4 p-4">
     <div class="w-100">
         <h5>Profile Information</h5>
     </div>
@@ -19,7 +19,7 @@
                     : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
                 alt="{{ Auth::user()->username }}">
 
-                <button type="button" class="btn btn-primary btn-sm btn-profile-image">
+                <button type="button" class="btn btn-light btn-sm btn-profile-image text-primary shadow-sm">
                     {{-- <span class="mr-2"><i data-feather="edit"></i></span> --}}
                     <span>Change Profile...</span>
                 </button>

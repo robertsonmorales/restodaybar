@@ -1,0 +1,192 @@
+// ? ANIMATIONS NAMES
+.animate__slideFromRight{
+    animation-name: slideFromRight;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+}
+
+.animate__slideFromLeft{
+    animation-name: slideFromLeft;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+}
+
+.animate__slideFromTop{
+    animation-name: slideFromTop;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+}
+
+.animate__slideFromBottom{
+    animation-name: slideFromBottom;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+}
+
+// ? ANIMATION DURATIONS
+.animate__for__100ms{
+    animation-duration: .1s;
+}
+
+.animate__for__200ms{
+    animation-duration: .2s;
+}
+
+.animate__for__300ms{
+    animation-duration: .3s;
+}
+
+.animate__for__400ms{
+    animation-duration: .4s;
+}
+
+.animate__for__500ms{
+    animation-duration: .5s;
+}
+
+.animate__for__600ms{
+    animation-duration: .6s;
+}
+
+.animate__for__700ms{
+    animation-duration: .7s;
+}
+
+.animate__for__800ms{
+    animation-duration: .8s;
+}
+
+.animate__for__900ms{
+    animation-duration: .9s;
+}
+
+.animate__for__1000ms{
+    animation-duration: 1s;
+}
+
+// nav{
+//     animation: slideToBottom .5s ease forwards;
+// }
+
+// #card-form{
+//     animation: slideToBottom .4s ease forwards;
+// }
+
+// .content{
+//     animation: slideToRight .5s ease forwards;
+// }
+
+// .account-sidebar{
+//     animation: slideToRight .5s ease forwards;
+// }
+
+// .card-account{
+//     animation: slideToRight .6s ease forwards;
+// }
+
+// .card-order-1{
+//     animation: slideToBottom .4s linear;
+// }
+
+// .card-order-2{
+//     animation: slideToBottom .6s linear;
+// }
+
+// .card-order-3{
+//     animation: slideToBottom .8s linear;
+// }
+
+// .card-order-4{
+//     animation: slideToBottom 1s linear;
+// }
+
+// .card-order-5{
+//     animation: slideToRight .4s linear;
+// }
+
+// .card-order-6{
+//     animation: slideToRight .6s linear;
+// }
+
+@keyframes slideFromRight {
+    0% {
+        transform: translateX(-30%);
+        opacity: 0;
+    }
+
+    50%{
+        transform: translateX(10%);
+        opacity: 0.5;
+    }
+
+    100%{
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromLeft{
+    0% {
+        transform: translateX(30%);
+        opacity: 0;
+    }
+
+    50%{
+        transform: translateX(-10%);
+        opacity: 0.5;
+    }
+
+    100%{
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromTop{
+    0% {
+        transform: translateY(-30%);
+        opacity: 0;
+    }
+
+    50%{
+        transform: translateY(10%);
+        opacity: 0.5;
+    }
+
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromBottom{
+    0% {
+        transform: translateY(30%);
+        opacity: 0;
+    }
+
+    50%{
+        transform: translateY(-10%);
+        opacity: 0.5;
+    }
+
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn{
+    from {
+        opacity: 0;
+        top: 20px;
+    }
+    to {
+        opacity: 1;
+        top: 0;
+    }
+}

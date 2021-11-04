@@ -156,7 +156,7 @@
                         class="dropdown-item py-2"
                         type="button">
                         <span class="mr-2"><i data-feather="log-out"></i></span>
-                        <span>Sign out</span>
+                        <span>Logout</span>
                     </button>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

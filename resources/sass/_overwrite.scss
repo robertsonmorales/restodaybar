@@ -5,29 +5,56 @@
 .btn{
     border-radius: $radius !important;
 
-    &:hover{
-        font-weight: 500;
-    }
+    &:hover{ font-weight: 500;}
+
+    &:disabled{opacity: .8 !important;}
 }
 
 .list-group{
     border: none !important;
-    box-shadow: none !important;
+    border-radius: 0;
 
-    .list-group-item{
-        outline: none;
-        border: none !important;    
-        color: $light;
+    a.list-group-item,
+    button.list-group-item{
+        outline: none;  
+        color: $dark;
         padding-top: 10px !important;
         padding-bottom: 10px !important;
         background-color: transparent;
-        border-radius: $radius;
-    
+        border-top: 0;
+        border-left: $border-left solid transparent;
+        border-right: 0;
+        border-bottom: 0;
+
         &:hover{
-            background-color: $secondary;
-            color: $light;
-            box-shadow: $shadow-sm;
+            color: $primary;
+            border-left: $border-left solid $primary;
             font-weight: 500;
         }
+
+        &:hover .adjust-ellipsis{
+            max-width: 100% !important;
+        }
+
+        &:active{
+            color: $danger;
+            border-left: $border-left solid $danger;
+        }
     }
+
+    li.list-group-item{
+        border: $border !important;
+        background-color: $light;
+        border-radius: $radius;
+
+        p{
+            margin-bottom: 0.5rem !important;
+        }
+    }
+}
+
+.active{
+    border-left: $border-left solid $primary !important;
+    color: $primary !important;
+    font-weight: 500 !important;
 }

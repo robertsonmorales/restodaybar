@@ -43,23 +43,23 @@
     }
 }
 
-.data-profile{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+// .data-profile{
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
 
-    img.profile{
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 2px solid $light;
-    }
+//     img.profile{
+//         width: 36px;
+//         height: 36px;
+//         border-radius: 50%;
+//         border: 2px solid $light;
+//     }
 
-    .name{
-        display: flex;
-        flex-direction: column;
-    }
-}
+//     .name{
+//         display: flex;
+//         flex-direction: column;
+//     }
+// }
 
 .btn-controls{
     width: 38px;
@@ -68,6 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.1));
 
     .feather{
         width: 18px;

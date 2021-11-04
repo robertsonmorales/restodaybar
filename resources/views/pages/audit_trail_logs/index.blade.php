@@ -22,78 +22,13 @@
 @endsection
 
 @section('scripts')
-<script>
-$(document).ready(function(){
-    var data = @json($data, JSON_PRETTY_PRINT);
-        data = JSON.parse(data);
+<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
-    var gridOptions = {
-        defaultColDef: {
-            sortingOrder: ['desc', 'asc', null],
-            resizable: true,
-            sortable: true,
-            filter: true,
-            editable: false,
-            minWidth: 140,
-        },
-        columnDefs: data.column,
-        rowData: data.rows,
-        groupSelectsChildren: true,
-        suppressRowTransform: true,
-        enableCellTextSelection: true,
-        rowHeight: 55,
-        animateRows: true,
-        pagination: true,
-        paginationPageSize: 25,
-        pivotPanelShow: "always",
-        colResizeDefault: "shift",
-        rowSelection: "multiple",
-        onGridReady: function () {
-            autoSizeAll();
-            // gridOptions.api.sizeColumnsToFit();
-        }
-    }
+<script type="text/javascript">
+var data = @json($data, JSON_PRETTY_PRINT);
+    data = JSON.parse(data);
 
-    function autoSizeAll(skipHeader) {
-        var allColumnIds = [];
-        gridOptions.columnApi.getAllColumns().forEach(function(column) {
-            allColumnIds.push(column.colId);
-        });
+initAgGrid(data);
 
-        gridOptions.columnApi.autoSizeColumns(allColumnIds, skipHeader);
-    }
-
-    // export as csv
-    $('#btn-export').on('click', function(){
-        gridOptions.api.exportDataAsCsv();
-    });
-
-    function search(data) {
-      gridOptions.api.setQuickFilter(data);
-    }
-
-    $("#search-filter").on("keyup", function() {
-      search($(this).val());
-    });
-
-    // change page size
-    function pageSize(value){
-        gridOptions.api.paginationSetPageSize(value);
-    }
-
-    // PAGE SIZE
-    $("#pageSize").change(function(){
-        var size = $(this).val();
-        // console.log(size);
-        pageSize(size);
-    });
-    // ENDS HERE
-
-    // assign agGrid to a variable
-    var gridDiv = document.querySelector('#myGrid');
-    
-    // setup the grid after the page has finished loading
-    new agGrid.Grid(gridDiv, gridOptions);
-});
 </script>
 @endsection

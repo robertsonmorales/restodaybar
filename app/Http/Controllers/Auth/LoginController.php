@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+use Browser;
+
+use App\Models\UserBrowserSession;
+
 class LoginController extends Controller
 {
     /*
@@ -57,7 +61,18 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // return $user;
+        $params = array(
+            'user_id' => $user->id,
+            'device_family' => @Browser::deviceFamily(),
+            'device_model' => @Browser::deviceModel(),
+            'plaform_family' => @Browser::platformFamily(),
+            'plaform_name' => @Browser::platformName(),
+            'browser' => @Browser::browserName(),
+            'ip_address' => $this->ipAddress(),
+            'mac_address' => (strlen(exec('getmac')) > 17) ? "" : exec('getmac')
+        );
+
+        UserBrowserSession::create($params);
     }
 
     /**

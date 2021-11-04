@@ -1,12 +1,9 @@
-#sidebar{
-    overflow-y: auto;
-    background: $primary;
-    width: 320px;
-}
-
 .sidebar{
     flex-direction: column;
     position: sticky;
+    overflow-y: auto;
+    background-color: #fff;
+    width: 320px;
     height: 100vh;
 
     .branding-logo{
@@ -27,15 +24,15 @@
         transition: all .4s ease;
     
         .feather{
-            width: 14px !important;
-            height: 14px !important;
+            width: 14px;
+            height: 14px;
         }
     }
     
     .circle-size-sm{   
         .feather{
-            width: 10px !important;
-            height: 10px !important;
+            width: 8px;
+            height: 8px;
         }
     }
     

@@ -7,7 +7,7 @@
         <div class="card mb-sm-3 mr-sm-3 card-order-1">
             <div class="card-body flex-sm-column-reverse flex-lg-row">
                 <div class="card-content">
-                    <span class="text-muted font-size-sm">Monthly Earnings</span>
+                    <span class="text-muted font-size-sm">Your Earnings</span>
                     <div class="card-title d-flex align-items-center mb-auto">
                         <h3 class="mr-2">$15,000</h3>
                         <span class="text-success">
@@ -24,9 +24,9 @@
         <div class="card mb-sm-3 mr-lg-3 card-order-2">
             <div class="card-body flex-sm-column-reverse flex-lg-row">
                 <div class="card-content">
-                    <span class="text-muted font-size-sm">Monthly Revenue</span>
+                    <span class="text-muted font-size-sm">Your Expenditures</span>
                     <div class="card-title d-flex align-items-center mb-auto">
-                        <h3 class="mr-2">$15,123</h3>
+                        <h3 class="mr-2">$10,123</h3>
                         <span class="text-success">
                             <i data-feather="trending-up"></i>
                         </span>

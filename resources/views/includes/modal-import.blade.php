@@ -1,17 +1,18 @@
 <!-- The Import Modal -->
 <form class="modal" 
-method="POST"
-id="import-form-submit"
-enctype="multipart/form-data">
+    method="POST"
+    id="import-form-submit"
+    enctype="multipart/form-data">
+    
     @csrf
     <div class="modal-content">
         <div class="modal-header">      
-            <div class="modal-icon modal-icon-primary">
+            <div class="modal-icon bg-primary text-white">
                 <i data-feather="alert-triangle"></i>
             </div>
 
-            <div class="modal-body">
-                <h5>Import Records</h5>
+            <div class="modal-body pt-0 pr-0">
+                <h5>Upload Records</h5>
 
                 <p>This only accepts .csv file format.</p>
 
@@ -31,8 +32,8 @@ enctype="multipart/form-data">
         </div>
 
         <div class="modal-footer bg-light">
-            <button type="button" class="btn btn-primary" id="btn-import-submit">Import File</button>
-            <button type="button" class="btn btn-dark mr-4" id="btn-import-cancel">Cancel</button>
+            <button type="button" class="btn btn-outline-primary" id="btn-import-cancel">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btn-import-submit">Upload File</button>
         </div>
     </div>
 </form>

@@ -34,7 +34,6 @@
 		}
 
 		.modal-header{
-			padding: 20px;
 			padding-bottom: 15px !important;
 
 			.modal-icon{
@@ -50,34 +49,9 @@
 				}
 			}
 
-			.modal-icon-primary{
-				background-color: #0061f233;
-				color: $primary;
-			}
-
-			.modal-icon-warning{
-				background-color: #ff980033;
-				color: $warning;
-			}
-
-			.modal-icon-error{
-				background-color: #dc354533;
-				color: $danger;
-			}
-
-			.modal-icon-info{
-				color: $info;
-				background-color: #03a9f433;
-			}
-
-			.modal-icon-success{
-				color: $success;
-				background-color: #4caf5033;
-			}
-
 			.modal-body{
-				padding: 0 1rem !important;
-
+				padding-left: 1rem;
+				
 				p{
 					font-weight: normal !important;
 				}

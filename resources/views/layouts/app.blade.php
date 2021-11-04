@@ -34,11 +34,10 @@
     </div>
 
     @yield('vendors-script')
+
+    <script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+
     @yield('scripts')
-    @yield('script-src')
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-
 </body>
 </html>
