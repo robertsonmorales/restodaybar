@@ -23,8 +23,9 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
+                    <div class="up-arrow"></div>
                     <div class="dropdown-item-text d-flex align-items-center px-3 py-2">
-                        <span class="mr-2"><i data-feather="bell"></i></span>
+                        {{-- <span class="mr-2"><i data-feather="bell"></i></span> --}}
                         <span class="font-size-sm font-weight-600">ALERTS CENTER</span>
                     </div>
                     
@@ -73,8 +74,9 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
+                    <div class="up-arrow"></div>
                     <div class="dropdown-item-text d-flex align-items-center px-3 py-2">
-                        <span class="mr-2"><i data-feather="message-circle"></i></span>
+                        {{-- <span class="mr-2"><i data-feather="message-circle"></i></span> --}}
                         <span class="font-size-sm font-weight-600">MESSAGES CENTER</span>
                     </div>
 
@@ -126,6 +128,7 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
+                    <div class="up-arrow"></div>
 
                     <div class="dropdown-item-text">
                         <span class="dropdown-image mr-2 overflow-hidden">

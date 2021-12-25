@@ -12198,11 +12198,7 @@ body .close {
 }
 
 body .btn {
-  border-radius: 0.75rem !important;
-}
-
-body .btn:hover {
-  font-weight: 500;
+  border-radius: 4px !important;
 }
 
 body .btn:disabled {
@@ -12248,7 +12244,7 @@ body .list-group button.list-group-item:active {
 body .list-group li.list-group-item {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7) !important;
   background-color: #f8f9fa;
-  border-radius: 0.75rem;
+  border-radius: 4px;
 }
 
 body .list-group li.list-group-item p {
@@ -12304,7 +12300,7 @@ body .select2-selection__arrow {
 body .auth-card {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7) !important;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075) !important;
-  border-radius: 0.75rem !important;
+  border-radius: 4px !important;
   background-color: #fff;
   overflow: hidden;
 }
@@ -12327,7 +12323,7 @@ body .auth-card .card .inputs > label {
 
 body .auth-card .card .form-control {
   padding-left: 35px !important;
-  border-radius: 0.75rem !important;
+  border-radius: 4px !important;
 }
 
 body .auth-card .card .form-control:focus {
@@ -12396,7 +12392,7 @@ body main nav {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  border-radius: 0.75rem;
+  border-radius: 4px;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
 }
@@ -12439,12 +12435,23 @@ body main nav .nav-icons .btn-dropdown .badge-position {
 
 body main .dropdown-menu {
   box-shadow: 0 10px 40px 10px rgba(140, 152, 164, 0.175) !important;
-  border-radius: 0.75rem !important;
+  border-radius: 4px !important;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7) !important;
   -webkit-animation-name: fadeIn;
           animation-name: fadeIn;
   -webkit-animation-duration: 0.4s;
           animation-duration: 0.4s;
+}
+
+body main .dropdown-menu .up-arrow {
+  height: 15px;
+  width: 20px;
+  background-color: #fff;
+  -webkit-clip-path: polygon(50% 0%, 0 80%, 100% 80%);
+          clip-path: polygon(50% 0%, 0 80%, 100% 80%);
+  position: absolute;
+  top: -8px;
+  right: 11px;
 }
 
 body main .dropdown-menu .dropdown-item-text {
@@ -12534,7 +12541,7 @@ body main .header .breadcrumb-section .breadcrumb-items:last-child {
 }
 
 body main .content {
-  border-radius: 0.75rem;
+  border-radius: 4px;
   border: 0.0625rem solid rgba(231, 234, 243, 0.7);
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
   background-color: #fff;
@@ -12559,11 +12566,11 @@ body main .content .filters-section .filters-child label {
 
 body main .content .filters-section .filters-child .form-control {
   padding-left: 35px !important;
-  border-radius: 0.75rem;
+  border-radius: 4px;
 }
 
 body main .content .filters-section .filters-child .custom-select {
-  border-radius: 0.75rem;
+  border-radius: 4px;
 }
 
 body main .content .filters-section .filters-child .icon {
@@ -12596,7 +12603,7 @@ body main .btn-controls .feather {
 body main .card {
   border: 0.0625rem solid rgba(231, 234, 243, 0.7) !important;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075);
-  border-radius: 0.75rem !important;
+  border-radius: 4px !important;
   overflow: hidden;
   text-align: left;
 }
@@ -12652,7 +12659,7 @@ body main .card .input-group label {
 
 body main .card .input-group .form-control,
 body main .card .input-group .custom-file-input {
-  border-radius: 0.75rem !important;
+  border-radius: 4px !important;
   resize: none;
   width: 100%;
 }
@@ -12677,11 +12684,6 @@ body main .card .actions a {
   padding-right: 15px;
 }
 
-body main .card .actions button:hover,
-body main .card .actions a:hover {
-  font-weight: 500;
-}
-
 body main .modal {
   display: none;
   position: fixed;
@@ -12703,7 +12705,7 @@ body main .modal .modal-content {
           animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
           animation-duration: 0.4s;
-  border-radius: 0.75rem;
+  border-radius: 4px;
   overflow: hidden;
   border: none;
   box-shadow: 1px 15px 50px rgba(0, 0, 0, 0.1);
@@ -12777,14 +12779,14 @@ body main .modal .modal-content .modal-footer #btn-save {
 }
 
 body main .alerts {
-  border-radius: 0.75rem;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 body main .account-sidebar {
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(140, 152, 164, 0.075) !important;
-  border-radius: 0.75rem;
+  border-radius: 4px;
   overflow: hidden;
   padding: 15px 0;
 }

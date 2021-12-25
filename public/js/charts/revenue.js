@@ -69,7 +69,7 @@ var options = {
         style: {
             fontFamily: ['Poppins', 'Montserrat', 'Sans-serif'],
             fontWeight: 'normal',
-            color: '#3e4044'
+            color: '#3e4044',
         }
     },
     chart: chartOptions,

@@ -56,6 +56,16 @@ nav{
     animation-name: fadeIn;
     animation-duration: .4s;
 
+    .up-arrow{
+        height: 15px;
+        width: 20px;
+        background-color: #fff;
+        clip-path: polygon(50% 0%, 0 80%, 100% 80%);
+        position: absolute;
+        top: -8px;
+        right: 11px;
+    }
+
     .dropdown-item-text{
         display: flex !important;
         align-items: center !important;

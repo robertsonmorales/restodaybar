@@ -5,7 +5,7 @@
 .btn{
     border-radius: $radius !important;
 
-    &:hover{ font-weight: 500;}
+    // &:hover{ font-weight: 500;}
 
     &:disabled{opacity: .8 !important;}
 }
