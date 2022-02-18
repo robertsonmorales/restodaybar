@@ -12621,7 +12621,7 @@ body main .card .card-body .card-content {
 }
 
 body main .card .card-icon {
-  border-radius: 50%;
+  border-radius: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
