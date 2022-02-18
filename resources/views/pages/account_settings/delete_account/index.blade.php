@@ -6,7 +6,7 @@
 <div class="row no-gutters align-items-start mx-4">
     @include('pages.account_settings.sidebar')
 
-    <div class="col-md-7 col-lg-6">
+    <div class="col">
         <div class="card card-account mb-4 p-4">
             <div class="w-100">
                 <h5>Delete Account</h5>
