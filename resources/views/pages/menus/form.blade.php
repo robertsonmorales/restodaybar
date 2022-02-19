@@ -170,8 +170,8 @@
         @if ($mode == 'update')
         @method('PUT')
         <input type="hidden" 
-        name="id" 
-        value="{{ ($mode == 'update') ? $data->id : ''}}">
+            name="id" 
+            value="{{ ($mode == 'update') ? $data->id : ''}}">
         @endif
 
         <div class="actions w-100">

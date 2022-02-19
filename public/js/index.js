@@ -66,7 +66,8 @@ $("#btn-cancel").on('click', function(){
 
 function initAgGrid(data, icons = '', showControls = false, url = ''){
     var aggrid = document.querySelector('#myGrid');
-
+    var width = 150;
+    var minWidth = 140;
     if(showControls === true){
         var columnDefs = {
             headerName: 'Controls',
@@ -75,8 +76,8 @@ function initAgGrid(data, icons = '', showControls = false, url = ''){
             filter: false,
             editable: false,
             flex: 1,
-            maxWidth: 230,
-            minWidth: 220,
+            maxWidth: width, // 230
+            minWidth: minWidth, // 220
             pinned: 'left',
             cellRenderer: function(params){
                 var editURL = url.replace(':id', params.data.id);
