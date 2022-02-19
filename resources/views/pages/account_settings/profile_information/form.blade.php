@@ -13,18 +13,16 @@
             @csrf
 
             <div class="input-group profile-preview">
-                <div class="d-flex flex-column align-items-start">
-                    <img id="image-preview" 
-                    src="{{ (is_null(Auth::user()->profile_image))
-                        ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
-                        : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                    alt="{{ Auth::user()->username }}">
+                <img id="image-preview" 
+                src="{{ (is_null(Auth::user()->profile_image))
+                    ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
+                    : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
+                alt="{{ Auth::user()->username }}">
 
-                    <button type="button" class="btn btn-light btn-sm btn-profile-image text-primary shadow-sm">
-                        {{-- <span class="mr-2"><i data-feather="edit"></i></span> --}}
-                        <span>Change Profile...</span>
-                    </button>
-                </div>
+                <button type="button" class="btn btn-light btn-sm btn-profile-image text-primary shadow-sm">
+                    {{-- <span class="mr-2"><i data-feather="edit"></i></span> --}}
+                    <span>Change Profile...</span>
+                </button>
                 
                 <input type="file" 
                 name="profile_image" 

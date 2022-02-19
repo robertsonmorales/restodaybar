@@ -23,16 +23,16 @@
             <div class="col">
                 <div class="card p-2">
                     <div class="card-header border-0 bg-white">
-                        <div class="h3">Password Recovery</div>
-                        <div class="h6 font-weight-normal">We will send you an email containing a password reset link</div>
-                    </div>
-
-                    <div class="card-body pt-0">
                         @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                         @endif
+                        <div class="h3">Password Recovery</div>
+                        <div class="h6 font-weight-normal">We will send you an email containing a password reset link</div>
+                    </div>
+
+                    <div class="card-body pt-0">
                         <div class="form-group row flex-column inputs">
                             <label for="email" class="col">{{ __('Email Address') }}</label>
                             <div class="col">

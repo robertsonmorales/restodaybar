@@ -32,6 +32,9 @@ class NavigationSeeder extends Seeder
                 )
             ),
             array(
+                'main' => array('Module Management', 'modules_mangement', 'ModuleManagement', 'folder', 'single')
+            ),
+            array(
                 'main' => array('User Management', 'user_management', '', 'users', 'main'),
                 'sub' => array(
                     array('User Accounts', 'user_accounts', 'UserAccount', 'circle', 'sub'),

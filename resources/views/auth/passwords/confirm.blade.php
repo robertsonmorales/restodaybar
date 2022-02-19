@@ -24,17 +24,17 @@
             <div class="col">
                 <div class="card p-2">
                     <div class="card-header border-0 bg-white">
-                        <div class="h3">Confirm Password</div>
-                        <div class="h6 font-weight-normal">Please confirm your password before continuing.</div>
-                    </div>
-
-                    <div class="card-body pt-0">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
 
+                        <div class="h3">Confirm Password</div>
+                        <div class="h6 font-weight-normal">Please confirm your password before continuing.</div>
+                    </div>
+
+                    <div class="card-body pt-0">
                         <div class="form-group row flex-column inputs">
                             <label for="password" 
                             class="col">{{ __('Password') }}</label>
