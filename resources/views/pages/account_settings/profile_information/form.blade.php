@@ -19,9 +19,9 @@
                     : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
                 alt="{{ Auth::user()->username }}">
 
-                <button type="button" class="btn btn-light btn-sm btn-profile-image text-primary shadow-sm">
-                    {{-- <span class="mr-2"><i data-feather="edit"></i></span> --}}
-                    <span>Change Profile...</span>
+                <button type="button" class="btn btn-light btn-profile-image text-primary">
+                    <span class="mr-1"><i data-feather="edit"></i></span>
+                    <span>Change Profile ...</span>
                 </button>
                 
                 <input type="file" 
@@ -42,7 +42,7 @@
                 id="first_name" 
                 required
                 class="form-control @error('first_name') is-invalid @enderror"
-                value="{{ $users->first_name }}" 
+                value="{{ auth()->user()->first_name }}" 
                 autocomplete="off" 
                 autofocus>
 
@@ -59,7 +59,7 @@
                 name="last_name" 
                 id="last_name" 
                 required 
-                value="{{ $users->last_name }}"
+                value="{{ auth()->user()->last_name }}"
                 class="form-control @error('last_name') is-invalid @enderror"
                 autocomplete="off" 
                 autofocus>
@@ -76,11 +76,9 @@
                 <input type="text" 
                 name="username" 
                 id="username" 
-                required 
-                autocomplete="off"
                 class="form-control @error('username') is-invalid @enderror" 
                 autofocus
-                value="{{ $users->username }}" 
+                value="{{ auth()->user()->username }}"
                 autocomplete="off">
                     
                 @error('username')
@@ -96,7 +94,7 @@
                 name="contact_number" 
                 id="contact_number"
                 required 
-                value="{{ $users->contact_number }}"
+                value="{{ auth()->user()->contact_number }}"
                 class="form-control @error('contact_number') is-invalid @enderror" 
                 autocomplete="off" 
                 autofocus>
@@ -114,7 +112,7 @@
                 name="address" 
                 id="address" 
                 required 
-                value="{{ $users->address }}"
+                value="{{ auth()->user()->address }}"
                 class="form-control @error('address') is-invalid @enderror" 
                 autocomplete="off" 
                 autofocus>

@@ -60,14 +60,12 @@ class MyAccountController extends Controller
         $mode = [route('account_settings.index'), route('account_settings.index')];
         
         $action_mode = 'update';
-        $user = User::find(Auth::id());
 
         $this->audit_trail_logs();
         
         return view('pages.account_settings.profile_information.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'title' => 'Profile Information',
-            'users' => $user,
             'mode' => $action_mode
         ]);
     }

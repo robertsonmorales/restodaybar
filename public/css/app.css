@@ -12380,10 +12380,9 @@ body main {
   overflow-y: auto;
   overflow-x: hidden;
   width: 100% !important;
-}
-
-body main .sticky-top {
-  top: 15px !important;
+  /* .sticky-top{
+      top: 15px !important;
+  } */
 }
 
 body main nav {
