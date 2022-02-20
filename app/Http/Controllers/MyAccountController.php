@@ -61,12 +61,17 @@ class MyAccountController extends Controller
         
         $action_mode = 'update';
 
+        $profile = (is_null(auth()->user()->profile_image))
+                    ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".auth()->user()->first_name."&format=svg&bold=true&font-size=0.4&length=1"
+                    : asset('uploads/user_accounts/'.auth()->user()->profile_image);
+
         $this->audit_trail_logs();
         
         return view('pages.account_settings.profile_information.index', [
             'breadcrumbs' => $this->breadcrumbs($name, $mode),
             'title' => 'Profile Information',
-            'mode' => $action_mode
+            'mode' => $action_mode,
+            'profile_image' => $profile
         ]);
     }
 

@@ -4,7 +4,7 @@
             <h5>Profile Information</h5>
         </div>
 
-        <form action="{{ route('account_settings.update', Auth::user()->id) }}"
+        <form action="{{ route('account_settings.update', auth()->user()->id) }}"
             method="post"
             class="w-100"
             id="settings-form"
@@ -14,10 +14,10 @@
 
             <div class="input-group profile-preview">
                 <img id="image-preview" 
-                src="{{ (is_null(Auth::user()->profile_image))
-                    ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
-                    : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                alt="{{ Auth::user()->username }}">
+                src="{{ $profile_image }}"
+                alt="{{ auth()->user()->username }}"
+                width="80"
+                height="80">
 
                 <button type="button" class="btn btn-light btn-profile-image text-primary">
                     <span class="mr-1"><i data-feather="edit"></i></span>

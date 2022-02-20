@@ -77,7 +77,7 @@ class Controller extends BaseController
         $pagesize = $this->pagesize();
 
         $params = array(
-            // 'breadcrumbs' => $this->breadcrumbs([$title], [$route]),
+            'breadcrumbs' => $this->breadcrumbs([$this->title], [$route]),
             'data' => $data,
             'pagesize' => $pagesize,
             'create' => $form,
@@ -113,6 +113,9 @@ class Controller extends BaseController
         $params['title'] = $title;
         $params['subtitle'] = $this->singular($params['mode'], $title);
         $params['url'] = $url;
+
+        // ! NEEDS FIXING
+        $params['breadcrumbs'] = $this->breadcrumbs([$this->title], [$this->route]);
         // ends here
 
         return view($view, $params);
@@ -190,7 +193,7 @@ class Controller extends BaseController
     
     // Breadcrumbs
     public function breadcrumbs($name, $mode){
-        return $breadcrumb = array(
+        return array(
             'name' => $name,
             'mode' => $mode
         );

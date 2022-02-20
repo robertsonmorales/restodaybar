@@ -15,7 +15,8 @@ class NavigationController extends Controller
      */
     public function index()
     {
-        $rows = $this->changeValue($this->nav->mainAndSingle()->oldest('nav_name')->get());
+        $rows = $this->nav->mainAndSingle()->oldest('nav_name')->get();
+        $rows = $this->changeValue($rows);
 
         $columnDefs = array(
             array('headerName'=>'NAME','field'=>'nav_name', 'floatingFilter'=> false),
