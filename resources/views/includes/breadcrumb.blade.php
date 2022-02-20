@@ -1,6 +1,9 @@
 @auth
 <div class="mx-4 my-3">
-    @if(count($breadcrumbs['name']) > 1)
+    {{-- @if(count($breadcrumbs['name']) > 1)
+    
+    @endif --}}
+
     <div class="header mb-2">
         <ul class="breadcrumb-section">
             <li class="breadcrumb-items">
@@ -28,7 +31,6 @@
             @endfor
         </ul>
     </div>
-    @endif
 
     <div class="header">
         <h3 class="mb-0">{{ $title }}</h3>

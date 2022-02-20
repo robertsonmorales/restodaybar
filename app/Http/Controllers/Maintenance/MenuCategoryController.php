@@ -17,7 +17,8 @@ class MenuCategoryController extends Controller
      */
     public function index()
     {   
-        $rows = $this->changeValue($this->category->latest()->get());
+        $rows = $this->category->latest()->get();
+        $rows = $this->changeValue($rows);
 
         $columnDefs = array(            
             array('headerName'=>'Name','field'=>'name'),
