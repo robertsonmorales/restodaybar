@@ -15,7 +15,7 @@ use Purifier;
 use App\Models\{User, UserLevel, AuditTrailLogs, 
     MenuCategory, MenuSubcategory, CategoryOfMenu,
     Menu, TableManagement, ApiLog,
-    Navigation, UserBrowserSession, ModuleManagement};
+    Navigation, UserBrowserSession};
 
 class Controller extends BaseController
 {
@@ -24,13 +24,13 @@ class Controller extends BaseController
     protected $user, $userLevel, $auditLogs,
         $category, $subcategory, $categoryMenu,
         $menu, $tableManagement, $apiLog, $nav,
-        $browserSession, $moduleManagement;
+        $browserSession;
 
     public function __construct(User $user, UserLevel $userLevel,
         AuditTrailLogs $auditLogs, MenuCategory $category,
         MenuSubcategory $subcategory, CategoryOfMenu $categoryMenu, Menu $menu,
         TableManagement $tableManagement, ApiLog $apiLog,
-        Navigation $nav, UserBrowserSession $browserSession, ModuleManagement $moduleManagement){
+        Navigation $nav, UserBrowserSession $browserSession){
 
         config('app.timezone', 'Manila/Asia');
 
@@ -45,7 +45,6 @@ class Controller extends BaseController
         $this->apiLog = $apiLog;
         $this->nav = $nav;
         $this->browserSession = $browserSession;
-        $this->moduleManagement = $moduleManagement;
 
         $this->route = $this->get()['route'];
         $this->title = $this->get()['title'];

@@ -4,6 +4,7 @@
 #public
 /public/storage
 /public/hot
+/public/uploads
 
 /vendor
 .env
