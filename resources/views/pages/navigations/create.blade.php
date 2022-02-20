@@ -94,6 +94,7 @@
             required>
                 <option value="single" {{ ($mode == 'update' && $data->nav_type == 'single') ? 'selected' : '' }}>Single</option>
                 <option value="main" {{ ($mode == 'update' && $data->nav_type == 'main') ? 'selected' : '' }}>Main</option>
+                <option value="sub" {{ ($mode == 'update' && $data->nav_type == 'sub') ? 'selected' : '' }}>Sub</option>
             </select>
 
             @error('type')
