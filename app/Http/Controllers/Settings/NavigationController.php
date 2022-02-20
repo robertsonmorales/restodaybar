@@ -8,59 +8,6 @@ use Auth, Validator, Str;
 
 class NavigationController extends Controller
 {
-    public function validator(Request $request){
-        $type = $this->safeInputs($request->input('type'));
-        $mode_main = ($type == "main") ? "nullable" : "required";
-        $mode_single = ($type == "single") ? "nullable" : "required";
-
-        $input = [
-            'nav_name' => $this->safeInputs($request->input('name')),
-            'nav_controller' => $this->safeInputs($request->input('controller')),
-            'nav_route' => $this->safeInputs($request->input('route')),
-            'nav_icon' => $this->safeInputs($request->input('icon')),
-            'nav_type' => $this->safeInputs($request->input('type')),
-            'status' => $this->safeInputs($request->input('status')),
-
-            'sub_name' => $this->safeInputs($request->input('sub_name')),
-            'sub_route' => $this->safeInputs($request->input('sub_route')),
-            'sub_controller' => $this->safeInputs($request->input('sub_controller')),
-            'sub_order' => $this->safeInputs($request->input('sub_order')),
-        ];
-
-        $rules = [
-            'nav_name' => 'required|string|max:255|unique:navigations,nav_name,'.$this->safeInputs($request->input('id')),
-            'nav_controller' => $mode_main.'|max:100|unique:navigations,nav_controller,'.$this->safeInputs($request->input('id')),
-            'nav_route' => $mode_main.'|max:50|unique:navigations,nav_route,'.$this->safeInputs($request->input('id')),
-            'nav_icon' => 'required|max:50|unique:navigations,nav_icon,'.$this->safeInputs($request->input('id')),
-            'nav_type' => 'required|string',
-            'status' => 'required|numeric',
-
-            'sub_name.*' => $mode_single.'|string',
-            'sub_route.*' => $mode_single.'|string',
-            'sub_controller.*' => $mode_single.'|string',
-            'sub_order.*' => $mode_single.'|string',
-        ];
-
-        $messages = [];
-
-        $customAttributes = [
-            'nav_name' => 'name',
-            'nav_controller' => 'controller',
-            'nav_route' => 'route',
-            'nav_icon' => 'icon',
-            'nav_type' => 'type',
-            'status' => 'status',
-
-            'sub_name' => 'sub-name',
-            'sub_route' => 'sub-route',
-            'sub_controller' => 'sub-controller',
-            'sub_order' => 'sub-order',
-        ];                
-
-        $validator = Validator::make($input, $rules, $messages,$customAttributes);
-        return $validator->validate();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -127,6 +74,7 @@ class NavigationController extends Controller
             ->activeNav()
             ->latest('nav_order')
             ->first();
+
         $type = $validated['nav_type'];
         $controller = $this->adjustModelController($validated['nav_controller']);
 
@@ -142,7 +90,9 @@ class NavigationController extends Controller
         $parent_id = $navId;
         if($validated['nav_type'] == "single"){
             $model = $this->adjustModelController($validated['nav_name']);
-            $this->generateNavigationFiles($model, $controller, $type, '');
+            $route = $validated['nav_route'];
+
+            $this->generateResourceFiles($model, $controller, $route);
         }else if ($validated['nav_type'] == "main"){
             $rows = $this->safeInputs($request->input('rows'));
 
@@ -166,16 +116,17 @@ class NavigationController extends Controller
                 $validated_sub['status'] = 1;
                 $validated_sub['created_by'] = Auth::id();
 
-                $this->nav->create($validated_sub);
+                $insert_nav = $this->nav->create($validated_sub);
 
-                $this->generateNavigationFiles($model, $sub_controller, $type, $navName);
+                if($insert_nav){
+                    $this->generateResourceFiles($model, $sub_controller, $sub_route, $navName);
+                }
             }
         }
 
         $this->audit_trail_logs($request->all());
 
-        return redirect()->route('navigations.index')
-            ->with('success', 'Navigation Added Successfully');
+        return $this->redirectToIndex();
     }
 
     /**
@@ -257,5 +208,58 @@ class NavigationController extends Controller
 
     public function adjustRoute($string){
         return str_replace(' ', '_', strtolower(Str::plural($string)));
+    }
+
+    public function validator(Request $request){
+        $type = $this->safeInputs($request->input('type'));
+        $mode_main = ($type == "main") ? "nullable" : "required";
+        $mode_single = ($type == "single") ? "nullable" : "required";
+
+        $input = [
+            'nav_name' => $this->safeInputs($request->input('name')),
+            'nav_controller' => $this->safeInputs($request->input('controller')),
+            'nav_route' => $this->safeInputs($request->input('route')),
+            'nav_icon' => $this->safeInputs($request->input('icon')),
+            'nav_type' => $this->safeInputs($request->input('type')),
+            'status' => $this->safeInputs($request->input('status')),
+
+            'sub_name' => $this->safeInputs($request->input('sub_name')),
+            'sub_route' => $this->safeInputs($request->input('sub_route')),
+            'sub_controller' => $this->safeInputs($request->input('sub_controller')),
+            'sub_order' => $this->safeInputs($request->input('sub_order')),
+        ];
+
+        $rules = [
+            'nav_name' => 'required|string|max:255|unique:navigations,nav_name,'.$this->safeInputs($request->input('id')),
+            'nav_controller' => $mode_main.'|max:100|unique:navigations,nav_controller,'.$this->safeInputs($request->input('id')),
+            'nav_route' => $mode_main.'|max:50|unique:navigations,nav_route,'.$this->safeInputs($request->input('id')),
+            'nav_icon' => 'required|max:50|unique:navigations,nav_icon,'.$this->safeInputs($request->input('id')),
+            'nav_type' => 'required|string',
+            'status' => 'required|numeric',
+
+            'sub_name.*' => $mode_single.'|string',
+            'sub_route.*' => $mode_single.'|string',
+            'sub_controller.*' => $mode_single.'|string',
+            'sub_order.*' => $mode_single.'|string',
+        ];
+
+        $messages = [];
+
+        $customAttributes = [
+            'nav_name' => 'name',
+            'nav_controller' => 'controller',
+            'nav_route' => 'route',
+            'nav_icon' => 'icon',
+            'nav_type' => 'type',
+            'status' => 'status',
+
+            'sub_name' => 'sub-name',
+            'sub_route' => 'sub-route',
+            'sub_controller' => 'sub-controller',
+            'sub_order' => 'sub-order',
+        ];                
+
+        $validator = Validator::make($input, $rules, $messages,$customAttributes);
+        return $validator->validate();
     }
 }

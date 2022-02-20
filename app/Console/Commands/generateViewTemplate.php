@@ -11,8 +11,7 @@ class generateViewTemplate extends Command
      *
      * @var string
      */
-    protected $signature = 'make:view 
-                            {name : name of the module}';
+    protected $signature = 'make:view {name}';
 
     /**
      * The console command description.
@@ -38,26 +37,43 @@ class generateViewTemplate extends Command
      */
     public function handle()
     {
-        $directory = strtolower(trim($this->argument('name')));
-        $pages = 'resources/views/pages/';
-
-        $dir = $pages . $directory;
+        $directory = strtolower($this->argument('name'));
+        $page_directory = resource_path('views/pages/');
+        $fragment_directory = resource_path('views/fragments/');
+        $dir = $page_directory . $directory;
 
         if(file_exists($dir)){
             $this->error('This directory already exists. Please check here resources/views/pages/');
         }else{
             $make_dir = mkdir($dir);
-            $source_index = 'resources/views/fragments/index.blade.php';
-            $dest_index = $dir . '/' . 'index.blade.php';
-            fopen($dest_index, 'w');
-            copy($source_index, $dest_index);
+            if($make_dir){ // * create directory based-on input
+                $pages = [
+                    'index.blade.php', 
+                    'form.blade.php'
+                ]; // * files to be generate/copied
 
-            $source_form = 'resources/views/fragments/form.blade.php';
-            $dest_form = $dir . '/' . 'form.blade.php';
-            fopen($dest_form, 'w');
-            copy($source_form, $dest_form);
+                for ($i=0; $i < count($pages); $i++) { 
+                    $file = $dir . '/' . $pages[$i];
+                    $fragment_file = $fragment_directory.$pages[$i];
 
-            $this->info('View template generated successfully!');
+                    $write_file = fopen($file, 'w');
+                    if($write_file){ // * check if creates file
+                        $this->info("✓ success creating {$file}");
+                        $copy_file = copy($fragment_file, $file);
+
+                        if($copy_file){ // * check if copies file
+                            $this->info("✓ success copying: {$fragment_file}");
+                        }else{
+                            $this->error("✕ failed copying: {$fragment_file}");
+                        }
+
+                    }else{
+                        $this->error("✕ failed copying: {$file}");
+                    }
+                }
+            }else{
+                $this->error("Failed to generate directory: {$directory}");
+            }
         }
     }
 }

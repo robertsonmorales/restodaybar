@@ -2,7 +2,8 @@
     <button class="btn btn-primary mb-3" id="btn-new-row" type="button">Add New Row</button>
     <input type="hidden" name="rows" id="rows" value="{{ ($mode == 'update') ? $rows : '1' }}">
 
-    <div class="alert alert-warning alert-dismissible fade show alerts d-none mb-3 px-3 py-2" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show alerts d-none mb-3 px-3 py-2" 
+    role="alert">
         <span class="font-size-sm">
             <i data-feather="alert-triangle"></i>
             <span id="max-add-row"></span>
@@ -19,7 +20,7 @@
                 <th scope="col" class="font-weight-500">Route</th>
                 <th scope="col" class="font-weight-500">Controller</th>
                 <th scope="col" class="font-weight-500">Order</th>
-                <th scope="col" class="font-weight-500"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody id="table-tbody">

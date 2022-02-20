@@ -64,7 +64,7 @@ $("#btn-cancel").on('click', function(){
 });
 // ENDS HERE
 
-function initAgGrid(data, icons = '', showControls = false, url = ''){
+function initAgGrid(data, icons='', showControls=false, url=''){
     var aggrid = document.querySelector('#myGrid');
     var width = 150;
     var minWidth = 140;
