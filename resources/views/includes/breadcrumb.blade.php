@@ -7,7 +7,7 @@
     <div class="header mb-2">
         <ul class="breadcrumb-section">
             <li class="breadcrumb-items">
-                <a href="/" title="Home"><i data-feather="home"></i></a>
+                <a href="/" title="Home"><i data-feather="home"></i> <span class="ml-1">Dashboard</span></a>
             </li>
 
             <li class="breadcrumb-items">
