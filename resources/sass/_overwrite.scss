@@ -10,6 +10,12 @@
     &:disabled{opacity: .8 !important;}
 }
 
+.btn-dismiss{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .list-group{
     border: none !important;
     border-radius: 0;
