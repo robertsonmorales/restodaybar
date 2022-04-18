@@ -145,9 +145,9 @@ $(document).ready(function() {
         var validation = validateFields();
 
         if(validation == true){
-            $(this).prop('disabled', true);
-            $(this).css('cursor', 'not-allowed');
-            $(this).html('Logging in...');
+            $(this).prop('disabled', true)
+                .css('cursor', 'not-allowed')
+                .text('Authenticating...');
 
             $('#auth-form').submit();
         }

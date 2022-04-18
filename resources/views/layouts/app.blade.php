@@ -19,9 +19,14 @@
         @include('includes.sidebar')
         
         <main class="vh-100">
-            @include('includes.header')
+            {{-- @include('includes.header') --}}
+            <x-organisms.header />
+
+            <x-molecules.breadcrumb 
+                :title="$title"
+                :breadcrumbs="$breadcrumbs" />
             
-            @include('includes.breadcrumb')
+            {{-- @include('includes.breadcrumb') --}}
 
             @yield('content')
 
