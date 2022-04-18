@@ -203,7 +203,7 @@ class Controller extends BaseController
     public function pageSize(){
         return array(
             'default' => 25,
-            'options' => [25, 50, 75, 100, 125]
+            'options' => [25, 50, 75, 100, 250, 500]
         );
     }
 

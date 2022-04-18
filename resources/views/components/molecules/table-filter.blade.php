@@ -25,13 +25,14 @@
                 <span class="ml-2"><i data-feather="chevron-down"></i></span>
             </button>
 
+            <div class="up-arrow"></div>
             <div class="dropdown-menu dropdown-menu-right mt-2 py-2">
-                <a href="{{ route($create) }}"
+                <a href="{{ $route }}"
                     class="dropdown-item py-2">Add New Record</a>
                 <button class="dropdown-item py-2"
-                    id="btn-import">Upload CSV</button>
+                    id="btn-import">Import CSV</button>
                 <button class="dropdown-item py-2"
-                    id="btn-export">Download CSV</button>
+                    id="btn-export">Export as CSV</button>
                 <button class="dropdown-item py-2"
                     id="btn-deleteAll">Delete All Records</button>
             </div>

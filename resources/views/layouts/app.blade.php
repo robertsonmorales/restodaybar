@@ -16,23 +16,20 @@
 </head>
 <body>
     <div id="app" class="d-flex">
-        @include('includes.sidebar')
+        <x-organisms.sidebar />
         
         <main class="vh-100">
-            {{-- @include('includes.header') --}}
             <x-organisms.header />
 
             <x-molecules.breadcrumb 
                 :title="$title"
                 :breadcrumbs="$breadcrumbs" />
-            
-            {{-- @include('includes.breadcrumb') --}}
 
             @yield('content')
 
-            <!-- <div class="footer mx-4 text-center sticky-bottom">
-                <p class="font-size-sm text-muted">All rights reserved 2021, Robertson Morales</p>
-            </div> -->
+            <br>
+
+            <!-- <x-organisms.footer /> -->
         </main>
     </div>
 

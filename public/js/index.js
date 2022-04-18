@@ -59,15 +59,22 @@ $('#btn-import-cancel').on('click', function(){
     $('#import-form-submit').hide();
 });
 
+
 $("#btn-cancel").on('click', function(){
     $('.modal').hide();
 });
+
+$(".btn-dismiss").on('click', function(){
+    $("#btn-cancel").trigger('click');
+});
+
 // ENDS HERE
 
 function initAgGrid(data, icons='', showControls=false, url=''){
     var aggrid = document.querySelector('#myGrid');
     var width = 150;
     var minWidth = 140;
+
     if(showControls === true){
         var columnDefs = {
             headerName: 'Controls',
@@ -76,15 +83,15 @@ function initAgGrid(data, icons='', showControls=false, url=''){
             filter: false,
             editable: false,
             flex: 1,
-            maxWidth: width, // 230
-            minWidth: minWidth, // 220
+            maxWidth: 250,
+            minWidth: 230,
             pinned: 'left',
             cellRenderer: function(params){
                 var editURL = url.replace(':id', params.data.id);
                 var el = document.createElement('div');
                 el.className = "d-flex align-items-center";
 
-                el.innerHTML +='<button id="'+params.data.id+'" title="Edit" class="btn btn-controls btn-primary btn-edit ml-1">'+ icons['edit'] +'</button>&nbsp;&nbsp;';
+                el.innerHTML +='<button id="'+params.data.id+'" title="Edit" class="btn btn-edit ml-1">'+ icons['edit'] + ' <span class="ml-1" style="font-size:13px;">Edit</span></button>&nbsp;&nbsp;';
 
                 // Button Control Add-Ons
                 switch (window.location.pathname) {
@@ -97,7 +104,7 @@ function initAgGrid(data, icons='', showControls=false, url=''){
                 }
                 // Ends here
 
-                el.innerHTML +='<button id="'+params.data.id+'" title="Remove" class="btn btn-controls btn-danger btn-remove mr-1">'+ icons['remove'] +'</button>';
+                el.innerHTML +='<button id="'+params.data.id+'" title="Remove" class="btn btn-remove mr-1">'+ icons['remove'] +' <span class="ml-1" style="font-size:13px;">Remove</span></button>';
 
                 var btnEdit = el.querySelectorAll('.btn-edit')[0];
                 var btnRemove = el.querySelectorAll('.btn-remove')[0];

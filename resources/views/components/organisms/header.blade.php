@@ -1,6 +1,5 @@
-@auth
-<div class="sticky-top px-4 py-3">
-    <nav class="p-2">
+<div class="sticky-top mx-4 my-3">
+    <nav class="py-2 px-3">
         <div class="row no-gutters align-items-center">
             <button class="btn btn-light btn-menu" 
                 type="button" 
@@ -34,6 +33,7 @@
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
                         <span class="dropdown-image rounded-circle mr-2">
                             <img class="rounded-circle" 
+                                alt="avatar"
                                 src="https://ui-avatars.com/api/?background=dc3545&color=fff&name=Shaina&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
                         </span>
 
@@ -46,6 +46,7 @@
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
                         <span class="dropdown-image rounded-circle mr-2">
                             <img class="rounded-circle" 
+                                alt="avatar"
                                 src="https://ui-avatars.com/api/?background=3f51b5&color=fff&name=JV&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
                         </span>
 
@@ -84,7 +85,9 @@
 
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
                         <span class="dropdown-image rounded-circle mr-2">
-                            <img class="rounded-circle" src="https://ui-avatars.com/api/?background=3f51b5&color=fff&name=Jan&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
+                            <img class="rounded-circle" 
+                                alt="avatar"
+                                src="https://ui-avatars.com/api/?background=3f51b5&color=fff&name=Jan&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
                         </span>
                         <span class="dropdown-info">
                             <span class="subtitle font-weight-bold">Jan Vincent</span>
@@ -94,7 +97,9 @@
                     </button>
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
                         <span class="dropdown-image rounded-circle mr-2">
-                            <img class="rounded-circle" src="https://ui-avatars.com/api/?background=dc3545&color=fff&name=Shaine&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
+                            <img class="rounded-circle" 
+                                alt="avatar"
+                                src="https://ui-avatars.com/api/?background=dc3545&color=fff&name=Shaine&format=svg&rounded=true&bold=true&font-size=0.4&length=1">
                         </span>
 
                         <span class="dropdown-info">
@@ -170,4 +175,3 @@
         </div>
     </nav>
 </div>
-@endauth
