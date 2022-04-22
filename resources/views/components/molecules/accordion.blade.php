@@ -49,12 +49,12 @@
     @endphp
     @endforeach --}}
 
-    <div class="collapse list-group bg-light" id="{{ __('collapse-').$nav['nav_route'] }}" aria-labelledby="{{ $nav['nav_route'] }}" data-parent="#accordion-parent">
+    <div class="list-group mx-2 collapse" id="{{ __('collapse-').$nav['nav_route'] }}" aria-labelledby="{{ $nav['nav_route'] }}" data-parent="#accordion-parent">
         @foreach($nav['sub'] as $k => $sub)
         <a href="{{ url('/'.$sub['nav_route']) }}" id="{{ $sub['nav_route'] }}" class="list-group-item list-group-item-action {{ $sub['nav_route'] }}">
-            <div class="pl-2 d-flex align-items-center">
+            <div class="d-flex align-items-center">
                 <span class="circle-size-sm mr-3">
-                    <i data-feather="{{ $sub['nav_icon'] }}"></i>
+                    <i data-feather="chevron-right"></i>
                 </span>
                 <span class="d-inline-block text-truncate adjust-ellipsis" 
                     style="max-width: 140px;">{{ $sub['nav_name'] }}</span>

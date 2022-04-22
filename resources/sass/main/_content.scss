@@ -1,8 +1,5 @@
 .content{
-    border-radius: $radius;
-    border: $border;
-    box-shadow: $shadow;
-    background-color: #fff;
+    @extend .glassmorphism;
 
     .filters-section{
         display: flex;

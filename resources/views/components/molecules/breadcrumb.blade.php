@@ -1,4 +1,4 @@
-<div class="mx-4 my-3">
+<div class="mx-4 my-3 px-4">
     {{-- @if(count($breadcrumbs['name']) > 1)
     
     @endif --}}
@@ -7,12 +7,15 @@
     <div class="header mb-2">
         <ul class="breadcrumb-section">
             <li class="breadcrumb-items">
-                <a href="/" title="Home"><i data-feather="home"></i> <span class="ml-1">Dashboard</span></a>
+                <a href="/" title="Home">
+                    <i data-feather="home"></i>
+                    <span class="ml-1">Dashboard</span>
+                </a>
             </li>
 
             <li class="breadcrumb-items">
                 <div class="chevrons-right">
-                    <i data-feather="chevrons-right"></i>
+                    <i data-feather="chevron-right"></i>
                 </div>
             </li>
 
@@ -25,7 +28,7 @@
 
             <li class="breadcrumb-items">
                 <div class="chevrons-right">
-                    <i data-feather="chevrons-right"></i>
+                    <i data-feather="chevron-right"></i>
                 </div>
             </li>
 

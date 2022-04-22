@@ -2,15 +2,13 @@
     top: 15px !important;
 } */
 
-nav{
-    background-color: #fff;
+.header-nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border-radius: $radius;
-    border: $border;
-    box-shadow: $shadow;
+    box-shadow: $shadow !important;
+    @extend .glassmorphism;
 
     .btn-menu{
         display: flex;
@@ -42,7 +40,7 @@ nav{
 
             .badge-position{
                 position: absolute;
-                top: 5px;
+                top: 0px;
                 right: 0px;
             }
         }   
@@ -51,10 +49,10 @@ nav{
 
 .dropdown-menu{
     box-shadow: $dropDown-shadow !important;
-    border-radius: $radius !important;
-    border: $border !important;
     animation-name: fadeIn;
     animation-duration: .4s;
+    border: $border;
+    border-radius: $radius !important;
 
     .up-arrow{
         height: 15px;
@@ -72,9 +70,9 @@ nav{
     }
 
     .dropdown-item{
-        outline: none !important;
-        font-size: .9em !important;
-        color: $dark !important;
+        outline: none;
+        font-size: .9em ;
+        color: $dark;
 
         &:hover{
             background-color: $light;
@@ -112,6 +110,7 @@ nav{
 
         .description{
             font-size: .9em;
+            color: $default;
         }
     }
 }

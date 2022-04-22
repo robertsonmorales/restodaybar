@@ -2,10 +2,9 @@
     flex-direction: column;
     position: sticky;
     overflow-y: auto;
-    background-color: #fff;
     width: 320px;
     height: 100vh;
-    border-right: $border;
+    @extend .glassmorphism;
 
     .branding-logo{
         img{
@@ -32,8 +31,8 @@
     
     .circle-size-sm{   
         .feather{
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
         }
     }
     

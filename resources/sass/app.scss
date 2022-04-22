@@ -24,8 +24,12 @@ body{
     font-family: $font-family !important;
     line-height: $line-height-base !important;
     color: $dark !important;
-    background-color: $body-bg;
-    background-image: $body-image;
+    background-color: #d7cef8;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(281.11, 74%, 87%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(201.18, 56.00000000000001%, 72%) 0, transparent 55%);
+    // background-color: $body-bg;
+    // background-image: $body-image;
     background-attachment: fixed;
     background-size: cover;
     
