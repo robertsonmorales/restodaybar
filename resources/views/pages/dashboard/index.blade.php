@@ -15,9 +15,10 @@
                         </span>
                     </div>
                 </div>
-                <span class="card-icon bg-primary text-white shadow mb-sm-2 mb-md-0">
-                    <i data-feather="dollar-sign"></i>
-                </span>
+
+                <x-atoms.circle-icon 
+                    value="dollar-sign" 
+                    type="card-icon bg-info text-white mb-sm-2 mb-md-0" />
             </div>
         </div>
 
@@ -32,9 +33,10 @@
                         </span>
                     </div>
                 </div>
-                <span class="card-icon bg-warning text-white shadow mb-sm-2 mb-md-0">
-                    <i data-feather="database"></i>
-                </span>
+
+                <x-atoms.circle-icon 
+                    value="database" 
+                    type="card-icon bg-danger text-white mb-sm-2 mb-md-0" />
             </div>
         </div>
 
@@ -49,9 +51,10 @@
                         <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                     </div>
                 </div>
-                <span class="card-icon bg-secondary text-white shadow mb-sm-2 mb-md-0">
-                    <i data-feather="calendar"></i>
-                </span>
+
+                <x-atoms.circle-icon 
+                    value="calendar" 
+                    type="card-icon bg-warning text-white mb-sm-2 mb-md-0" />
             </div>
         </div>
 
@@ -66,9 +69,10 @@
                         </span>
                     </div>
                 </div>
-                <span class="card-icon bg-success text-white shadow mb-sm-2 mb-md-0">
-                    <i data-feather="users"></i>
-                </span>
+
+                <x-atoms.circle-icon 
+                    value="users" 
+                    type="card-icon bg-primary text-white mb-sm-2 mb-md-0" />
             </div>
         </div>
     </div>    
@@ -78,7 +82,6 @@
         <div class="card mr-md-3 card-order-5">
             <div class="card-body">
                 <div class="card-content w-100">
-                    <!-- <span class="text-muted font-size-sm">Revenue Breakdown</span> -->
                     <div id="revenue-chart" class="revenue-chart" style="width: 100%; height: 100%;"></div>
                 </div>                    
             </div> 
@@ -87,9 +90,8 @@
         <div class="card card-order-6">
             <div class="card-body">
                 <div class="card-content w-100">
-                    <!-- <span class="text-muted font-size-sm">Expenditures Breakdown</span> -->
                     <div id="expenditures-chart" class="expenditures-chart" style="width: 100%; height: 100%;"></div>
-                </div>                    
+                </div>
             </div> 
         </div>
     </div>

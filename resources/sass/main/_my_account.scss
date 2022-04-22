@@ -1,9 +1,7 @@
 .account-sidebar{
-    background-color: #fff;
-    box-shadow: $shadow !important;
-    border-radius: $radius;
     overflow: hidden;
     padding: 15px 0;
+    @extend .glassmorphism;
 }
 
 .profile-preview{

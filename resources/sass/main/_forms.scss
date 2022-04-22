@@ -1,9 +1,7 @@
 .card{
-    border: $border !important;
-    box-shadow: $shadow;
-    border-radius: $radius !important;
     overflow: hidden;
     text-align: left;
+    @extend .glassmorphism, .shadow;
 
     .card-body{
         display: flex;
@@ -18,15 +16,9 @@
     }
 
     .card-icon{
-        border-radius: $img-sm-radius;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-
         .feather{
-            height: 20px;
-            width: 20px;
+            height: 18px;
+            width: 18px;
         }
     }
 

@@ -22,7 +22,7 @@
 
                 <input type="file" 
                     name="import_file" 
-                    id="import_file" mj
+                    id="import_file" 
                     class="form-control mt-2 @error('import_file') is-invalid @enderror" 
                     accept=".csv">
 

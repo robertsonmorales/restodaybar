@@ -1,5 +1,5 @@
 <div class="sticky-top mx-4 my-3">
-    <nav class="py-2 px-3">
+    <nav class="header-nav py-3 px-4">
         <div class="row no-gutters align-items-center">
             <button class="btn btn-light btn-menu" 
                 type="button" 
@@ -40,7 +40,7 @@
                         <span class="dropdown-info">
                             <span class="subtitle font-weight-bold">Shaina</span>
                             <span class="description font-weight-600 text-truncate" style="width: 220px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, perferendis.</span>
-                            <span class="description text-muted">Just now</span>
+                            <span class="description">Just now</span>
                         </span>
                     </button>
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
@@ -53,7 +53,7 @@
                         <span class="dropdown-info">
                             <span class="subtitle font-weight-bold">Jan Vincent</span>
                             <span class="description font-weight-600 text-truncate" style="width: 220px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, perferendis.</span>
-                            <span class="description text-muted">Just now</span>
+                            <span class="description">Just now</span>
                         </span>
                     </button>
 
@@ -92,7 +92,7 @@
                         <span class="dropdown-info">
                             <span class="subtitle font-weight-bold">Jan Vincent</span>
                             <span class="description font-weight-600 text-truncate" style="width: 220px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, perferendis.</span>
-                            <span class="description text-muted">Just now</span>
+                            <span class="description">Just now</span>
                         </span>
                     </button>
                     <button class="dropdown-item d-flex align-items-center px-3 py-2" type="button">
@@ -105,7 +105,7 @@
                         <span class="dropdown-info">
                             <span class="subtitle font-weight-bold">Jan Vincent</span>
                             <span class="description font-weight-600 text-truncate" style="width: 220px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, perferendis.</span>
-                            <span class="description text-muted">Just now</span>
+                            <span class="description">Just now</span>
                         </span>
                     </button>
 
@@ -120,14 +120,14 @@
             <!-- user settings -->
             <div class="btn-group">
                 @php
-                $user = Auth::user()->first_name. ' '.Auth::user()->last_name;
+                $user = auth()->user()->first_name. ' '.auth()->user()->last_name;
                 @endphp
                 
                 <button class="btn btn-light btn-dropdown overflow-hidden" data-toggle="dropdown">
-                    <img src="{{ (is_null(Auth::user()->profile_image))
-                        ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
-                        : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                    alt="{{ Auth::user()->first_name }}"
+                    <img src="{{ (is_null(auth()->user()->profile_image))
+                        ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".auth()->user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
+                        : asset('uploads/user_accounts/'.auth()->user()->profile_image) }}"
+                    alt="{{ auth()->user()->first_name }}"
                     width="42"
                     height="55">
                 </button>
@@ -137,17 +137,17 @@
 
                     <div class="dropdown-item-text">
                         <span class="dropdown-image mr-2 overflow-hidden">
-                            <img src="{{ (is_null(Auth::user()->profile_image))
-                                    ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".Auth::user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
-                                    : asset('uploads/user_accounts/'.Auth::user()->profile_image) }}"
-                                alt="{{ Auth::user()->username }}"
+                            <img src="{{ (is_null(auth()->user()->profile_image))
+                                    ? "https://ui-avatars.com/api/?background=0061f2&color=fff&name=".auth()->user()->first_name."&format=svg&rounded=true&bold=true&font-size=0.4&length=1"
+                                    : asset('uploads/user_accounts/'.auth()->user()->profile_image) }}"
+                                alt="{{ auth()->user()->username }}"
                                 width="42"
                                 height="42">
                         </span>
 
                         <span class="dropdown-info">
-                            <span class="subtitle">{{ Auth::user()->first_name. ' '.Auth::user()->last_name }}</span>
-                            <span class="description text-muted font-size-sm">{{ Auth::user()->email }}</span>
+                            <h6 class="mb-0">{{ auth()->user()->first_name. ' '.auth()->user()->last_name }}</h6>
+                            <div class="description">{{ auth()->user()->email }}</div>
                         </span>
                     </div>
 

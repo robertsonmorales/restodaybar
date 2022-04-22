@@ -4,9 +4,6 @@
 
 .btn{
     border-radius: $radius !important;
-
-    // &:hover{ font-weight: 500;}
-
     &:disabled{opacity: .8 !important;}
 }
 
@@ -18,7 +15,7 @@
 
 .list-group{
     border: none !important;
-    border-radius: 0;
+    @extend .rounded;
 
     a.list-group-item,
     button.list-group-item{
@@ -34,17 +31,11 @@
 
         &:hover{
             color: $primary;
-            border-left: $border-left solid $primary;
             font-weight: 500;
         }
 
         &:hover .adjust-ellipsis{
             max-width: 100% !important;
-        }
-
-        &:active{
-            color: $danger;
-            border-left: $border-left solid $danger;
         }
     }
 
@@ -63,4 +54,12 @@
     border-left: $border-left solid $primary !important;
     color: $primary !important;
     font-weight: 500 !important;
+}
+
+.rounded{
+    border-radius: $radius !important;
+}
+
+.shadow{
+    box-shadow: $shadow !important;
 }
