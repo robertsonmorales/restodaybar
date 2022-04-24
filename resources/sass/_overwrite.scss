@@ -50,8 +50,14 @@
     }
 }
 
+.card{
+    .card-header{
+        background-color: transparent !important;
+    }
+}
+
 .active{
-    border-left: $border-left solid $primary !important;
+    // border-left: $border-left solid $primary !important;
     color: $primary !important;
     font-weight: 500 !important;
 }

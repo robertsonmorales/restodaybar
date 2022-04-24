@@ -4,7 +4,7 @@
 
 @section('auth')
 <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-7">
+    <div class="col-md-4">
         <form class="row no-gutters auth-card" 
             method="POST" 
             action="{{ route('password.email') }}"
@@ -12,59 +12,49 @@
 
             @csrf
 
-            <div class="col-md d-none d-lg-flex login-banner">
-                <img src="{{ asset('images/logo/login-banner.png') }}" 
-                    alt="login-banner" 
-                    class="img-fluid"
-                    width="382"
-                    height="382">
-            </div>
+            <div class="card p-2">
+                <div class="card-header border-0 bg-white">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    <div class="h3">Password Recovery</div>
+                    <div class="h6 font-weight-normal">We will send you an email containing a password reset link</div>
+                </div>
 
-            <div class="col">
-                <div class="card p-2">
-                    <div class="card-header border-0 bg-white">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                <div class="card-body pt-0">
+                    <div class="form-group row flex-column inputs">
+                        <label for="email" class="col">{{ __('Email Address') }}</label>
+                        <div class="col">
+                            <input id="email" 
+                                type="email" 
+                                class="form-control @error('email') is-invalid @enderror" 
+                                name="email" 
+                                value="{{ old('email') }}"  
+                                autocomplete="email" 
+                                autofocus>
+
+                            <span class="position-absolute icon text-muted">
+                                <i data-feather="mail"></i>
+                            </span>
+
+                            @error('email')
+                            <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
+                            @enderror
+
+                            <span class="text-danger font-size-sm" id="invalid-email"></span>
                         </div>
-                        @endif
-                        <div class="h3">Password Recovery</div>
-                        <div class="h6 font-weight-normal">We will send you an email containing a password reset link</div>
                     </div>
 
-                    <div class="card-body pt-0">
-                        <div class="form-group row flex-column inputs">
-                            <label for="email" class="col">{{ __('Email Address') }}</label>
-                            <div class="col">
-                                <input id="email" 
-                                    type="email" 
-                                    class="form-control @error('email') is-invalid @enderror" 
-                                    name="email" 
-                                    value="{{ old('email') }}"  
-                                    autocomplete="email" 
-                                    autofocus>
+                    <div class="form-group row">
+                        <div class="col d-flex align-items-center justify-content-between">
 
-                                <span class="position-absolute icon text-muted">
-                                    <i data-feather="mail"></i>
-                                </span>
+                            @if (Route::has('login'))
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary px-3">Back</a>
+                            @endif
 
-                                @error('email')
-                                <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
-                                @enderror
-
-                                <span class="text-danger font-size-sm" id="invalid-email"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col d-flex align-items-center justify-content-between">
-
-                                @if (Route::has('login'))
-                                <a href="{{ route('login') }}" class="btn btn-light text-primary px-3">Back</a>
-                                @endif
-
-                                <button type="button" id="btn-recover" class="btn btn-primary btn-submit px-3">Recover Password</button>
-                            </div>
+                            <button type="button" id="btn-recover" class="btn btn-primary btn-submit px-3">Recover Password</button>
                         </div>
                     </div>
                 </div>

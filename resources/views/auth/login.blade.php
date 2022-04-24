@@ -4,100 +4,90 @@
 
 @section('auth')
 <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-7">
-        <form class="row no-gutters auth-card" 
+    <div class="col-md-4">
+        <form class="auth-card" 
             method="POST" 
             action="{{ route('login') }}" 
             id="auth-form">
 
             @csrf
 
-            <div class="col-md d-none d-lg-flex login-banner">
-                <img src="{{ asset('images/logo/login-banner.png') }}" 
-                    alt="login-banner" 
-                    class="img-fluid"
-                    width="382"
-                    height="382">
-            </div>
+            <div class="card p-2">
+                <div class="card-header border-0 bg-white">
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+                    @endif
 
-            <div class="col">
-                <div class="card p-2">
-                    <div class="card-header border-0 bg-white">
-                        @if(session('success'))
-                        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
-                        @endif
+                    <div class="h3">Login</div>
+                    <div class="h6 font-weight-normal">Welcome back, enter your credentials to start.</div>
+                </div>
 
-                        <div class="h3">Login</div>
-                        <div class="h6 font-weight-normal">Welcome back, enter your credentials to start.</div>
+                <div class="card-body pt-0">
+                    <div class="form-group row flex-column inputs">
+                        <label for="username" 
+                        class="col">Username</label>
+
+                        <div class="col">
+                            <input id="username" 
+                                type="username" 
+                                class="form-control @error('username') is-invalid @enderror"
+                                name="username"
+                                value="{{ old('username') }}" 
+                                autofocus
+                                autocomplete="off">
+
+                            <span class="position-absolute icon text-muted">
+                                <i data-feather="user"></i>
+                            </span>
+
+                            @error('username')
+                            <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
+                            @enderror
+
+                            <span class="text-danger font-size-sm" id="invalid-username"></span>
+                        </div>
                     </div>
 
-                    <div class="card-body pt-0">
-                        <div class="form-group row flex-column inputs">
-                            <label for="username" 
-                            class="col">Username</label>
+                    <div class="form-group row flex-column inputs">
+                        <label for="password" 
+                        class="col">Password</label>
 
-                            <div class="col">
-                                <input id="username" 
-                                    type="username" 
-                                    class="form-control @error('username') is-invalid @enderror"
-                                    name="username"
-                                    value="{{ old('username') }}" 
-                                    autofocus
-                                    autocomplete="off">
+                        <div class="col">
+                            <input id="password" 
+                                type="password" 
+                                class="form-control @error('password') is-invalid @enderror" 
+                                name="password"  
+                                autocomplete="off">
 
-                                <span class="position-absolute icon text-muted">
-                                    <i data-feather="user"></i>
-                                </span>
+                            <span class="position-absolute icon text-muted">
+                                <i data-feather="lock"></i>
+                            </span>
 
-                                @error('username')
-                                <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
-                                @enderror
+                            @error('password')
+                            <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
+                            @enderror
 
-                                <span class="text-danger font-size-sm" id="invalid-username"></span>
+                            <span class="text-danger font-size-sm" id="invalid-password"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} style="cursor: pointer;">
+                                <label class="custom-control-label font-size-sm" for="remember">{{ __('Remember Me') }}</label>
                             </div>
                         </div>
-
-                        <div class="form-group row flex-column inputs">
-                            <label for="password" 
-                            class="col">Password</label>
-
-                            <div class="col">
-                                <input id="password" 
-                                    type="password" 
-                                    class="form-control @error('password') is-invalid @enderror" 
-                                    name="password"  
-                                    autocomplete="off">
-
-                                <span class="position-absolute icon text-muted">
-                                    <i data-feather="lock"></i>
-                                </span>
-
-                                @error('password')
-                                <span class="invalid-feedback font-size-sm" role="alert">{{ $message }}</span>
-                                @enderror
-
-                                <span class="text-danger font-size-sm" id="invalid-password"></span>
-                            </div>
+                        <div class="col text-right">
+                            @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="font-size-sm">{{ __('Forgot Password?') }}</a>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <div class="col">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} style="cursor: pointer;">
-                                    <label class="custom-control-label font-size-sm" for="remember">{{ __('Remember Me') }}</label>
-                                </div>
-                            </div>
-                            <div class="col text-right">
-                                @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="font-size-sm">{{ __('Forgot Password?') }}</a>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col">
-                                <button type="button" id="btn-login" class="btn btn-primary font-weight-normal w-100">{{ __('Login') }}</button>
-                            </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <button type="button" id="btn-login" class="btn btn-primary font-weight-normal w-100">{{ __('Login') }}</button>
                         </div>
                     </div>
                 </div>
