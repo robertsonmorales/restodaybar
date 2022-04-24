@@ -67,7 +67,7 @@ class LoginController extends Controller
             'device_model' => @Browser::deviceModel(),
             'plaform_family' => @Browser::platformFamily(),
             'plaform_name' => @Browser::platformName(),
-            'browser' => @Browser::browserName(),
+            'browser' => @Browser::browserFamily(),
             'ip_address' => $this->ipAddress(),
             'mac_address' => (strlen(exec('getmac')) > 17) ? "" : exec('getmac')
         );

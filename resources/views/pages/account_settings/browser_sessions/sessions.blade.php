@@ -1,14 +1,19 @@
 <div class="col">
     <div class="card card-account mb-4 p-4">
-        <h5>Your History</h5>
+        <h5>You're signed into these devices</h5>
 
         <ul class="list-group">
             @foreach($sessions as $val)
             <li class="list-group-item mb-1">
-                <h5><i data-feather="monitor" class="mr-2"></i> {{ $val->plaform_family }}</h5>
-                <p><span class="font-size-sm font-weight-600">Browser</span>: {{ $val->browser }}</p>
-                <p><span class="font-size-sm font-weight-600">IP Address</span>: {{ $val->ip_address }}</p>
-                <p><span class="font-size-sm font-weight-600">You logged in: </span>{{ $val->created_at }}</p>
+                {{-- <i data-feather="monitor" class="mr-2"></i> --}}
+                <h5 class="mb-2">{{ $val->plaform_family }}</h5>
+
+                <div>{{ $val->browser }}</div>
+                <div>{{ $val->ip_address }}</div>
+                <div>{{ $val->created_at }}</div>
+
+                <div class="mt-2"></div>
+                <a href="#" class="font-weight-500" style="color: dodgerblue;">More Details</a>
             </li>
             @endforeach
         </ul>

@@ -1,18 +1,8 @@
 .auth-card{
-    border: $border !important;
-    box-shadow: $shadow !important;
-    border-radius: $radius !important;
-    background-color: #fff;
     overflow: hidden;
 
-    .login-banner{
-        background-color: $light;
-        align-items: center;
-        justify-content: center;
-    }
-
     .card{
-        border: none !important;
+        @extend .glassmorphism;
 
         .inputs > label{
             color: $dark;
