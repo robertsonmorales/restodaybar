@@ -8,12 +8,14 @@
                 {{-- <i data-feather="monitor" class="mr-2"></i> --}}
                 <h5 class="mb-2">{{ $val->plaform_family }}</h5>
 
-                <div>{{ $val->browser }}</div>
-                <div>{{ $val->ip_address }}</div>
-                <div>{{ $val->created_at }}</div>
+                <div class="item-details">
+                    <div class="font-size-sm">{{ $val->browser }}</div>
+                    <div class="font-size-sm">{{ $val->ip_address }}</div>
+                    <div class="font-size-sm">{{ $val->created_at }}</div>
+                </div>
 
                 <div class="mt-2"></div>
-                <a href="#" class="font-weight-500" style="color: dodgerblue;">More Details</a>
+                <a href="#" class="font-weight-500 font-size-sm text-primary">More Details</a>
             </li>
             @endforeach
         </ul>

@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-
 <x-atoms.alert />
 
 <div class="content mx-4">

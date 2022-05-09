@@ -11,7 +11,6 @@
 
         .breadcrumb-items{
             margin-right: 5px;
-            color: $default;
             font-weight: 500;
             font-size: .9em;
             position: relative;
@@ -25,10 +24,8 @@
 
             a{
                 text-decoration: none;
-                color: $default;
 
                 &:hover{
-                    color: #555;
                     text-decoration: underline;
                 }
             }
@@ -37,5 +34,9 @@
                 display: none;
             }
         }
+    }
+
+    h3{
+        color: $dark;
     }
 }
