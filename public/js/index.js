@@ -94,14 +94,14 @@ function initAgGrid(data, icons='', showControls=false, url=''){
                 el.innerHTML +='<button id="'+params.data.id+'" title="Edit" class="btn btn-edit ml-1">'+ icons['edit'] + ' <span class="ml-1" style="font-size:13px;">Edit</span></button>&nbsp;&nbsp;';
 
                 // Button Control Add-Ons
-                switch (window.location.pathname) {
-                    case '/user_accounts':
-                        el.innerHTML +='<button id="'+params.data.id+'" title="Email" class="btn btn-controls btn-success btn-email">'+ icons['email_icon'] +'</button>&nbsp;&nbsp;';
-                        el.innerHTML +='<button id="'+params.data.id+'" title="Lock User" class="btn btn-controls btn-warning btn-lock text-white">'+ icons['lock_icon'] +'</button>&nbsp;&nbsp;';
-                        break;
-                    default:
-                        break;
-                }
+                // switch (window.location.pathname) {
+                //     case '/user_accounts':
+                //         el.innerHTML +='<button id="'+params.data.id+'" title="Email" class="btn btn-controls btn-success btn-email">'+ icons['email_icon'] +'</button>&nbsp;&nbsp;';
+                //         el.innerHTML +='<button id="'+params.data.id+'" title="Lock User" class="btn btn-controls btn-warning btn-lock text-white">'+ icons['lock_icon'] +'</button>&nbsp;&nbsp;';
+                //         break;
+                //     default:
+                //         break;
+                // }
                 // Ends here
 
                 el.innerHTML +='<button id="'+params.data.id+'" title="Remove" class="btn btn-remove mr-1">'+ icons['remove'] +' <span class="ml-1" style="font-size:13px;">Remove</span></button>';

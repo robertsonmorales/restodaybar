@@ -7,13 +7,17 @@
 @endsection
 
 @section('content')
-<div class="content mx-4">
-    @include('includes.filter')
+<x-atoms.alert />
 
-    <div id="myGrid" class="ag-theme-material"></div>
+<div class="content mx-4">
+    <x-molecules.table-filter
+        :pagesize="$pagesize"
+        :route="route($create)" />
+
+    <x-atoms.ag-grid />
 </div>
 
-<br>  
+<br>
 @endsection
 
 @section('vendors-script')

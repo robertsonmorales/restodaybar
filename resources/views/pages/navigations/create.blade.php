@@ -217,7 +217,7 @@ $(function(){
                     @enderror\
                 </td>\
                 <td>\
-                    <button title="Remove Row" class="btn btn-danger btn-remove btn-remove-'+btnRemovesLength+'" onclick="removeRow('+btnRemovesLength+')" type="button">'+ x +'</button>\
+                    <button title="Remove Row" class="btn btn-remove btn-remove-'+btnRemovesLength+'" onclick="removeRow('+btnRemovesLength+')" type="button">'+ x +'</button>\
                 </td>\
             </tr>';
         if (tbodyLength < maxAddRow){

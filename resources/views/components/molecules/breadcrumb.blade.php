@@ -22,8 +22,8 @@
             @for($i = 0; $i < count($breadcrumbs['name']); $i++)
 
             <li class="breadcrumb-items">
-                {{-- <a href="{{ $breadcrumbs['mode'][$i] }}">{{ $breadcrumbs['name'][$i] }}</a> --}}
-                <span>{{ $breadcrumbs['name'][$i] }}</span>
+                <a href="{{ $breadcrumbs['mode'][$i] }}"><span>{{ $breadcrumbs['name'][$i] }}</span></a>
+                
             </li>
 
             <li class="breadcrumb-items">

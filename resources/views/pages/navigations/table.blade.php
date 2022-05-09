@@ -1,5 +1,8 @@
 <div id="ifMainNavigation" style="display: none;">
-    <button class="btn btn-primary mb-3" id="btn-new-row" type="button">Add New Row</button>
+    <button class="btn btn-primary mb-3" id="btn-new-row" type="button">
+        <i data-feather="plus"></i>
+        <span class="ml-1">Add New Row</span>
+    </button>
     <input type="hidden" name="rows" id="rows" value="{{ ($mode == 'update') ? $rows : '1' }}">
 
     <div class="alert alert-warning alert-dismissible fade show alerts d-none mb-3 px-3 py-2" 
@@ -60,9 +63,9 @@
                     @enderror
                 </td>
                 <td>
-                    <button title="Remove Navigation" class="btn btn-danger btn-remove" type="button">
-                        <i data-feather="trash"></i>
-                    </button>
+                    {{-- <button title="Remove row" class="btn btn-remove" type="button">
+                        <i data-feather="x"></i>
+                    </button> --}}
                 </td>
             </tr>
 

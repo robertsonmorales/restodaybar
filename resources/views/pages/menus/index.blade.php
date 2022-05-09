@@ -7,15 +7,18 @@
 @endsection
 
 @section('content')
-@include('includes.alerts')
+<x-atoms.alert />
 
 <div class="content mx-4">
-    @include('includes.filter')
+    <x-molecules.table-filter
+        :pagesize="$pagesize"
+        :route="route($create)" />
 
-    <div id="myGrid" class="ag-theme-material"></div>
+    <x-atoms.ag-grid />
 </div>
 
-@include('includes.modal')
+<x-molecules.modal />
+
 @include('includes.modal-import')
 
 <br>
