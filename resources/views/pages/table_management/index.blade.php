@@ -65,6 +65,5 @@ $('#btn-remove').on('click', function(){
     $('#form-submit').prop('action', url).submit();
 });
 // ENDS HERE
-
 </script>
 @endsection
