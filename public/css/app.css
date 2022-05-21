@@ -12522,7 +12522,9 @@ body .close {
 }
 
 body .btn {
-  border-radius: 20px !important;
+  border-radius: 12px !important;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 body .btn:disabled {
@@ -12657,6 +12659,10 @@ body .auth-card .card {
           backdrop-filter: blur(15px) saturate(148%);
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 12px !important;
+}
+
+body .fill-primary {
+  fill: #6473ee;
 }
 
 body .auth-card {
@@ -12998,7 +13004,7 @@ body main .card .input-group label {
 
 body main .card .input-group .form-control,
 body main .card .input-group .custom-file-input {
-  border-radius: 12px !important;
+  border-radius: 12px;
   resize: none;
   width: 100%;
 }

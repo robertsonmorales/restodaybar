@@ -3,41 +3,41 @@
         <a href="{{ route('account_settings.index') }}"
             data-id="account-settings"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="user"></i></span>
+            <span class="mr-2"><em data-feather="user"></em></span>
             <span>Profile Information</span>
         </a>
         <a href="{{ route('account_settings.email') }}" 
             data-id="email"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="mail"></i></span>
+            <span class="mr-2"><em data-feather="mail"></em></span>
             <span>Email</span>
         </a>
 
         <a href="{{ route('account_settings.password') }}" 
             data-id="password"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="lock"></i></span>
+            <span class="mr-2"><em data-feather="lock"></em></span>
             <span>Password</span>
         </a>
 
         <a href="#" 
             data-id="preferences"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="sliders"></i></span>
+            <span class="mr-2"><em data-feather="sliders"></em></span>
             <span>Preferences</span>
         </a>
 
         <a href="{{ route('account_settings.browser_sessions') }}" 
             data-id="browser-sessions"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="monitor"></i></span>
+            <span class="mr-2"><em data-feather="monitor"></em></span>
             <span>Browser Sessions</span>
         </a>
 
         <a href="{{ route('account_settings.delete_account') }}" 
             data-id="delete-account"
             class="list-group-item list-group-item-action">
-            <span class="mr-2"><i data-feather="trash"></i></span>
+            <span class="mr-2"><em data-feather="trash"></em></span>
             <span>Delete Account</span>
         </a>
     </div>

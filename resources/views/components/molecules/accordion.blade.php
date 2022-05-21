@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <span class="mr-3">
-                    <i data-feather="{{ $nav['nav_icon'] }}"></i>
+                    <em data-feather="{{ $nav['nav_icon'] }}"></em>
                 </span>
                 <span class="ellipsis">{{ $nav['nav_name'] }}</span>
             </div>
@@ -31,12 +31,12 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center justify-content-between">
                 <span class="mr-3">
-                    <i data-feather="{{ $nav['nav_icon'] }}"></i>
+                    <em data-feather="{{ $nav['nav_icon'] }}"></em>
                 </span>
                 <span class="d-inline-block text-truncate" style="max-width: 140px;">{{ $nav['nav_name'] }}</span>
             </div>
             <span class="chevron-size-md">
-                <i data-feather="chevron-right"></i>
+                <em data-feather="chevron-right"></em>
             </span>
         </div>
     </button>
@@ -54,7 +54,7 @@
         <a href="{{ url('/'.$sub['nav_route']) }}" id="{{ $sub['nav_route'] }}" class="list-group-item list-group-item-action {{ $sub['nav_route'] }}">
             <div class="d-flex align-items-center">
                 <span class="circle-size-sm mr-3">
-                    <i data-feather="chevron-right"></i>
+                    <em data-feather="chevron-right"></em>
                 </span>
                 <span class="d-inline-block text-truncate adjust-ellipsis" 
                     style="max-width: 140px;">{{ $sub['nav_name'] }}</span>

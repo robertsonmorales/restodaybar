@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>@yield('title') - {{ config('app.name', 'RestodayBar') }}</title>
+    <title>@yield('title') - {{ config('app.name', 'LaraPort') }}</title>
     
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo/logo.svg') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
