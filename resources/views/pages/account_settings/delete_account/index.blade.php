@@ -7,7 +7,7 @@
     @include('pages.account_settings.sidebar')
 
     <div class="col">
-        <div class="card card-account mb-4 p-4">
+        <div class="card mb-4 p-4">
             <div class="w-100">
                 <h5>Delete Account</h5>
             </div>
@@ -34,9 +34,9 @@
 
     <div class="modal-content">
         <div class="modal-header">      
-            <div class="modal-icon modal-icon-error">
-                <i data-feather="alert-triangle"></i>
-            </div>
+            <x-atoms.circle-icon 
+                value="alert-triangle" 
+                type="bg-danger text-white" />
 
             <div class="modal-body">
                 <h5>Delete Your Account</h5>
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer bg-light">
             <button type="submit" class="btn btn-danger" id="btn-remove">Yes, I understand</button>
             <button type="button" class="btn btn-outline-secondary" id="btn-cancel">Cancel</button>
         </div>
@@ -57,12 +57,12 @@
 @section('script-src')
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#btn-delete").on('click', function(){
-        $('.modal').attr('style', 'display: flex;');
+    $("#btn-delete").click(function(){
+        $('.modal').addClass('d-flex');
     });
 
     $('#btn-cancel').on('click', function(){
-        $('.modal').hide();
+        $('.modal').removeClass('d-flex');
     });
 
     $('#settings-form').on('submit', function(){

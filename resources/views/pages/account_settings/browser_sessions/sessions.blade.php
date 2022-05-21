@@ -1,15 +1,17 @@
 <div class="col">
-    <div class="card card-account mb-4 p-4">
+    <div class="card mb-4 p-4">
         <h5>You're signed into these devices</h5>
 
         <ul class="list-group">
             @foreach($sessions as $val)
             <li class="list-group-item mb-1">
                 {{-- <i data-feather="monitor" class="mr-2"></i> --}}
-                <h5 class="mb-2">{{ $val->plaform_family }}</h5>
+                <div class="d-flex align-items-center">
+                    <div class="mb-0 h5">{{ $val->plaform_family }}</div>
+                    <div class="badge badge-primary ml-2">{{ $val->browser }}</div>
+                </div>
 
                 <div class="item-details">
-                    <div class="font-size-sm">{{ $val->browser }}</div>
                     <div class="font-size-sm">{{ $val->ip_address }}</div>
                     <div class="font-size-sm">{{ $val->created_at }}</div>
                 </div>

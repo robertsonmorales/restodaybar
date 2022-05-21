@@ -3,7 +3,9 @@
 }
 
 .btn{
-    border-radius: $btn-radius !important;
+    border-radius: $radius !important;
+    padding-left: 20px;
+    padding-right: 20px;
     &:disabled{opacity: .8 !important;}
 }
 

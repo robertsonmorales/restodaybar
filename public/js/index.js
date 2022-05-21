@@ -59,7 +59,6 @@ $('#btn-import-cancel').on('click', function(){
     $('#import-form-submit').hide();
 });
 
-
 $("#btn-cancel").on('click', function(){
     $('.modal').hide();
 });
@@ -71,7 +70,7 @@ $(".btn-dismiss").on('click', function(){
 // ENDS HERE
 
 function initAgGrid(data, icons='', showControls=false, url=''){
-    var aggrid = document.querySelector('#myGrid');
+    const aggrid = document.querySelector('#myGrid');
     var width = 150;
     var minWidth = 140;
 
@@ -129,7 +128,7 @@ function initAgGrid(data, icons='', showControls=false, url=''){
     gridOptions.rowData = data.rows;
 
     // setup the grid after the page has finished loading
-    var grid = new agGrid.Grid(aggrid, gridOptions); 
+    new agGrid.Grid(aggrid, gridOptions);
 }
 
 function autoSizeAll(skipHeader) {

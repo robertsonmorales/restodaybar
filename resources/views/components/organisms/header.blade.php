@@ -7,7 +7,7 @@
                 data-toggle="tooltip" 
                 data-placement="top" 
                 title="Hide sidebar">
-                <i data-feather="menu"></i>
+                <em data-feather="menu"></em>
             </button>
         </div>
 
@@ -17,7 +17,7 @@
                 <button class="btn btn-light btn-dropdown" 
                 data-toggle="dropdown"
                 title="Alerts">
-                    <span><i data-feather="bell"></i></span>
+                    <span><em data-feather="bell"></em></span>
                     <span class="badge badge-danger badge-pill badge-position">2</span>
                 </button>
 
@@ -70,7 +70,7 @@
                 <button class="btn btn-light btn-dropdown" 
                     data-toggle="dropdown"
                     title="Messages">
-                    <span><i data-feather="message-circle"></i></span>
+                    <span><em data-feather="message-circle"></em></span>
                     <span class="badge badge-danger badge-pill badge-position">2</span>
                 </button>
 
@@ -156,14 +156,14 @@
                     <button onclick="window.location.href='{{ route('account_settings.index') }}'"
                         class="dropdown-item py-2"
                         type="button">
-                        <span class="mr-2"><i data-feather="settings"></i></span>
+                        <span class="mr-2"><em data-feather="settings"></em></span>
                         <span>Account Settings</span>
                     </button>
                     
                     <button onclick="document.getElementById('logout-form').submit();"
                         class="dropdown-item py-2"
                         type="button">
-                        <span class="mr-2"><i data-feather="log-out"></i></span>
+                        <span class="mr-2"><em data-feather="log-out"></em></span>
                         <span>Logout</span>
                     </button>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
