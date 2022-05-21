@@ -19,15 +19,15 @@ class NavigationController extends Controller
         $rows = $this->changeValue($rows);
 
         $columnDefs = array(
-            array('headerName'=>'NAME','field'=>'nav_name', 'floatingFilter'=> false),
-            array('headerName'=>'TYPE','field'=>'nav_type', 'floatingFilter'=> false),
-            array('headerName'=>'ROUTE','field'=>'nav_route', 'floatingFilter'=> false),
-            array('headerName'=>'CONTROLLER','field'=>'nav_controller', 'floatingFilter'=> false),
-            array('headerName'=>'STATUS','field'=>'status', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED BY','field'=>'created_by', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED BY','field'=>'updated_by', 'floatingFilter'=>false),
-            array('headerName'=>'CREATED AT','field'=>'created_at', 'floatingFilter'=>false),
-            array('headerName'=>'UPDATED AT','field'=>'updated_at', 'floatingFilter'=>false)
+            array('headerName'=>'Name','field'=>'nav_name', 'floatingFilter'=> false),
+            array('headerName'=>'Type','field'=>'nav_type', 'floatingFilter'=> false),
+            array('headerName'=>'Route','field'=>'nav_route', 'floatingFilter'=> false),
+            array('headerName'=>'Controller','field'=>'nav_controller', 'floatingFilter'=> false),
+            array('headerName'=>'Status','field'=>'status', 'floatingFilter'=>false),
+            array('headerName'=>'Created By','field'=>'created_by', 'floatingFilter'=>false),
+            array('headerName'=>'Updated By','field'=>'updated_by', 'floatingFilter'=>false),
+            array('headerName'=>'Created At','field'=>'created_at', 'floatingFilter'=>false),
+            array('headerName'=>'Updated At','field'=>'updated_at', 'floatingFilter'=>false)
         );
 
         $data = json_encode(array(

@@ -129,7 +129,7 @@ function initAgGrid(data, icons='', showControls=false, url=''){
     gridOptions.rowData = data.rows;
 
     // setup the grid after the page has finished loading
-    new agGrid.Grid(aggrid, gridOptions); 
+    var grid = new agGrid.Grid(aggrid, gridOptions); 
 }
 
 function autoSizeAll(skipHeader) {
