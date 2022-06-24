@@ -116,6 +116,8 @@ class MenuController extends Controller
     {
         // params here
         $data = $this->menu->find($id);
+        dd($this->menu->findOrFail($id)->categoryMenu);
+        
         $categories = $this->category->select('id', 'name')->active()->ascendingName()->get();
         $subcategories = $this->subcategory->select('id', 'menu_category_id', 'name')->active()->ascendingName()->get();
         // ends here

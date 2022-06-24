@@ -1,7 +1,7 @@
 <div class="sticky-top mx-4 my-3">
     <nav class="header-nav py-3 px-4">
         <div class="row no-gutters align-items-center">
-            <button class="btn btn-light btn-menu" 
+            <button class="btn btn-light btn-menu text-dark" 
                 type="button" 
                 id="btn-menu" 
                 data-toggle="tooltip" 
